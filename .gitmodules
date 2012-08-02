@@ -1,0 +1,6 @@
+[submodule "Classes/CocoaAsyncSocket"]
+	path = Classes/CocoaAsyncSocket
+	url = git://github.com/robbiehanson/CocoaAsyncSocket.git
+[submodule "Tests/Kiwi"]
+	path = Tests/Kiwi
+	url = git://github.com/allending/Kiwi.git

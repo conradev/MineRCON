@@ -7,26 +7,65 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D09793BF15CA35EF006904AF /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D09793AB15CA35EE006904AF /* main.m */; };
+		D09793C015CA35EF006904AF /* MCAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D09793AD15CA35EE006904AF /* MCAppDelegate.m */; };
+		D09793C115CA35EF006904AF /* MCButton.m in Sources */ = {isa = PBXBuildFile; fileRef = D09793AF15CA35EE006904AF /* MCButton.m */; };
+		D09793C215CA35EF006904AF /* MCRCONClient.m in Sources */ = {isa = PBXBuildFile; fileRef = D09793B115CA35EE006904AF /* MCRCONClient.m */; };
+		D09793C315CA35EF006904AF /* MCServer.m in Sources */ = {isa = PBXBuildFile; fileRef = D09793B315CA35EF006904AF /* MCServer.m */; };
+		D09793C415CA35EF006904AF /* MCServerConnectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D09793B515CA35EF006904AF /* MCServerConnectionViewController.m */; };
+		D09793C515CA35EF006904AF /* MCServerDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D09793B715CA35EF006904AF /* MCServerDetailViewController.m */; };
+		D09793C615CA35EF006904AF /* MCServerEditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D09793B915CA35EF006904AF /* MCServerEditViewController.m */; };
+		D09793C715CA35EF006904AF /* MCServerListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D09793BB15CA35EF006904AF /* MCServerListViewController.m */; };
+		D09793C815CA35EF006904AF /* MCTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = D09793BD15CA35EF006904AF /* MCTextField.m */; };
+		D09793CC15CA3615006904AF /* GCDAsyncSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = D09793CB15CA3615006904AF /* GCDAsyncSocket.m */; };
+		D09793D515CA364B006904AF /* Background.png in Resources */ = {isa = PBXBuildFile; fileRef = D09793CE15CA364B006904AF /* Background.png */; };
+		D09793D615CA364B006904AF /* Background@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D09793CF15CA364B006904AF /* Background@2x.png */; };
+		D09793D715CA364B006904AF /* Button_disabled.png in Resources */ = {isa = PBXBuildFile; fileRef = D09793D015CA364B006904AF /* Button_disabled.png */; };
+		D09793D815CA364B006904AF /* Button_highlighted.png in Resources */ = {isa = PBXBuildFile; fileRef = D09793D115CA364B006904AF /* Button_highlighted.png */; };
+		D09793D915CA364B006904AF /* Button.png in Resources */ = {isa = PBXBuildFile; fileRef = D09793D215CA364B006904AF /* Button.png */; };
+		D09793DB15CA364B006904AF /* Minecraft.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D09793D415CA364B006904AF /* Minecraft.ttf */; };
+		D09793DE15CA3656006904AF /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D09793DC15CA3656006904AF /* InfoPlist.strings */; };
+		D09793F415CA36B4006904AF /* MCServerSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = D09793F215CA36B4006904AF /* MCServerSpec.m */; };
+		D09793F615CA376E006904AF /* libKiwi.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D09793EB15CA36A3006904AF /* libKiwi.a */; };
 		D0B89CE915C52E1D00EC6B55 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0B89CE815C52E1D00EC6B55 /* UIKit.framework */; };
 		D0B89CEB15C52E1D00EC6B55 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0B89CEA15C52E1D00EC6B55 /* Foundation.framework */; };
 		D0B89CED15C52E1D00EC6B55 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0B89CEC15C52E1D00EC6B55 /* CoreGraphics.framework */; };
-		D0B89CF315C52E1D00EC6B55 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D0B89CF115C52E1D00EC6B55 /* InfoPlist.strings */; };
-		D0B89CF515C52E1D00EC6B55 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D0B89CF415C52E1D00EC6B55 /* main.m */; };
-		D0B89CF915C52E1D00EC6B55 /* MCAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D0B89CF815C52E1D00EC6B55 /* MCAppDelegate.m */; };
-		D0B89CFC15C52E1D00EC6B55 /* MCMasterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D0B89CFB15C52E1D00EC6B55 /* MCMasterViewController.m */; };
-		D0B89CFF15C52E1D00EC6B55 /* MCDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D0B89CFE15C52E1D00EC6B55 /* MCDetailViewController.m */; };
-		D0B89D0215C52E1D00EC6B55 /* MCMasterViewController_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = D0B89D0015C52E1D00EC6B55 /* MCMasterViewController_iPhone.xib */; };
-		D0B89D0515C52E1D00EC6B55 /* MCMasterViewController_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = D0B89D0315C52E1D00EC6B55 /* MCMasterViewController_iPad.xib */; };
-		D0B89D0815C52E1D00EC6B55 /* MCDetailViewController_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = D0B89D0615C52E1D00EC6B55 /* MCDetailViewController_iPhone.xib */; };
-		D0B89D0B15C52E1D00EC6B55 /* MCDetailViewController_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = D0B89D0915C52E1D00EC6B55 /* MCDetailViewController_iPad.xib */; };
 		D0B89D1315C52E1D00EC6B55 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0B89D1215C52E1D00EC6B55 /* SenTestingKit.framework */; };
 		D0B89D1415C52E1D00EC6B55 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0B89CE815C52E1D00EC6B55 /* UIKit.framework */; };
 		D0B89D1515C52E1D00EC6B55 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0B89CEA15C52E1D00EC6B55 /* Foundation.framework */; };
-		D0B89D1D15C52E1D00EC6B55 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D0B89D1B15C52E1D00EC6B55 /* InfoPlist.strings */; };
-		D0B89D2015C52E1D00EC6B55 /* MineRCONTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D0B89D1F15C52E1D00EC6B55 /* MineRCONTests.m */; };
+		D0B89F7615C5AD8300EC6B55 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0B89F7415C5AD4F00EC6B55 /* Security.framework */; };
+		D0B89F7715C5AD8300EC6B55 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0B89F7215C5AD3F00EC6B55 /* CFNetwork.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		D09793EA15CA36A3006904AF /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D09793DF15CA36A2006904AF /* Kiwi.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = F5015B9F11583A77002E9A98;
+			remoteInfo = Kiwi;
+		};
+		D09793EC15CA36A3006904AF /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D09793DF15CA36A2006904AF /* Kiwi.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 832C83C7157263B300F160D5;
+			remoteInfo = "Kiwi-OSX";
+		};
+		D09793EE15CA36A3006904AF /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D09793DF15CA36A2006904AF /* Kiwi.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = F5015C9E11584017002E9A98;
+			remoteInfo = KiwiTests;
+		};
+		D09793F015CA36A3006904AF /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D09793DF15CA36A2006904AF /* Kiwi.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = A3B16542139967B800E9CC6E;
+			remoteInfo = KiwiExamples;
+		};
 		D0B89D1615C52E1D00EC6B55 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = D0B89CDB15C52E1C00EC6B55 /* Project object */;
@@ -37,30 +76,47 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		D09793AB15CA35EE006904AF /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = Classes/main.m; sourceTree = SOURCE_ROOT; };
+		D09793AC15CA35EE006904AF /* MCAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MCAppDelegate.h; path = Classes/MCAppDelegate.h; sourceTree = SOURCE_ROOT; };
+		D09793AD15CA35EE006904AF /* MCAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MCAppDelegate.m; path = Classes/MCAppDelegate.m; sourceTree = SOURCE_ROOT; };
+		D09793AE15CA35EE006904AF /* MCButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MCButton.h; path = Classes/MCButton.h; sourceTree = SOURCE_ROOT; };
+		D09793AF15CA35EE006904AF /* MCButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MCButton.m; path = Classes/MCButton.m; sourceTree = SOURCE_ROOT; };
+		D09793B015CA35EE006904AF /* MCRCONClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MCRCONClient.h; path = Classes/MCRCONClient.h; sourceTree = SOURCE_ROOT; };
+		D09793B115CA35EE006904AF /* MCRCONClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MCRCONClient.m; path = Classes/MCRCONClient.m; sourceTree = SOURCE_ROOT; };
+		D09793B215CA35EE006904AF /* MCServer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MCServer.h; path = Classes/MCServer.h; sourceTree = SOURCE_ROOT; };
+		D09793B315CA35EF006904AF /* MCServer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MCServer.m; path = Classes/MCServer.m; sourceTree = SOURCE_ROOT; };
+		D09793B415CA35EF006904AF /* MCServerConnectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MCServerConnectionViewController.h; path = Classes/MCServerConnectionViewController.h; sourceTree = SOURCE_ROOT; };
+		D09793B515CA35EF006904AF /* MCServerConnectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MCServerConnectionViewController.m; path = Classes/MCServerConnectionViewController.m; sourceTree = SOURCE_ROOT; };
+		D09793B615CA35EF006904AF /* MCServerDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MCServerDetailViewController.h; path = Classes/MCServerDetailViewController.h; sourceTree = SOURCE_ROOT; };
+		D09793B715CA35EF006904AF /* MCServerDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MCServerDetailViewController.m; path = Classes/MCServerDetailViewController.m; sourceTree = SOURCE_ROOT; };
+		D09793B815CA35EF006904AF /* MCServerEditViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MCServerEditViewController.h; path = Classes/MCServerEditViewController.h; sourceTree = SOURCE_ROOT; };
+		D09793B915CA35EF006904AF /* MCServerEditViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MCServerEditViewController.m; path = Classes/MCServerEditViewController.m; sourceTree = SOURCE_ROOT; };
+		D09793BA15CA35EF006904AF /* MCServerListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MCServerListViewController.h; path = Classes/MCServerListViewController.h; sourceTree = SOURCE_ROOT; };
+		D09793BB15CA35EF006904AF /* MCServerListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MCServerListViewController.m; path = Classes/MCServerListViewController.m; sourceTree = SOURCE_ROOT; };
+		D09793BC15CA35EF006904AF /* MCTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MCTextField.h; path = Classes/MCTextField.h; sourceTree = SOURCE_ROOT; };
+		D09793BD15CA35EF006904AF /* MCTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MCTextField.m; path = Classes/MCTextField.m; sourceTree = SOURCE_ROOT; };
+		D09793BE15CA35EF006904AF /* Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Prefix.pch; path = Classes/Prefix.pch; sourceTree = SOURCE_ROOT; };
+		D09793CA15CA3615006904AF /* GCDAsyncSocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GCDAsyncSocket.h; path = Classes/CocoaAsyncSocket/GCD/GCDAsyncSocket.h; sourceTree = SOURCE_ROOT; };
+		D09793CB15CA3615006904AF /* GCDAsyncSocket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GCDAsyncSocket.m; path = Classes/CocoaAsyncSocket/GCD/GCDAsyncSocket.m; sourceTree = SOURCE_ROOT; };
+		D09793CE15CA364B006904AF /* Background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Background.png; path = Resources/Background.png; sourceTree = SOURCE_ROOT; };
+		D09793CF15CA364B006904AF /* Background@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Background@2x.png"; path = "Resources/Background@2x.png"; sourceTree = SOURCE_ROOT; };
+		D09793D015CA364B006904AF /* Button_disabled.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Button_disabled.png; path = Resources/Button_disabled.png; sourceTree = SOURCE_ROOT; };
+		D09793D115CA364B006904AF /* Button_highlighted.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Button_highlighted.png; path = Resources/Button_highlighted.png; sourceTree = SOURCE_ROOT; };
+		D09793D215CA364B006904AF /* Button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Button.png; path = Resources/Button.png; sourceTree = SOURCE_ROOT; };
+		D09793D315CA364B006904AF /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = Resources/Info.plist; sourceTree = SOURCE_ROOT; };
+		D09793D415CA364B006904AF /* Minecraft.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = Minecraft.ttf; path = Resources/Minecraft.ttf; sourceTree = SOURCE_ROOT; };
+		D09793DD15CA3656006904AF /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = Resources/en.lproj/InfoPlist.strings; sourceTree = SOURCE_ROOT; };
+		D09793DF15CA36A2006904AF /* Kiwi.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Kiwi.xcodeproj; path = Tests/Kiwi/Kiwi.xcodeproj; sourceTree = SOURCE_ROOT; };
+		D09793F215CA36B4006904AF /* MCServerSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MCServerSpec.m; path = Tests/MCServerSpec.m; sourceTree = SOURCE_ROOT; };
+		D09793F315CA36B4006904AF /* Tests-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "Tests-Info.plist"; path = "Tests/Tests-Info.plist"; sourceTree = SOURCE_ROOT; };
 		D0B89CE415C52E1D00EC6B55 /* MineRCON.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MineRCON.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D0B89CE815C52E1D00EC6B55 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		D0B89CEA15C52E1D00EC6B55 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		D0B89CEC15C52E1D00EC6B55 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
-		D0B89CF015C52E1D00EC6B55 /* MineRCON-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "MineRCON-Info.plist"; sourceTree = "<group>"; };
-		D0B89CF215C52E1D00EC6B55 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		D0B89CF415C52E1D00EC6B55 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		D0B89CF615C52E1D00EC6B55 /* MineRCON-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MineRCON-Prefix.pch"; sourceTree = "<group>"; };
-		D0B89CF715C52E1D00EC6B55 /* MCAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MCAppDelegate.h; sourceTree = "<group>"; };
-		D0B89CF815C52E1D00EC6B55 /* MCAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MCAppDelegate.m; sourceTree = "<group>"; };
-		D0B89CFA15C52E1D00EC6B55 /* MCMasterViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MCMasterViewController.h; sourceTree = "<group>"; };
-		D0B89CFB15C52E1D00EC6B55 /* MCMasterViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MCMasterViewController.m; sourceTree = "<group>"; };
-		D0B89CFD15C52E1D00EC6B55 /* MCDetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MCDetailViewController.h; sourceTree = "<group>"; };
-		D0B89CFE15C52E1D00EC6B55 /* MCDetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MCDetailViewController.m; sourceTree = "<group>"; };
-		D0B89D0115C52E1D00EC6B55 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MCMasterViewController_iPhone.xib; sourceTree = "<group>"; };
-		D0B89D0415C52E1D00EC6B55 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MCMasterViewController_iPad.xib; sourceTree = "<group>"; };
-		D0B89D0715C52E1D00EC6B55 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MCDetailViewController_iPhone.xib; sourceTree = "<group>"; };
-		D0B89D0A15C52E1D00EC6B55 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MCDetailViewController_iPad.xib; sourceTree = "<group>"; };
-		D0B89D1115C52E1D00EC6B55 /* MineRCONTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MineRCONTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
+		D0B89D1115C52E1D00EC6B55 /* Tests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Tests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D0B89D1215C52E1D00EC6B55 /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
-		D0B89D1A15C52E1D00EC6B55 /* MineRCONTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "MineRCONTests-Info.plist"; sourceTree = "<group>"; };
-		D0B89D1C15C52E1D00EC6B55 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		D0B89D1E15C52E1D00EC6B55 /* MineRCONTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MineRCONTests.h; sourceTree = "<group>"; };
-		D0B89D1F15C52E1D00EC6B55 /* MineRCONTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MineRCONTests.m; sourceTree = "<group>"; };
+		D0B89F7215C5AD3F00EC6B55 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
+		D0B89F7415C5AD4F00EC6B55 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -68,6 +124,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D0B89F7615C5AD8300EC6B55 /* Security.framework in Frameworks */,
+				D0B89F7715C5AD8300EC6B55 /* CFNetwork.framework in Frameworks */,
 				D0B89CE915C52E1D00EC6B55 /* UIKit.framework in Frameworks */,
 				D0B89CEB15C52E1D00EC6B55 /* Foundation.framework in Frameworks */,
 				D0B89CED15C52E1D00EC6B55 /* CoreGraphics.framework in Frameworks */,
@@ -78,6 +136,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D09793F615CA376E006904AF /* libKiwi.a in Frameworks */,
 				D0B89D1315C52E1D00EC6B55 /* SenTestingKit.framework in Frameworks */,
 				D0B89D1415C52E1D00EC6B55 /* UIKit.framework in Frameworks */,
 				D0B89D1515C52E1D00EC6B55 /* Foundation.framework in Frameworks */,
@@ -87,11 +146,56 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		D09793C915CA35F8006904AF /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				D09793AC15CA35EE006904AF /* MCAppDelegate.h */,
+				D09793AD15CA35EE006904AF /* MCAppDelegate.m */,
+				D09793AE15CA35EE006904AF /* MCButton.h */,
+				D09793AF15CA35EE006904AF /* MCButton.m */,
+				D09793B015CA35EE006904AF /* MCRCONClient.h */,
+				D09793B115CA35EE006904AF /* MCRCONClient.m */,
+				D09793B215CA35EE006904AF /* MCServer.h */,
+				D09793B315CA35EF006904AF /* MCServer.m */,
+				D09793B415CA35EF006904AF /* MCServerConnectionViewController.h */,
+				D09793B515CA35EF006904AF /* MCServerConnectionViewController.m */,
+				D09793B615CA35EF006904AF /* MCServerDetailViewController.h */,
+				D09793B715CA35EF006904AF /* MCServerDetailViewController.m */,
+				D09793B815CA35EF006904AF /* MCServerEditViewController.h */,
+				D09793B915CA35EF006904AF /* MCServerEditViewController.m */,
+				D09793BA15CA35EF006904AF /* MCServerListViewController.h */,
+				D09793BB15CA35EF006904AF /* MCServerListViewController.m */,
+				D09793BC15CA35EF006904AF /* MCTextField.h */,
+				D09793BD15CA35EF006904AF /* MCTextField.m */,
+			);
+			name = Classes;
+			sourceTree = "<group>";
+		};
+		D09793CD15CA361A006904AF /* External */ = {
+			isa = PBXGroup;
+			children = (
+				D09793CA15CA3615006904AF /* GCDAsyncSocket.h */,
+				D09793CB15CA3615006904AF /* GCDAsyncSocket.m */,
+			);
+			name = External;
+			sourceTree = "<group>";
+		};
+		D09793E015CA36A2006904AF /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				D09793EB15CA36A3006904AF /* libKiwi.a */,
+				D09793ED15CA36A3006904AF /* libKiwi-OSX.a */,
+				D09793EF15CA36A3006904AF /* KiwiTests.octest */,
+				D09793F115CA36A3006904AF /* KiwiExamples.octest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		D0B89CD915C52E1C00EC6B55 = {
 			isa = PBXGroup;
 			children = (
 				D0B89CEE15C52E1D00EC6B55 /* MineRCON */,
-				D0B89D1815C52E1D00EC6B55 /* MineRCONTests */,
+				D0B89D1815C52E1D00EC6B55 /* Tests */,
 				D0B89CE715C52E1D00EC6B55 /* Frameworks */,
 				D0B89CE515C52E1D00EC6B55 /* Products */,
 			);
@@ -101,7 +205,7 @@
 			isa = PBXGroup;
 			children = (
 				D0B89CE415C52E1D00EC6B55 /* MineRCON.app */,
-				D0B89D1115C52E1D00EC6B55 /* MineRCONTests.octest */,
+				D0B89D1115C52E1D00EC6B55 /* Tests.octest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -109,6 +213,8 @@
 		D0B89CE715C52E1D00EC6B55 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				D0B89F7415C5AD4F00EC6B55 /* Security.framework */,
+				D0B89F7215C5AD3F00EC6B55 /* CFNetwork.framework */,
 				D0B89CE815C52E1D00EC6B55 /* UIKit.framework */,
 				D0B89CEA15C52E1D00EC6B55 /* Foundation.framework */,
 				D0B89CEC15C52E1D00EC6B55 /* CoreGraphics.framework */,
@@ -120,49 +226,39 @@
 		D0B89CEE15C52E1D00EC6B55 /* MineRCON */ = {
 			isa = PBXGroup;
 			children = (
-				D0B89CF715C52E1D00EC6B55 /* MCAppDelegate.h */,
-				D0B89CF815C52E1D00EC6B55 /* MCAppDelegate.m */,
-				D0B89CFA15C52E1D00EC6B55 /* MCMasterViewController.h */,
-				D0B89CFB15C52E1D00EC6B55 /* MCMasterViewController.m */,
-				D0B89CFD15C52E1D00EC6B55 /* MCDetailViewController.h */,
-				D0B89CFE15C52E1D00EC6B55 /* MCDetailViewController.m */,
-				D0B89D0015C52E1D00EC6B55 /* MCMasterViewController_iPhone.xib */,
-				D0B89D0315C52E1D00EC6B55 /* MCMasterViewController_iPad.xib */,
-				D0B89D0615C52E1D00EC6B55 /* MCDetailViewController_iPhone.xib */,
-				D0B89D0915C52E1D00EC6B55 /* MCDetailViewController_iPad.xib */,
-				D0B89CEF15C52E1D00EC6B55 /* Supporting Files */,
+				D09793C915CA35F8006904AF /* Classes */,
+				D09793CD15CA361A006904AF /* External */,
+				D09793AB15CA35EE006904AF /* main.m */,
+				D09793BE15CA35EF006904AF /* Prefix.pch */,
+				D0B89CEF15C52E1D00EC6B55 /* Resources */,
 			);
 			path = MineRCON;
 			sourceTree = "<group>";
 		};
-		D0B89CEF15C52E1D00EC6B55 /* Supporting Files */ = {
+		D0B89CEF15C52E1D00EC6B55 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				D0B89CF015C52E1D00EC6B55 /* MineRCON-Info.plist */,
-				D0B89CF115C52E1D00EC6B55 /* InfoPlist.strings */,
-				D0B89CF415C52E1D00EC6B55 /* main.m */,
-				D0B89CF615C52E1D00EC6B55 /* MineRCON-Prefix.pch */,
+				D09793CE15CA364B006904AF /* Background.png */,
+				D09793CF15CA364B006904AF /* Background@2x.png */,
+				D09793D015CA364B006904AF /* Button_disabled.png */,
+				D09793D115CA364B006904AF /* Button_highlighted.png */,
+				D09793D215CA364B006904AF /* Button.png */,
+				D09793DC15CA3656006904AF /* InfoPlist.strings */,
+				D09793D315CA364B006904AF /* Info.plist */,
+				D09793D415CA364B006904AF /* Minecraft.ttf */,
 			);
-			name = "Supporting Files";
+			name = Resources;
 			sourceTree = "<group>";
 		};
-		D0B89D1815C52E1D00EC6B55 /* MineRCONTests */ = {
+		D0B89D1815C52E1D00EC6B55 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
-				D0B89D1E15C52E1D00EC6B55 /* MineRCONTests.h */,
-				D0B89D1F15C52E1D00EC6B55 /* MineRCONTests.m */,
-				D0B89D1915C52E1D00EC6B55 /* Supporting Files */,
+				D09793DF15CA36A2006904AF /* Kiwi.xcodeproj */,
+				D09793F215CA36B4006904AF /* MCServerSpec.m */,
+				D09793F315CA36B4006904AF /* Tests-Info.plist */,
 			);
+			name = Tests;
 			path = MineRCONTests;
-			sourceTree = "<group>";
-		};
-		D0B89D1915C52E1D00EC6B55 /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				D0B89D1A15C52E1D00EC6B55 /* MineRCONTests-Info.plist */,
-				D0B89D1B15C52E1D00EC6B55 /* InfoPlist.strings */,
-			);
-			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -185,9 +281,9 @@
 			productReference = D0B89CE415C52E1D00EC6B55 /* MineRCON.app */;
 			productType = "com.apple.product-type.application";
 		};
-		D0B89D1015C52E1D00EC6B55 /* MineRCONTests */ = {
+		D0B89D1015C52E1D00EC6B55 /* Tests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = D0B89D2615C52E1D00EC6B55 /* Build configuration list for PBXNativeTarget "MineRCONTests" */;
+			buildConfigurationList = D0B89D2615C52E1D00EC6B55 /* Build configuration list for PBXNativeTarget "Tests" */;
 			buildPhases = (
 				D0B89D0C15C52E1D00EC6B55 /* Sources */,
 				D0B89D0D15C52E1D00EC6B55 /* Frameworks */,
@@ -199,9 +295,9 @@
 			dependencies = (
 				D0B89D1715C52E1D00EC6B55 /* PBXTargetDependency */,
 			);
-			name = MineRCONTests;
+			name = Tests;
 			productName = MineRCONTests;
-			productReference = D0B89D1115C52E1D00EC6B55 /* MineRCONTests.octest */;
+			productReference = D0B89D1115C52E1D00EC6B55 /* Tests.octest */;
 			productType = "com.apple.product-type.bundle";
 		};
 /* End PBXNativeTarget section */
@@ -220,28 +316,68 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
+				English,
 			);
 			mainGroup = D0B89CD915C52E1C00EC6B55;
 			productRefGroup = D0B89CE515C52E1D00EC6B55 /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = D09793E015CA36A2006904AF /* Products */;
+					ProjectRef = D09793DF15CA36A2006904AF /* Kiwi.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				D0B89CE315C52E1C00EC6B55 /* MineRCON */,
-				D0B89D1015C52E1D00EC6B55 /* MineRCONTests */,
+				D0B89D1015C52E1D00EC6B55 /* Tests */,
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		D09793EB15CA36A3006904AF /* libKiwi.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libKiwi.a;
+			remoteRef = D09793EA15CA36A3006904AF /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		D09793ED15CA36A3006904AF /* libKiwi-OSX.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = "libKiwi-OSX.a";
+			remoteRef = D09793EC15CA36A3006904AF /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		D09793EF15CA36A3006904AF /* KiwiTests.octest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = KiwiTests.octest;
+			remoteRef = D09793EE15CA36A3006904AF /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		D09793F115CA36A3006904AF /* KiwiExamples.octest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = KiwiExamples.octest;
+			remoteRef = D09793F015CA36A3006904AF /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		D0B89CE215C52E1C00EC6B55 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D0B89CF315C52E1D00EC6B55 /* InfoPlist.strings in Resources */,
-				D0B89D0215C52E1D00EC6B55 /* MCMasterViewController_iPhone.xib in Resources */,
-				D0B89D0515C52E1D00EC6B55 /* MCMasterViewController_iPad.xib in Resources */,
-				D0B89D0815C52E1D00EC6B55 /* MCDetailViewController_iPhone.xib in Resources */,
-				D0B89D0B15C52E1D00EC6B55 /* MCDetailViewController_iPad.xib in Resources */,
+				D09793D515CA364B006904AF /* Background.png in Resources */,
+				D09793D615CA364B006904AF /* Background@2x.png in Resources */,
+				D09793D715CA364B006904AF /* Button_disabled.png in Resources */,
+				D09793D815CA364B006904AF /* Button_highlighted.png in Resources */,
+				D09793D915CA364B006904AF /* Button.png in Resources */,
+				D09793DB15CA364B006904AF /* Minecraft.ttf in Resources */,
+				D09793DE15CA3656006904AF /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -249,7 +385,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D0B89D1D15C52E1D00EC6B55 /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -276,10 +411,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D0B89CF515C52E1D00EC6B55 /* main.m in Sources */,
-				D0B89CF915C52E1D00EC6B55 /* MCAppDelegate.m in Sources */,
-				D0B89CFC15C52E1D00EC6B55 /* MCMasterViewController.m in Sources */,
-				D0B89CFF15C52E1D00EC6B55 /* MCDetailViewController.m in Sources */,
+				D09793BF15CA35EF006904AF /* main.m in Sources */,
+				D09793C015CA35EF006904AF /* MCAppDelegate.m in Sources */,
+				D09793C115CA35EF006904AF /* MCButton.m in Sources */,
+				D09793C215CA35EF006904AF /* MCRCONClient.m in Sources */,
+				D09793C315CA35EF006904AF /* MCServer.m in Sources */,
+				D09793C415CA35EF006904AF /* MCServerConnectionViewController.m in Sources */,
+				D09793C515CA35EF006904AF /* MCServerDetailViewController.m in Sources */,
+				D09793C615CA35EF006904AF /* MCServerEditViewController.m in Sources */,
+				D09793C715CA35EF006904AF /* MCServerListViewController.m in Sources */,
+				D09793C815CA35EF006904AF /* MCTextField.m in Sources */,
+				D09793CC15CA3615006904AF /* GCDAsyncSocket.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -287,7 +429,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D0B89D2015C52E1D00EC6B55 /* MineRCONTests.m in Sources */,
+				D09793F415CA36B4006904AF /* MCServerSpec.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -302,50 +444,10 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		D0B89CF115C52E1D00EC6B55 /* InfoPlist.strings */ = {
+		D09793DC15CA3656006904AF /* InfoPlist.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
-				D0B89CF215C52E1D00EC6B55 /* en */,
-			);
-			name = InfoPlist.strings;
-			sourceTree = "<group>";
-		};
-		D0B89D0015C52E1D00EC6B55 /* MCMasterViewController_iPhone.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				D0B89D0115C52E1D00EC6B55 /* en */,
-			);
-			name = MCMasterViewController_iPhone.xib;
-			sourceTree = "<group>";
-		};
-		D0B89D0315C52E1D00EC6B55 /* MCMasterViewController_iPad.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				D0B89D0415C52E1D00EC6B55 /* en */,
-			);
-			name = MCMasterViewController_iPad.xib;
-			sourceTree = "<group>";
-		};
-		D0B89D0615C52E1D00EC6B55 /* MCDetailViewController_iPhone.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				D0B89D0715C52E1D00EC6B55 /* en */,
-			);
-			name = MCDetailViewController_iPhone.xib;
-			sourceTree = "<group>";
-		};
-		D0B89D0915C52E1D00EC6B55 /* MCDetailViewController_iPad.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				D0B89D0A15C52E1D00EC6B55 /* en */,
-			);
-			name = MCDetailViewController_iPad.xib;
-			sourceTree = "<group>";
-		};
-		D0B89D1B15C52E1D00EC6B55 /* InfoPlist.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				D0B89D1C15C52E1D00EC6B55 /* en */,
+				D09793DD15CA3656006904AF /* en */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -406,8 +508,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "MineRCON/MineRCON-Prefix.pch";
-				INFOPLIST_FILE = "MineRCON/MineRCON-Info.plist";
+				GCC_PREFIX_HEADER = Classes/Prefix.pch;
+				INFOPLIST_FILE = Resources/Info.plist;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -417,8 +519,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "MineRCON/MineRCON-Prefix.pch";
-				INFOPLIST_FILE = "MineRCON/MineRCON-Info.plist";
+				GCC_PREFIX_HEADER = Classes/Prefix.pch;
+				INFOPLIST_FILE = Resources/Info.plist;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -433,8 +535,9 @@
 					"\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "MineRCON/MineRCON-Prefix.pch";
-				INFOPLIST_FILE = "MineRCONTests/MineRCONTests-Info.plist";
+				GCC_PREFIX_HEADER = Classes/Prefix.pch;
+				HEADER_SEARCH_PATHS = "\"$(SOURCE_ROOT)/Tests/Kiwi/Kiwi\"";
+				INFOPLIST_FILE = "Tests/Tests-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = octest;
@@ -450,8 +553,9 @@
 					"\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "MineRCON/MineRCON-Prefix.pch";
-				INFOPLIST_FILE = "MineRCONTests/MineRCONTests-Info.plist";
+				GCC_PREFIX_HEADER = Classes/Prefix.pch;
+				HEADER_SEARCH_PATHS = "\"$(SOURCE_ROOT)/Tests/Kiwi/Kiwi\"";
+				INFOPLIST_FILE = "Tests/Tests-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = octest;
@@ -477,14 +581,16 @@
 				D0B89D2515C52E1D00EC6B55 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
-		D0B89D2615C52E1D00EC6B55 /* Build configuration list for PBXNativeTarget "MineRCONTests" */ = {
+		D0B89D2615C52E1D00EC6B55 /* Build configuration list for PBXNativeTarget "Tests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				D0B89D2715C52E1D00EC6B55 /* Debug */,
 				D0B89D2815C52E1D00EC6B55 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

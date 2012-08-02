@@ -2,42 +2,45 @@
 //  MCAppDelegate.m
 //  MineRCON
 //
-//  Created by Conrad Kramer on 7/29/12.
-//  Copyright (c) 2012 Conrad Kramer. All rights reserved.
+//  Created by Conrad Kramer on 8/1/12.
+//  Copyright (c) 2012 Kramer Software Productions, LLC. All rights reserved.
 //
 
 #import "MCAppDelegate.h"
 
-#import "MCMasterViewController.h"
-
-#import "MCDetailViewController.h"
+#import "MCServerListViewController.h"
+#import "MCServerDetailViewController.h"
 
 @implementation MCAppDelegate
 
-- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
-{
-    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    // Override point for customization after application launch.
+- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    
+    _window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+    
+    // Create the master view controller
+    MCServerListViewController *serverListController = [[MCServerListViewController alloc] init];
+    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:serverListController];
+    
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
-        MCMasterViewController *masterViewController = [[MCMasterViewController alloc] initWithNibName:@"MCMasterViewController_iPhone" bundle:nil];
-        self.navigationController = [[UINavigationController alloc] initWithRootViewController:masterViewController];
-        self.window.rootViewController = self.navigationController;
+        // Make the master view controller the root view controller
+        serverListController.detailNavigationController = navigationController;
+        _window.rootViewController = navigationController;
     } else {
-        MCMasterViewController *masterViewController = [[MCMasterViewController alloc] initWithNibName:@"MCMasterViewController_iPad" bundle:nil];
-        UINavigationController *masterNavigationController = [[UINavigationController alloc] initWithRootViewController:masterViewController];
-        
-        MCDetailViewController *detailViewController = [[MCDetailViewController alloc] initWithNibName:@"MCDetailViewController_iPad" bundle:nil];
-        UINavigationController *detailNavigationController = [[UINavigationController alloc] initWithRootViewController:detailViewController];
+        // Create the detail view controller
+        UINavigationController *detailNavigationController = [[UINavigationController alloc] init];
+        serverListController.detailNavigationController = detailNavigationController;
     	
-    	masterViewController.detailViewController = detailViewController;
-    	
-        self.splitViewController = [[UISplitViewController alloc] init];
-        self.splitViewController.delegate = detailViewController;
-        self.splitViewController.viewControllers = @[masterNavigationController, detailNavigationController];
+        // Create a split view controller with master and detail view controllers
+        _splitViewController = [[UISplitViewController alloc] init];
+        //_splitViewController.delegate = serverListController;
+        _splitViewController.viewControllers = @[navigationController, detailNavigationController];
         
-        self.window.rootViewController = self.splitViewController;
+        // Make the split view controller the root view controller
+        _window.rootViewController = _splitViewController;
     }
-    [self.window makeKeyAndVisible];
+    
+    [_window makeKeyAndVisible];
+    
     return YES;
 }
 
