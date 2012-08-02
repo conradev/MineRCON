@@ -10,17 +10,6 @@
 
 @implementation MCServer
 
-@synthesize uuid = _uuid;
-
-- (NSString *)uuid {
-    if (!_uuid) {
-        CFUUIDRef uuid = CFUUIDCreate(NULL);
-        _uuid = (__bridge NSString *)CFUUIDCreateString(NULL, uuid);
-        CFRelease(uuid);
-    }
-    return _uuid;
-}
-
 - (id)init {
     if ((self = [super init])) {
         _port = 25575;

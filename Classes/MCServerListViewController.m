@@ -14,7 +14,7 @@
 
 @interface MCServerListViewController () {
     NSMutableArray *_servers;
-    NSMutableDictionary *_detailViewControllers;
+    NSCache *_detailViewsCache;
 }
 
 @end
@@ -31,16 +31,9 @@
         _servers = _servers ? _servers : [NSMutableArray array];
         
         // Initialize the server detail view controller cache
-        _detailViewControllers = [NSMutableDictionary dictionary];
+        _detailViewsCache = [[NSCache alloc] init];
     }
     return self;
-}
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    
-    // Clear the view controller cache
-    [_detailViewControllers removeAllObjects];
 }
 
 - (void)viewDidLoad {
@@ -133,7 +126,7 @@
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         // Remove the server from the array, its view controller from the cache, and its row from the table view
         MCServer *server = _servers[indexPath.row];
-        [_detailViewControllers removeObjectForKey:server.uuid];
+        [_detailViewsCache removeObjectForKey:server];
         [_servers removeObject:server];
         [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
         
@@ -160,10 +153,10 @@
     MCServer *server = _servers[indexPath.row];
     
     // Retrieve or create a view controller for the server
-    MCServerDetailViewController *detailViewController = [_detailViewControllers objectForKey:server.uuid];
+    MCServerDetailViewController *detailViewController = [_detailViewsCache objectForKey:server];
     if (!detailViewController) {
         detailViewController = [[MCServerDetailViewController alloc] initWithServer:server];
-        [_detailViewControllers setObject:detailViewController forKey:server.uuid];
+        [_detailViewsCache setObject:detailViewController forKey:server];
     }
     
     if ([_detailNavigationController.viewControllers containsObject:self]) {

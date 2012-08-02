@@ -12,8 +12,6 @@
 
 @property (strong, nonatomic) NSString *name;
 
-@property (readonly, strong, nonatomic) NSString *uuid;
-
 @property (strong, nonatomic) NSString *hostname;
 @property (strong, nonatomic) NSString *password;
 @property (nonatomic) NSInteger port;
