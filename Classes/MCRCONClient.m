@@ -28,8 +28,8 @@ NSString * const kMCRCONPacketTypeKey = @"MCRCONPacketTypeKey";
     GCDAsyncSocket *_socket;
     NSInteger _currentTag;
     
-    void (^connectCallback)(BOOL success, NSError *error);
-    void (^commandCallback)(NSAttributedString *response, NSError *error);
+    void (^_connectCallback)(BOOL success, NSError *error);
+    void (^_commandCallback)(NSAttributedString *response, NSError *error);
 }
 
 @property (readwrite) MCRCONClientState state;
@@ -165,13 +165,13 @@ static void initializeColors() {
                     callback(NO, error);
                 return;
             }
-
+            
             self.state = MCRCONClientConnectingState;
         }
         
         if (_state == MCRCONClientConnectingState || _state == MCRCONClientAuthenticatingState) {
             if (callback) {
-                connectCallback = callback;
+                _connectCallback = callback;
             }
         }
     }
@@ -194,7 +194,7 @@ static void initializeColors() {
             [_socket readDataWithTimeout:30 tag:_currentTag];
             _currentTag++;
             
-            commandCallback = callback;
+            _commandCallback = callback;
             
             self.state = MCRCONClientExecutingState;
         }
@@ -221,24 +221,24 @@ static void initializeColors() {
     } else {
         [self disconnect];
 
-        if (connectCallback) {
-            connectCallback(NO, error);
-            connectCallback = nil;
+        if (_connectCallback) {
+            _connectCallback(NO, error);
+            _connectCallback = nil;
         }
     }
 }
 
 - (void)socketDidDisconnect:(GCDAsyncSocket *)socket withError:(NSError *)error {
     if (error) {
-        if (connectCallback) {
-            connectCallback(NO, error);
-        } else if (commandCallback) {
-            commandCallback(nil, error);
+        if (_connectCallback) {
+            _connectCallback(NO, error);
+        } else if (_commandCallback) {
+            _commandCallback(nil, error);
         }
     }
     
-    connectCallback = nil;
-    commandCallback = nil;
+    _connectCallback = nil;
+    _commandCallback = nil;
     
     self.state = MCRCONClientDisconnectedState;
 }
@@ -253,35 +253,35 @@ static void initializeColors() {
     
     if (tag == -1) {
         NSError *error = [NSError errorWithDomain:MCRCONErrorDomain code:MCRCONErrorUnauthorized userInfo:@{ NSLocalizedDescriptionKey : @"The request was unauthorized." }];
-        if (connectCallback) {
+        if (_connectCallback) {
             [self disconnect];
-            connectCallback(NO, error);
-        } else if (commandCallback) {
-            commandCallback(nil, error);
+            _connectCallback(NO, error);
+        } else if (_commandCallback) {
+            _commandCallback(nil, error);
         }
     }
     
     if (type == RCONCommand || type == RCONUnknown) {
         if (tag == AUTH_TAG) {
             self.state = MCRCONClientReadyState;
-            if (connectCallback) {
-                connectCallback(YES, nil);
+            if (_connectCallback) {
+                _connectCallback(YES, nil);
             }
-            connectCallback = nil;
+            _connectCallback = nil;
             return;
         } else if (tag == (int)readTag) {
             NSAttributedString *string = [MCRCONClient attributedStringForResponse:payload];
             self.state = MCRCONClientReadyState;
-            if (commandCallback) {
-                commandCallback(string, nil);
+            if (_commandCallback) {
+                _commandCallback(string, nil);
             }
-            commandCallback = nil;
+            _commandCallback = nil;
             return;
         }
     }
     
-    connectCallback = nil;
-    commandCallback = nil;
+    _connectCallback = nil;
+    _commandCallback = nil;
 }
 
 #pragma mark - Packet construction
