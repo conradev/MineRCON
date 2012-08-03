@@ -39,6 +39,9 @@
         _window.rootViewController = _splitViewController;
     }
     
+    // UIAppearance
+    [[UINavigationBar appearance] setTintColor:[UIColor darkGrayColor]];
+    
     [_window makeKeyAndVisible];
     
     return YES;

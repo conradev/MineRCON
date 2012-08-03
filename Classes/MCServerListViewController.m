@@ -45,9 +45,6 @@
     
     self.navigationItem.leftBarButtonItem = self.editButtonItem;
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addNewServer)];
-    
-    self.navigationController.navigationBar.tintColor = [UIColor darkGrayColor];
-    self.detailNavigationController.navigationBar.tintColor = [UIColor darkGrayColor];
 }
 
 - (void)saveServers {
