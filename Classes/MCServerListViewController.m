@@ -123,8 +123,18 @@
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         // Remove the server from the array, its view controller from the cache, and its row from the table view
         MCServer *server = _servers[indexPath.row];
+        
+        // Change the current view to a dummy view if the server deleted is the one currently displayed
+        MCServerDetailViewController *detailViewController = [_detailViewsCache objectForKey:server];
+        if ([_detailNavigationController.viewControllers containsObject:detailViewController]) {
+            [self displayViewControllerForServer:nil];
+        }
+        
+        // Purge objects
         [_detailViewsCache removeObjectForKey:server];
         [_servers removeObject:server];
+        
+        // Update table view
         [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
         
         // Save the changes to disk
@@ -137,10 +147,12 @@
 }
 
 - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath {
+    // Pop the object from the array and add it back in at the new index
     MCServer *server = _servers[fromIndexPath.row];
     [_servers removeObject:server];
     [_servers insertObject:server atIndex:toIndexPath.row];
     
+    // Save the changed to disk
     [self saveServers];
 }
 
@@ -148,7 +160,12 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     MCServer *server = _servers[indexPath.row];
-    
+    [self displayViewControllerForServer:server];
+}
+
+#pragma mark - Navigation controller delegate
+
+- (void)displayViewControllerForServer:(MCServer *)server {
     // Retrieve or create a view controller for the server
     MCServerDetailViewController *detailViewController = [_detailViewsCache objectForKey:server];
     if (!detailViewController) {

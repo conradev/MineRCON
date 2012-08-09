@@ -81,6 +81,11 @@
     [super viewDidLoad];
     
     self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"Background"]];
+    
+    if (!_server) {
+        self.view.userInteractionEnabled = NO;
+        _connectButton.enabled = NO;
+    }
 }
 
 - (void)viewWillAppear:(BOOL)animated {
