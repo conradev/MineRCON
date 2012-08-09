@@ -24,8 +24,6 @@
 	<string>1.0</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
-	<key>UIStatusBarStyle</key>
-	<string>UIStatusBarStyleBlackTranslucent</string>
 	<key>UIRequiredDeviceCapabilities</key>
 	<array>
 		<string>wifi</string>
@@ -48,5 +46,20 @@
 	<array>
 		<string>Minecraft.ttf</string>
 	</array>
+	<key>UIStatusBarTintParameters</key>
+	<dict>
+		<key>UINavigationBar</key>
+		<dict>
+			<key>TintColor</key>
+			<dict>
+				<key>Red</key>
+				<real>0.333333</real>
+				<key>Green</key>
+				<real>0.333333</real>
+				<key>Blue</key>
+				<real>0.333333</real>
+			</dict>
+		</dict>
+	</dict>
 </dict>
 </plist>
