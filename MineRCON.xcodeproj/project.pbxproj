@@ -19,7 +19,6 @@
 		D09793C815CA35EF006904AF /* MCTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = D09793BD15CA35EF006904AF /* MCTextField.m */; };
 		D09793CC15CA3615006904AF /* GCDAsyncSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = D09793CB15CA3615006904AF /* GCDAsyncSocket.m */; };
 		D09793D515CA364B006904AF /* Background.png in Resources */ = {isa = PBXBuildFile; fileRef = D09793CE15CA364B006904AF /* Background.png */; };
-		D09793D615CA364B006904AF /* Background@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D09793CF15CA364B006904AF /* Background@2x.png */; };
 		D09793D715CA364B006904AF /* Button_disabled.png in Resources */ = {isa = PBXBuildFile; fileRef = D09793D015CA364B006904AF /* Button_disabled.png */; };
 		D09793D815CA364B006904AF /* Button_highlighted.png in Resources */ = {isa = PBXBuildFile; fileRef = D09793D115CA364B006904AF /* Button_highlighted.png */; };
 		D09793D915CA364B006904AF /* Button.png in Resources */ = {isa = PBXBuildFile; fileRef = D09793D215CA364B006904AF /* Button.png */; };
@@ -99,7 +98,6 @@
 		D09793CA15CA3615006904AF /* GCDAsyncSocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GCDAsyncSocket.h; path = Classes/CocoaAsyncSocket/GCD/GCDAsyncSocket.h; sourceTree = SOURCE_ROOT; };
 		D09793CB15CA3615006904AF /* GCDAsyncSocket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GCDAsyncSocket.m; path = Classes/CocoaAsyncSocket/GCD/GCDAsyncSocket.m; sourceTree = SOURCE_ROOT; };
 		D09793CE15CA364B006904AF /* Background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Background.png; path = Resources/Background.png; sourceTree = SOURCE_ROOT; };
-		D09793CF15CA364B006904AF /* Background@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Background@2x.png"; path = "Resources/Background@2x.png"; sourceTree = SOURCE_ROOT; };
 		D09793D015CA364B006904AF /* Button_disabled.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Button_disabled.png; path = Resources/Button_disabled.png; sourceTree = SOURCE_ROOT; };
 		D09793D115CA364B006904AF /* Button_highlighted.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Button_highlighted.png; path = Resources/Button_highlighted.png; sourceTree = SOURCE_ROOT; };
 		D09793D215CA364B006904AF /* Button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Button.png; path = Resources/Button.png; sourceTree = SOURCE_ROOT; };
@@ -239,7 +237,6 @@
 			isa = PBXGroup;
 			children = (
 				D09793CE15CA364B006904AF /* Background.png */,
-				D09793CF15CA364B006904AF /* Background@2x.png */,
 				D09793D015CA364B006904AF /* Button_disabled.png */,
 				D09793D115CA364B006904AF /* Button_highlighted.png */,
 				D09793D215CA364B006904AF /* Button.png */,
@@ -372,7 +369,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				D09793D515CA364B006904AF /* Background.png in Resources */,
-				D09793D615CA364B006904AF /* Background@2x.png in Resources */,
 				D09793D715CA364B006904AF /* Button_disabled.png in Resources */,
 				D09793D815CA364B006904AF /* Button_highlighted.png in Resources */,
 				D09793D915CA364B006904AF /* Button.png in Resources */,
