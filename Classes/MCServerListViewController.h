@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface MCServerListViewController : UITableViewController
+@interface MCServerListViewController : UITableViewController <UINavigationControllerDelegate, UISplitViewControllerDelegate>
 
 @property (strong, nonatomic) UINavigationController *detailNavigationController;
 

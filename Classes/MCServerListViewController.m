@@ -14,23 +14,28 @@ NSString * const MCSelectedIndexKey = @"MCSelectedIndex";
 @interface MCServerListViewController () {
     NSMutableArray *_servers;
     NSCache *_detailViewsCache;
+    
+    UIBarButtonItem *_serversButton;
 }
 
 @end
 
 @implementation MCServerListViewController
 
+#pragma mark - Initialization
+
 - (id)init {
     if ((self = [super init])) {
+        // Initialize variables
+        _serversButton = nil;
+        _detailViewsCache = [[NSCache alloc] init];
+
         NSString *documentsDirectory = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)[0];
         NSString *serversPath = [documentsDirectory stringByAppendingPathComponent:@"Servers.plist"];
         
         // Load the list of servers from disk
         _servers = [NSKeyedUnarchiver unarchiveObjectWithFile:serversPath];
         _servers = _servers ? _servers : [NSMutableArray array];
-        
-        // Initialize the server detail view controller cache
-        _detailViewsCache = [[NSCache alloc] init];
     }
     return self;
 }
@@ -108,7 +113,7 @@ NSString * const MCSelectedIndexKey = @"MCSelectedIndex";
     // Reflect the changes in the table view, and select the new server
     NSIndexPath *indexPath = [NSIndexPath indexPathForRow:[_servers indexOfObject:server] inSection:0];
     [self.tableView insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
-    [self.tableView selectRowAtIndexPath:indexPath animated:YES scrollPosition:UITableViewScrollPositionNone];
+    [self.tableView selectRowAtIndexPath:indexPath animated:NO scrollPosition:UITableViewScrollPositionNone];
     [self tableView:self.tableView didSelectRowAtIndexPath:indexPath];
 }
 
@@ -203,14 +208,51 @@ NSString * const MCSelectedIndexKey = @"MCSelectedIndex";
     }
     
     if ([_detailNavigationController.viewControllers containsObject:self]) {
+        // Invalidate any previous view controller's views if they are on the stack
+        NSArray *previousViewControllers = [_detailNavigationController popToViewController:self animated:NO];
+        [previousViewControllers makeObjectsPerformSelector:@selector(setView:) withObject:nil];
+        
         // If the master is where the detail is going, push the detail onto the stack
-        NSArray *viewControllers = [_detailNavigationController popToViewController:self animated:NO];
-        [viewControllers makeObjectsPerformSelector:@selector(setView:) withObject:nil];
         [_detailNavigationController pushViewController:detailViewController animated:YES];
     } else {
-        // If the master is separate from where the detail is going, make the detail the root view controller
-        [_detailNavigationController.viewControllers makeObjectsPerformSelector:@selector(setView:) withObject:nil];
+        // If a different view controller is being pushed, unload the previous one's view
+        if (![_detailNavigationController.viewControllers containsObject:detailViewController]) {
+            [_detailNavigationController.viewControllers makeObjectsPerformSelector:@selector(setView:) withObject:nil];
+        }
+        
         _detailNavigationController.viewControllers = @[detailViewController];
+    }
+}
+
+- (void)setDetailNavigationController:(UINavigationController *)detailNavigationController {
+    _detailNavigationController = detailNavigationController;
+    _detailNavigationController.delegate = self;
+}
+
+- (void)navigationController:(UINavigationController *)navigationController willShowViewController:(UIViewController *)viewController animated:(BOOL)animated {
+    if (![viewController isEqual:self]) {
+        viewController.navigationItem.leftBarButtonItem = _serversButton;
+    }
+}
+
+#pragma mark - Split view controller delegate
+
+- (void)splitViewController:(UISplitViewController *)svc willHideViewController:(UIViewController *)aViewController withBarButtonItem:(UIBarButtonItem *)button forPopoverController:(UIPopoverController *)popover {
+    button.possibleTitles = [NSSet setWithObject:@"Servers"];
+    [self splitViewController:svc didChangeBarButtonItem:button];
+}
+
+- (void)splitViewController:(UISplitViewController *)svc willShowViewController:(UIViewController *)aViewController invalidatingBarButtonItem:(UIBarButtonItem *)button {
+    [self splitViewController:svc didChangeBarButtonItem:nil];
+}
+
+- (void)splitViewController:(UISplitViewController *)svc didChangeBarButtonItem:(UIBarButtonItem *)button {
+    _serversButton = button;
+    
+    // Update the left bar item on the currwently displayed view controller
+    if (_detailNavigationController.viewControllers.count) {
+        UIViewController *detailViewController = _detailNavigationController.viewControllers[0];
+        [detailViewController.navigationItem setLeftBarButtonItem:_serversButton animated:YES];
     }
 }
 

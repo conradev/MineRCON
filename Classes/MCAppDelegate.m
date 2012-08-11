@@ -75,7 +75,7 @@ NSString * const MCServerListIdentifier = @"MCServerListViewController";
         // Create a split view controller with master and detail view controllers
         _splitViewController = [[UISplitViewController alloc] init];
         _splitViewController.restorationIdentifier = MCSplitViewIdentifier;
-        //_splitViewController.delegate = _listViewController;
+        _splitViewController.delegate = _listViewController;
         _splitViewController.viewControllers = @[_navigationController, detailNavigationController];
         
         // Make the split view controller the root view controller
