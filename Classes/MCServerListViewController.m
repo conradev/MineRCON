@@ -11,6 +11,8 @@
 
 NSString * const MCSelectedIndexKey = @"MCSelectedIndex";
 
+NSString * const MCServerCellIdentifier = @"MCServerCell";
+
 @interface MCServerListViewController () {
     NSMutableArray *_servers;
     NSCache *_detailViewsCache;
@@ -44,7 +46,7 @@ NSString * const MCSelectedIndexKey = @"MCSelectedIndex";
     [super viewDidLoad];
     
     self.title = @"Servers";
-    self.clearsSelectionOnViewWillAppear = ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone);
+    self.clearsSelectionOnViewWillAppear = NO;
     
     self.tableView.rowHeight = 58.0f;
     
@@ -130,12 +132,9 @@ NSString * const MCSelectedIndexKey = @"MCSelectedIndex";
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     // Create cell
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ServerCell"];
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:MCServerCellIdentifier];
     if (cell == nil) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"ServerCell"];
-        if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
-            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-        }
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:MCServerCellIdentifier];
     }
     
     // Configure cell
@@ -200,6 +199,11 @@ NSString * const MCSelectedIndexKey = @"MCSelectedIndex";
 #pragma mark - Navigation controller delegate
 
 - (void)displayViewControllerForServer:(MCServer *)server {
+    // Do not display a blank view controler on the current stack
+    if (!server && [_detailNavigationController.viewControllers containsObject:self]) {
+        return;
+    }
+    
     // Retrieve or create a view controller for the server
     MCServerDetailViewController *detailViewController = [_detailViewsCache objectForKey:server];
     if (!detailViewController) {
