@@ -6,11 +6,10 @@
 //  Copyright (c) 2012 Kramer Software Productions, LLC. All rights reserved.
 //
 
-#import <objc/runtime.h>
-
 #import "MCServerListViewController.h"
-
 #import "MCServerDetailViewController.h"
+
+NSString * const MCSelectedIndexKey = @"MCSelectedIndex";
 
 @interface MCServerListViewController () {
     NSMutableArray *_servers;
@@ -40,12 +39,42 @@
     [super viewDidLoad];
     
     self.title = @"Servers";
+    self.clearsSelectionOnViewWillAppear = ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone);
     
     self.tableView.rowHeight = 58.0f;
     
     self.navigationItem.leftBarButtonItem = self.editButtonItem;
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addNewServer)];
 }
+
+#pragma mark - State restoration
+
+- (void)encodeRestorableStateWithCoder:(NSCoder *)coder {
+    [super encodeRestorableStateWithCoder:coder];
+    
+    NSIndexPath *selectedIndex;
+    if ((selectedIndex = [self.tableView indexPathForSelectedRow])) {
+        [coder encodeInteger:selectedIndex.row forKey:MCSelectedIndexKey];
+    }
+}
+
+- (void)decodeRestorableStateWithCoder:(NSCoder *)coder {
+    [super decodeRestorableStateWithCoder:coder];
+        
+    // Get the server at the stored index and display it
+    NSUInteger index = (NSUInteger)[coder decodeIntegerForKey:MCSelectedIndexKey];
+    index = index < _servers.count ? index : _servers.count - 1;
+    MCServer *server = _servers.count ? _servers[index] : nil;
+    [self displayViewControllerForServer:server];
+    
+    // Select the server in the table, if applicable
+    if (server) {
+        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:[_servers indexOfObject:server] inSection:0];
+        [self.tableView selectRowAtIndexPath:indexPath animated:NO scrollPosition:UITableViewScrollPositionNone];
+    }
+}
+
+#pragma mark - Server operations
 
 - (void)saveServers {
     @synchronized (self) {

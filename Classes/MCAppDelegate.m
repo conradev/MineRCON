@@ -9,41 +9,92 @@
 #import "MCAppDelegate.h"
 
 #import "MCServerListViewController.h"
-#import "MCServerDetailViewController.h"
+
+NSString * const MCSplitViewIdentifier = @"MCSplitViewController";
+NSString * const MCMasterNavigationIdentifier = @"MCNavigationController";
+NSString * const MCServerListIdentifier = @"MCServerListViewController";
+
+@interface MCAppDelegate () {
+    MCServerListViewController *_listViewController;
+}
+
+@end
 
 @implementation MCAppDelegate
 
-- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+#pragma mark - Interface state restoration
+
+- (BOOL)application:(UIApplication *)application shouldSaveApplicationState:(NSCoder *)coder {
+    return YES;
+}
+
+- (BOOL)application:(UIApplication *)application shouldRestoreApplicationState:(NSCoder *)coder {
+    return YES;
+}
+
+- (UIViewController *)application:(UIApplication *)application viewControllerWithRestorationIdentifierPath:(NSArray *)identifierComponents coder:(NSCoder *)coder {
+    // Create the base view controller heirarchy if it does not exist
+    [self instantiateViewControllers];
+    
+    // Restore the state of the view controllers
+    NSString *identifier = [identifierComponents lastObject];
+    if ([identifier isEqualToString:MCSplitViewIdentifier]) {
+        return _splitViewController;
+    } else if ([identifier isEqualToString:MCMasterNavigationIdentifier]) {
+        return _navigationController;
+    } else if ([identifier isEqualToString:MCServerListIdentifier]) {
+        return _listViewController;
+    }
+    
+    return nil;
+}
+
+- (void)instantiateViewControllers {
+    // Do not instantiate the view controllers twice!
+    if (_window)
+        return;
     
     _window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     
-    // Create the master view controller
-    MCServerListViewController *serverListController = [[MCServerListViewController alloc] init];
-    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:serverListController];
+    // Create the master list view controller if it doesn't exist
+    _listViewController = [[MCServerListViewController alloc] init];
+    _listViewController.restorationIdentifier = MCServerListIdentifier;
+    
+    _navigationController = [[UINavigationController alloc] initWithRootViewController:_listViewController];
+    _navigationController.restorationIdentifier = MCMasterNavigationIdentifier;
     
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
         // Make the master view controller the root view controller
-        serverListController.detailNavigationController = navigationController;
-        _window.rootViewController = navigationController;
+        _listViewController.detailNavigationController = _navigationController;
+        _window.rootViewController = _navigationController;
     } else {
         // Create the detail view controller
         UINavigationController *detailNavigationController = [[UINavigationController alloc] init];
-        serverListController.detailNavigationController = detailNavigationController;
+        _listViewController.detailNavigationController = detailNavigationController;
     	
         // Create a split view controller with master and detail view controllers
         _splitViewController = [[UISplitViewController alloc] init];
-        //_splitViewController.delegate = serverListController;
-        _splitViewController.viewControllers = @[navigationController, detailNavigationController];
+        _splitViewController.restorationIdentifier = MCSplitViewIdentifier;
+        //_splitViewController.delegate = _listViewController;
+        _splitViewController.viewControllers = @[_navigationController, detailNavigationController];
         
         // Make the split view controller the root view controller
         _window.rootViewController = _splitViewController;
     }
+}
+
+#pragma mark - Application state changes
+
+- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    // Create the base view controller heirarchy if it does not exist
+    [self instantiateViewControllers];
     
-    // UIAppearance
+    // Appearance tweaks
     [[UINavigationBar appearance] setTintColor:[UIColor darkGrayColor]];
     
+    // Make the window visible
     [_window makeKeyAndVisible];
-    
+
     return YES;
 }
 

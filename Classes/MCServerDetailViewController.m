@@ -15,7 +15,6 @@
     MCServerEditViewController *_editViewController;
     MCServerConnectionViewController *_connectionViewController;
 }
-
 @end
 
 @implementation MCServerDetailViewController
