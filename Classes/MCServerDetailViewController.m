@@ -28,21 +28,17 @@
 
 - (id)initWithServer:(MCServer *)server {
     if ((self = [super init])) {
-        // Register for KVO on server's name property
         _server = server;
-        self.title = _server.name;
-        [_server addObserver:self forKeyPath:@"name" options:NSKeyValueObservingOptionNew context:nil];
         
-        // Create the server edit view controller
         _editViewController = [[MCServerEditViewController alloc] initWithServer:_server];
         
-        // Create the server connection view controller
         _connectionViewController = [[MCServerConnectionViewController alloc] init];
         _connectionViewController.delegate = self;
         
-        // Create the client
         _client = [[MCRCONClient alloc] initWithServer:_server];
+        
         [_client addObserver:self forKeyPath:@"state" options:NSKeyValueObservingOptionNew context:nil];
+        [_server addObserver:self forKeyPath:@"name" options:NSKeyValueObservingOptionNew context:nil];
     }
     return self;
 }
@@ -54,6 +50,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    self.title = _server.name.length ? _server.name : _server.hostname;
     
     // Pick the initial view controller and display it immediately
     UIViewController *viewController = (_client.state == MCRCONClientReadyState || _client.state == MCRCONClientExecutingState) ? _connectionViewController : _editViewController;
@@ -69,6 +67,7 @@
     if ([textField isEqual:_connectionViewController.inputField]) {
         [_client sendCommand:textField.text callback:^(NSAttributedString *response, NSError *error) {
             [_connectionViewController appendOutput:response];
+            
             // TODO: Handle error
         }];
         textField.text = @"";
@@ -93,8 +92,7 @@
             }
         }
     } else if ([object isEqual:_server]) {
-        // Update the navigation bar if the title changes
-        self.title = _server.name;
+        self.title = _server.name.length ? _server.name : _server.hostname;
     }
 }
 

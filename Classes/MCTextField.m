@@ -26,7 +26,7 @@
         self.autocorrectionType = UITextAutocorrectionTypeNo;
         self.spellCheckingType = UITextSpellCheckingTypeNo;
         self.keyboardType = UIKeyboardTypeASCIICapable;
-        
+
         // Display characteristics
         self.font = [UIFont fontWithName:@"Minecraft" size:16.0f];
         self.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;

@@ -341,7 +341,7 @@ static void initializeColors() {
     NSString *payloadString = nil;
     if (payload) {
         if (strlen(payload) > 0) {
-            // Weird encoding issue - color character is 0xFFFFFFA7 (how is that possible?), when it should be 0xA7
+            // TODO: Look into weird encoding issue - color character is 0xFFFFFFA7 (how is that possible?), when it should be 0xA7
             payloadString = [[NSString alloc] initWithBytesNoCopy:(void *)payload length:payloadLength encoding:NSISOLatin1StringEncoding freeWhenDone:YES];
         }
     }

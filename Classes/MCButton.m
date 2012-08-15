@@ -12,6 +12,7 @@
 
 - (id)init {
     if ((self = [super init])) {
+        // TODO: Switch to attributed text
         self.titleLabel.font = [UIFont fontWithName:@"Minecraft" size:16.0f];
         self.titleLabel.shadowColor = [UIColor colorWithHue:0.0f saturation:0.0f brightness:0.21875f alpha:1.0f];
         self.titleLabel.shadowOffset = CGSizeMake(2, 2);

@@ -61,7 +61,6 @@
 }
 
 - (void)appendOutput:(NSAttributedString *)response {
-    // Append the output into the outputView
     NSMutableAttributedString *content = [[NSMutableAttributedString alloc] initWithAttributedString:_outputView.attributedText];
     [content appendAttributedString:response];
     _outputView.attributedText = content;

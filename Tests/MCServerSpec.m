@@ -51,16 +51,14 @@ describe(@"MCServer", ^{
         });
         
         it(@"should properly encode and decode", ^{
-            
+
             server = [NSKeyedUnarchiver unarchiveObjectWithData:[NSKeyedArchiver archivedDataWithRootObject:server]];
             
             [[server.name should] equal:name];
             [[server.hostname should] equal:hostname];
             [[server.password should] equal:password];
             [[theValue(server.port) should] equal:theValue(port)];
-            
         });
-        
         
     });
 });

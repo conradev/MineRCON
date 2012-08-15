@@ -103,7 +103,7 @@
 #pragma mark - Text field delegate
 
 - (void)textFieldDidChange:(UITextField *)textField {
-    // Update the server based on changes to the text
+    // Update the server based on changes to the text fields
     if ([textField isEqual:_nameField]) {
         _server.name = _nameField.text;
     } else if ([textField isEqual:_hostnameField]) {
