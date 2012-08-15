@@ -23,12 +23,13 @@
 - (void)loadView {
     [super loadView];
     
-    // Create the output view
-    _outputView = [[UITextView alloc] init];
-    _outputView.backgroundColor = [UIColor blackColor];
-    _outputView.translatesAutoresizingMaskIntoConstraints = NO;
-    _outputView.editable = NO;
-    _outputView.font = [UIFont fontWithName:@"Minecraft" size:16.0f];
+    if (!_outputView) {
+        _outputView = [[UITextView alloc] init];
+        _outputView.backgroundColor = [UIColor blackColor];
+        _outputView.translatesAutoresizingMaskIntoConstraints = NO;
+        _outputView.editable = NO;
+        _outputView.font = [UIFont fontWithName:@"Minecraft" size:16.0f];
+    }
     [self.view addSubview:_outputView];
     
     // Create the input field
