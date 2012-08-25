@@ -9,6 +9,7 @@
 #import "MCRCONClient.h"
 
 #import "GCDAsyncSocket.h"
+#import "NSAttributedString+Minecraft.h"
 
 #define AUTH_TAG 1
 
@@ -20,9 +21,9 @@ typedef enum RCONPacketType {
 
 NSString * const MCRCONErrorDomain = @"MCRCONErrorDomain";
 
-NSString * const kMCRCONPayloadKey = @"MCRCONPayloadKey";
-NSString * const kMCRCONTagKey = @"MCRCONTagKey";
-NSString * const kMCRCONPacketTypeKey = @"MCRCONPacketTypeKey";
+NSString * const MCRCONPayloadKey = @"MCRCONPayloadKey";
+NSString * const MCRCONTagKey = @"MCRCONTagKey";
+NSString * const MCRCONPacketTypeKey = @"MCRCONPacketTypeKey";
 
 @interface MCRCONClient () {
     GCDAsyncSocket *_socket;
@@ -36,82 +37,7 @@ NSString * const kMCRCONPacketTypeKey = @"MCRCONPacketTypeKey";
 
 @end
 
-static NSDictionary *colorsDict;
-
-__attribute__((constructor))
-static void initializeColors() {
-    colorsDict = @{ @"0" : [UIColor colorWithRed:(0.0f/255.0f) green:(0.0f/255.0f) blue:(0.0f/255.0f) alpha:1.0f],
-                    @"1" : [UIColor colorWithRed:(0.0f/255.0f) green:(0.0f/255.0f) blue:(170.0f/255.0f) alpha:1.0f],
-                    @"2" : [UIColor colorWithRed:(0.0f/255.0f) green:(170.0f/255.0f) blue:(0.0f/255.0f) alpha:1.0f],
-                    @"3" : [UIColor colorWithRed:(0.0f/255.0f) green:(170.0f/255.0f) blue:(170.0f/255.0f) alpha:1.0f],
-                    @"4" : [UIColor colorWithRed:(170.0f/255.0f) green:(0.0f/255.0f) blue:(0.0f/255.0f) alpha:1.0f],
-                    @"5" : [UIColor colorWithRed:(170.0f/255.0f) green:(0.0f/255.0f) blue:(170.0f/255.0f) alpha:1.0f],
-                    @"6" : [UIColor colorWithRed:(255.0f/255.0f) green:(170.0f/255.0f) blue:(0.0f/255.0f) alpha:1.0f],
-                    @"7" : [UIColor colorWithRed:(170.0f/255.0f) green:(170.0f/255.0f) blue:(170.0f/255.0f) alpha:1.0f],
-                    @"8" : [UIColor colorWithRed:(85.0f/255.0f) green:(85.0f/255.0f) blue:(85.0f/255.0f) alpha:1.0f],
-                    @"9" : [UIColor colorWithRed:(85.0f/255.0f) green:(85.0f/255.0f) blue:(255.0f/255.0f) alpha:1.0f],
-                    @"a" : [UIColor colorWithRed:(85.0f/255.0f) green:(255.0f/255.0f) blue:(85.0f/255.0f) alpha:1.0f],
-                    @"b" : [UIColor colorWithRed:(85.0f/255.0f) green:(255.0f/255.0f) blue:(255.0f/255.0f) alpha:1.0f],
-                    @"c" : [UIColor colorWithRed:(255.0f/255.0f) green:(85.0f/255.0f) blue:(85.0f/255.0f) alpha:1.0f],
-                    @"d" : [UIColor colorWithRed:(255.0f/255.0f) green:(85.0f/255.0f) blue:(255.0f/255.0f) alpha:1.0f],
-                    @"e" : [UIColor colorWithRed:(255.0f/255.0f) green:(255.0f/255.0f) blue:(85.0f/255.0f) alpha:1.0f],
-                    @"f" : [UIColor colorWithRed:(255.0f/255.0f) green:(255.0f/255.0f) blue:(255.0f/255.0f) alpha:1.0f]
-                   };
-}
-
 @implementation MCRCONClient
-
-+ (NSAttributedString *)attributedStringForResponse:(NSString *)response {
-    NSMutableDictionary *attributes = [NSMutableDictionary dictionaryWithObject:[UIColor whiteColor] forKey:NSForegroundColorAttributeName];
-    
-    NSMutableAttributedString *attributedResponse = [[NSMutableAttributedString alloc] init];
-    
-    NSArray *chunks = [response componentsSeparatedByString:@"§"];
-    [chunks enumerateObjectsUsingBlock:^(NSString *chunk, NSUInteger idx, BOOL *stop) {
-        
-        // Range of chunk
-        NSRange range = [response rangeOfString:chunk];
-        
-        if (range.location == NSNotFound || !chunk.length)
-            return;
-        
-        // Include separator, if one exists
-        if (range.location > 0) {
-            range.location -= 1;
-            range.length += 1;
-        }
-        
-        // Only proceed if separator exists
-        if (range.length >= 2 && [[response substringWithRange:range] hasPrefix:@"§"]) {
-            
-            // Exclude separator
-            range.location += 1;
-            range.length -= 1;
-            
-            // Get format specifier
-            NSRange specifierRange = range;
-            specifierRange.length = 1;
-            NSString *formatSpecifier = [[response substringWithRange:specifierRange] lowercaseString];
-            
-            // Exclude format specifier from string
-            range.location += 1;
-            range.length -= 1;
-            
-            // Modify attributes based on format specifier
-            UIColor *color = colorsDict[formatSpecifier];
-            if (color) {
-                [attributes setObject:color forKey:NSForegroundColorAttributeName];
-            }
-        }
-        
-        // Append the attributed chunk to the total attributed response
-        NSString *contentString = [response substringWithRange:range];
-        NSAttributedString *attributedChunk = [[NSAttributedString alloc] initWithString:contentString attributes:attributes];
-        [attributedResponse appendAttributedString:attributedChunk];
-    }];
-    
-    return attributedResponse;
-}
 
 - (id)init {
     self = nil;
@@ -126,11 +52,12 @@ static void initializeColors() {
     
     if ((self = [super init])) {
         _socket = [[GCDAsyncSocket alloc] initWithDelegate:self delegateQueue:dispatch_get_main_queue()];
-        _state = MCRCONClientDisconnectedState;
+        self.state = MCRCONClientDisconnectedState;
         _currentTag = AUTH_TAG + 1;
         _server = server;
         
         [_server addObserver:self forKeyPath:@"hostname" options:NSKeyValueObservingOptionNew context:nil];
+        [_server addObserver:self forKeyPath:@"port" options:NSKeyValueObservingOptionNew context:nil];
         [_server addObserver:self forKeyPath:@"password" options:NSKeyValueObservingOptionNew context:nil];
     }
     return self;
@@ -138,6 +65,7 @@ static void initializeColors() {
 
 - (void)dealloc {
     [_server removeObserver:self forKeyPath:@"hostname"];
+    [_server removeObserver:self forKeyPath:@"port"];
     [_server removeObserver:self forKeyPath:@"password"];
 }
 
@@ -151,14 +79,14 @@ static void initializeColors() {
 
 - (void)connect:(void(^)(BOOL success, NSError *error))callback {
     @synchronized (self) {
-        if (_state == MCRCONClientExecutingState || _state == MCRCONClientReadyState) {
+        if (self.state == MCRCONClientExecutingState || self.state == MCRCONClientReadyState) {
             if (callback) {
                 callback(YES, nil);
             }
             return;
         }
         
-        if (_state == MCRCONClientDisconnectedState) {
+        if (self.state == MCRCONClientDisconnectedState) {
             NSError *error = nil;
             if (![_socket connectToHost:_server.hostname onPort:_server.port withTimeout:30 error:&error]) {
                 if (callback)
@@ -169,7 +97,7 @@ static void initializeColors() {
             self.state = MCRCONClientConnectingState;
         }
         
-        if (_state == MCRCONClientConnectingState || _state == MCRCONClientAuthenticatingState) {
+        if (self.state == MCRCONClientConnectingState || self.state == MCRCONClientAuthenticatingState) {
             if (callback) {
                 _connectCallback = callback;
             }
@@ -179,8 +107,8 @@ static void initializeColors() {
 
 - (void)sendCommand:(NSString *)command callback:(void(^)(NSAttributedString *response, NSError *error))callback {
     @synchronized (self) {
-        if (_state == MCRCONClientReadyState) {
-            NSDictionary *dictionary = @{ kMCRCONTagKey : @(_currentTag), kMCRCONPacketTypeKey : @(RCONCommand), kMCRCONPayloadKey : command };
+        if (self.state == MCRCONClientReadyState) {
+            NSDictionary *dictionary = @{ MCRCONTagKey : @(_currentTag), MCRCONPacketTypeKey : @(RCONCommand), MCRCONPayloadKey : command };
             NSError *error = nil;
             NSData *data = [self packetFromDictionary:dictionary error:&error];
             if (error) {
@@ -210,7 +138,7 @@ static void initializeColors() {
 
 - (void)socket:(GCDAsyncSocket *)sock didConnectToHost:(NSString *)host port:(UInt16)port {
     NSError *error = nil;
-    NSDictionary *dictionary = @{ kMCRCONTagKey : @(AUTH_TAG), kMCRCONPacketTypeKey : @(RCONAuthentication), kMCRCONPayloadKey : _server.password };
+    NSDictionary *dictionary = @{ MCRCONTagKey : @(AUTH_TAG), MCRCONPacketTypeKey : @(RCONAuthentication), MCRCONPayloadKey : _server.password };
     NSData *data = [self packetFromDictionary:dictionary error:&error];
     
     if (data) {
@@ -244,12 +172,12 @@ static void initializeColors() {
 }
 
 - (void)socket:(GCDAsyncSocket *)socket didReadData:(NSData *)data withTag:(long)readTag {
-    NSAssert(_state == MCRCONClientExecutingState || _state == MCRCONClientAuthenticatingState, @"Received unexpected data! (Tag %ld)", readTag);
+    NSAssert(self.state == MCRCONClientExecutingState || self.state == MCRCONClientAuthenticatingState, @"Received unexpected data! (Tag %ld)", readTag);
     
     NSDictionary *packetDict = [self dictionaryFromPacket:data];
-    NSString *payload = packetDict[kMCRCONPayloadKey];
-    int type = [packetDict[kMCRCONPacketTypeKey] intValue];
-    int tag = [packetDict[kMCRCONTagKey] intValue];
+    NSString *payload = packetDict[MCRCONPayloadKey];
+    int type = [packetDict[MCRCONPacketTypeKey] intValue];
+    int tag = [packetDict[MCRCONTagKey] intValue];
     
     if (tag == -1) {
         NSError *error = [NSError errorWithDomain:MCRCONErrorDomain code:MCRCONErrorUnauthorized userInfo:@{ NSLocalizedDescriptionKey : @"The request was unauthorized." }];
@@ -270,7 +198,7 @@ static void initializeColors() {
             _connectCallback = nil;
             return;
         } else if (tag == (int)readTag) {
-            NSAttributedString *string = [MCRCONClient attributedStringForResponse:payload];
+            NSAttributedString *string = [NSAttributedString attributedStringWithMinecraftString:payload];
             self.state = MCRCONClientReadyState;
             if (_commandCallback) {
                 _commandCallback(string, nil);
@@ -284,26 +212,30 @@ static void initializeColors() {
     _commandCallback = nil;
 }
 
-#pragma mark - Packet construction
+#pragma mark - Packet construction/deconstruction
 
 - (NSData *)packetFromDictionary:(NSDictionary *)dictionary error:(NSError **)error {
     
     // Ensure the payload can be encoded into UTF-8
-    NSString *payloadString = dictionary[kMCRCONPayloadKey];
+    NSString *payloadString = dictionary[MCRCONPayloadKey];
     if (![payloadString canBeConvertedToEncoding:NSUTF8StringEncoding]) {
-        *error = [NSError errorWithDomain:MCRCONErrorDomain code:MCRCONErrorCannotEncodePayload userInfo:@{ NSLocalizedDescriptionKey : @"The payload that you attempted to send was not able to be converted to UTF-8 encoding." }];
+        if (error) {
+            *error = [NSError errorWithDomain:MCRCONErrorDomain code:MCRCONErrorCannotEncodePayload userInfo:@{ NSLocalizedDescriptionKey : @"The payload that you attempted to send was not able to be encoded using UTF-8." }];
+        }
         return nil;
     }
     
     // Ensure the payload is not too long
     const char* payload = [payloadString cStringUsingEncoding:NSUTF8StringEncoding];
     if (strlen(payload) > 1446) {
-        *error = [NSError errorWithDomain:MCRCONErrorDomain code:MCRCONErrorPayloadTooLarge userInfo:@{ NSLocalizedDescriptionKey : @"The payload that you attempted to send was too large." }];
+        if (error) {
+            *error = [NSError errorWithDomain:MCRCONErrorDomain code:MCRCONErrorPayloadTooLarge userInfo:@{ NSLocalizedDescriptionKey : @"The payload that you attempted to send was too large." }];
+        }
         return nil;
     }
     
-    int tag = [dictionary[kMCRCONTagKey] intValue];
-    int type = [dictionary[kMCRCONPacketTypeKey] intValue];
+    int tag = [dictionary[MCRCONTagKey] intValue];
+    int type = [dictionary[MCRCONPacketTypeKey] intValue];
     
     char pad[2];
     pad[0] = 0x00;
@@ -340,13 +272,11 @@ static void initializeColors() {
     
     NSString *payloadString = nil;
     if (payload) {
-        if (strlen(payload) > 0) {
-            // TODO: Look into weird encoding issue - color character is 0xFFFFFFA7 (how is that possible?), when it should be 0xA7
-            payloadString = [[NSString alloc] initWithBytesNoCopy:(void *)payload length:payloadLength encoding:NSISOLatin1StringEncoding freeWhenDone:YES];
-        }
+        // TODO: Look into weird encoding issue - color character is 0xFFFFFFA7 (how is that possible?), when it should be 0xA7
+        payloadString = [[NSString alloc] initWithBytesNoCopy:(void *)payload length:payloadLength encoding:NSISOLatin1StringEncoding freeWhenDone:YES];
     }
     
-    return [NSDictionary dictionaryWithObjectsAndKeys:@(type), kMCRCONPacketTypeKey, @(tag), kMCRCONTagKey, payloadString, kMCRCONPayloadKey, nil];
+    return [NSDictionary dictionaryWithObjectsAndKeys:@(type), MCRCONPacketTypeKey, @(tag), MCRCONTagKey, payloadString, MCRCONPayloadKey, nil];
 }
 
 @end
