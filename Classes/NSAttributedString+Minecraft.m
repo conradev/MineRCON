@@ -93,6 +93,10 @@ NSString * const MCFormatSpecifierItalics = @"o";
             range.location += 1;
             range.length -= 1;
             
+            if ([formatSpecifier isEqualToString:MCFormatSpecifierReset]) {
+                [attributes removeAllObjects];
+            }
+            
             [attributes addEntriesFromDictionary:[self _minecraftAttributesForSpecifier:formatSpecifier]];
         }
         
