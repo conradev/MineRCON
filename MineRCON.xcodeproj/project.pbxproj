@@ -26,14 +26,16 @@
 		D09793DE15CA3656006904AF /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D09793DC15CA3656006904AF /* InfoPlist.strings */; };
 		D09793F415CA36B4006904AF /* MCServerSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = D09793F215CA36B4006904AF /* MCServerSpec.m */; };
 		D09793F615CA376E006904AF /* libKiwi.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D09793EB15CA36A3006904AF /* libKiwi.a */; };
+		D09F088615EAD5870012FC7C /* Click.aiff in Resources */ = {isa = PBXBuildFile; fileRef = D09F088515EAD5870012FC7C /* Click.aiff */; };
+		D09F088815EBD1190012FC7C /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D09F088715EBD1190012FC7C /* AudioToolbox.framework */; };
+		D09F088A15EBD1350012FC7C /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D09F088915EBD1350012FC7C /* Security.framework */; };
+		D09F088C15EBD1500012FC7C /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D09F088B15EBD14F0012FC7C /* CFNetwork.framework */; };
 		D0B89CE915C52E1D00EC6B55 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0B89CE815C52E1D00EC6B55 /* UIKit.framework */; };
 		D0B89CEB15C52E1D00EC6B55 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0B89CEA15C52E1D00EC6B55 /* Foundation.framework */; };
 		D0B89CED15C52E1D00EC6B55 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0B89CEC15C52E1D00EC6B55 /* CoreGraphics.framework */; };
 		D0B89D1315C52E1D00EC6B55 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0B89D1215C52E1D00EC6B55 /* SenTestingKit.framework */; };
 		D0B89D1415C52E1D00EC6B55 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0B89CE815C52E1D00EC6B55 /* UIKit.framework */; };
 		D0B89D1515C52E1D00EC6B55 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0B89CEA15C52E1D00EC6B55 /* Foundation.framework */; };
-		D0B89F7615C5AD8300EC6B55 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0B89F7415C5AD4F00EC6B55 /* Security.framework */; };
-		D0B89F7715C5AD8300EC6B55 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0B89F7215C5AD3F00EC6B55 /* CFNetwork.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -107,14 +109,16 @@
 		D09793DF15CA36A2006904AF /* Kiwi.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Kiwi.xcodeproj; path = Tests/Kiwi/Kiwi.xcodeproj; sourceTree = SOURCE_ROOT; };
 		D09793F215CA36B4006904AF /* MCServerSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MCServerSpec.m; path = Tests/MCServerSpec.m; sourceTree = SOURCE_ROOT; };
 		D09793F315CA36B4006904AF /* Tests-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "Tests-Info.plist"; path = "Tests/Tests-Info.plist"; sourceTree = SOURCE_ROOT; };
+		D09F088515EAD5870012FC7C /* Click.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; name = Click.aiff; path = Resources/Click.aiff; sourceTree = SOURCE_ROOT; };
+		D09F088715EBD1190012FC7C /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
+		D09F088915EBD1350012FC7C /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		D09F088B15EBD14F0012FC7C /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		D0B89CE415C52E1D00EC6B55 /* MineRCON.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MineRCON.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D0B89CE815C52E1D00EC6B55 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		D0B89CEA15C52E1D00EC6B55 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		D0B89CEC15C52E1D00EC6B55 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		D0B89D1115C52E1D00EC6B55 /* Tests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Tests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D0B89D1215C52E1D00EC6B55 /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
-		D0B89F7215C5AD3F00EC6B55 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
-		D0B89F7415C5AD4F00EC6B55 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -122,8 +126,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D0B89F7615C5AD8300EC6B55 /* Security.framework in Frameworks */,
-				D0B89F7715C5AD8300EC6B55 /* CFNetwork.framework in Frameworks */,
+				D09F088C15EBD1500012FC7C /* CFNetwork.framework in Frameworks */,
+				D09F088A15EBD1350012FC7C /* Security.framework in Frameworks */,
+				D09F088815EBD1190012FC7C /* AudioToolbox.framework in Frameworks */,
 				D0B89CE915C52E1D00EC6B55 /* UIKit.framework in Frameworks */,
 				D0B89CEB15C52E1D00EC6B55 /* Foundation.framework in Frameworks */,
 				D0B89CED15C52E1D00EC6B55 /* CoreGraphics.framework in Frameworks */,
@@ -211,8 +216,9 @@
 		D0B89CE715C52E1D00EC6B55 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				D0B89F7415C5AD4F00EC6B55 /* Security.framework */,
-				D0B89F7215C5AD3F00EC6B55 /* CFNetwork.framework */,
+				D09F088715EBD1190012FC7C /* AudioToolbox.framework */,
+				D09F088915EBD1350012FC7C /* Security.framework */,
+				D09F088B15EBD14F0012FC7C /* CFNetwork.framework */,
 				D0B89CE815C52E1D00EC6B55 /* UIKit.framework */,
 				D0B89CEA15C52E1D00EC6B55 /* Foundation.framework */,
 				D0B89CEC15C52E1D00EC6B55 /* CoreGraphics.framework */,
@@ -240,6 +246,7 @@
 				D09793D015CA364B006904AF /* Button_disabled.png */,
 				D09793D115CA364B006904AF /* Button_highlighted.png */,
 				D09793D215CA364B006904AF /* Button.png */,
+				D09F088515EAD5870012FC7C /* Click.aiff */,
 				D09793DC15CA3656006904AF /* InfoPlist.strings */,
 				D09793D315CA364B006904AF /* Info.plist */,
 				D09793D415CA364B006904AF /* Minecraft.ttf */,
@@ -374,6 +381,7 @@
 				D09793D915CA364B006904AF /* Button.png in Resources */,
 				D09793DB15CA364B006904AF /* Minecraft.ttf in Resources */,
 				D09793DE15CA3656006904AF /* InfoPlist.strings in Resources */,
+				D09F088615EAD5870012FC7C /* Click.aiff in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
