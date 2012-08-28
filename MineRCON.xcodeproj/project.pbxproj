@@ -30,6 +30,7 @@
 		D09F088815EBD1190012FC7C /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D09F088715EBD1190012FC7C /* AudioToolbox.framework */; };
 		D09F088A15EBD1350012FC7C /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D09F088915EBD1350012FC7C /* Security.framework */; };
 		D09F088C15EBD1500012FC7C /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D09F088B15EBD14F0012FC7C /* CFNetwork.framework */; };
+		D0B194D515E34BC900FE96FF /* MCRCONClientSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = D0B194D315E34B9300FE96FF /* MCRCONClientSpec.m */; };
 		D0B89CE915C52E1D00EC6B55 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0B89CE815C52E1D00EC6B55 /* UIKit.framework */; };
 		D0B89CEB15C52E1D00EC6B55 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0B89CEA15C52E1D00EC6B55 /* Foundation.framework */; };
 		D0B89CED15C52E1D00EC6B55 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0B89CEC15C52E1D00EC6B55 /* CoreGraphics.framework */; };
@@ -113,6 +114,7 @@
 		D09F088715EBD1190012FC7C /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		D09F088915EBD1350012FC7C /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		D09F088B15EBD14F0012FC7C /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
+		D0B194D315E34B9300FE96FF /* MCRCONClientSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MCRCONClientSpec.m; path = Tests/MCRCONClientSpec.m; sourceTree = SOURCE_ROOT; };
 		D0B89CE415C52E1D00EC6B55 /* MineRCON.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MineRCON.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D0B89CE815C52E1D00EC6B55 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		D0B89CEA15C52E1D00EC6B55 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -259,6 +261,7 @@
 			children = (
 				D09793DF15CA36A2006904AF /* Kiwi.xcodeproj */,
 				D09793F215CA36B4006904AF /* MCServerSpec.m */,
+				D0B194D315E34B9300FE96FF /* MCRCONClientSpec.m */,
 				D09793F315CA36B4006904AF /* Tests-Info.plist */,
 			);
 			name = Tests;
@@ -434,6 +437,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D09793F415CA36B4006904AF /* MCServerSpec.m in Sources */,
+				D0B194D515E34BC900FE96FF /* MCRCONClientSpec.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
