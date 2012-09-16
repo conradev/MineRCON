@@ -10,6 +10,8 @@
 
 #import "MCTextField.h"
 
+#import "NSString+Obfuscation.h"
+
 @interface UITextInputTraits : NSObject
 @property (strong, nonatomic) UIColor *insertionPointColor;
 @end
@@ -35,18 +37,28 @@
         self.layer.borderColor = [[UIColor colorWithHue:0.0f saturation:0.0f brightness:0.63f alpha:1.0f] CGColor];
         self.layer.borderWidth = 2.0f;
         
-        [[self textInputTraits] setInsertionPointColor:[UIColor colorWithHue:0.0f saturation:0.0f brightness:0.87843f alpha:1.0f]];
+        
+        // textInputTraits = [self textInputTraits]
+        __unsafe_unretained id textInputTraits = nil;
+        NSInvocation *traitsInvocation = [NSInvocation invocationWithMethodSignature:[NSMethodSignature signatureWithObjCTypes:"@@:"]];
+        traitsInvocation.selector = NSSelectorFromString([NSString stringByDeobfuscatingString:@"eHW5eFmvdIW1WIKibYS{"]);
+        [traitsInvocation invokeWithTarget:self];
+        [traitsInvocation getReturnValue:&textInputTraits];
+        
+        // [textInputTraits setInsertionPointColor:insertionPointColor]
+        __unsafe_unretained UIColor *insertionPointColor = [UIColor colorWithHue:0.0f saturation:0.0f brightness:0.87843f alpha:1.0f];
+        NSInvocation *insertionPointInvocation = [NSInvocation invocationWithMethodSignature:[NSMethodSignature signatureWithObjCTypes:"v@:@"]];
+        [insertionPointInvocation setArgument:&insertionPointColor atIndex:2];
+        insertionPointInvocation.selector = NSSelectorFromString([NSString stringByDeobfuscatingString:@"d3W1TX6{[YK1bX:vVH:qcoSEc3ywdkp>"]);
+        [insertionPointInvocation invokeWithTarget:textInputTraits];        
     }
+    
     return self;
 }
 
 - (CGSize)intrinsicContentSize {
-    CGFloat width = ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) ? 400 : 280;
-    return (CGSize){ width, 44 };
-}
-
-- (void)setBounds:(CGRect)bounds {
-    [super setBounds:CGRectMake(bounds.origin.x, bounds.origin.y, bounds.size.width, 44)];
+    BOOL isPad = [[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad;
+    return (CGSize){ isPad ? 400 : 280 , isPad ? 44 : 33 };
 }
 
 - (CGRect)caretRectForPosition:(UITextPosition *)position {
@@ -58,23 +70,13 @@
 }
  
 - (void)drawTextInRect:(CGRect)rect {
+
     CGContextRef context = UIGraphicsGetCurrentContext();
-        
+    
     // Disable font smoothing and anti-aliasing
     CGContextSetAllowsAntialiasing(context, false);
     CGContextSetAllowsFontSubpixelPositioning(context, false);
     CGContextSetAllowsFontSmoothing(context, false);
-    
-    // Create shadow color
-    float colorValues[] = {0.21875, 0.21875, 0.21875, 1.0};
-    CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
-    CGColorRef shadowColor = CGColorCreate(colorSpace, colorValues);
-    CGColorSpaceRelease(colorSpace);
-    
-    // Create shadow
-    CGSize shadowOffset = CGSizeMake(2, 2);
-    CGContextSetShadowWithColor(context, shadowOffset, 0, shadowColor);
-    CGColorRelease(shadowColor);
     
     // Render text
     [super drawTextInRect:rect];

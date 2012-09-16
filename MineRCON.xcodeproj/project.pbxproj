@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D05BA23E1606340B002239F2 /* NSString+Obfuscation.m in Sources */ = {isa = PBXBuildFile; fileRef = D05BA23D1606340B002239F2 /* NSString+Obfuscation.m */; };
+		D05BA24316063FAF002239F2 /* NSData+Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = D05BA24216063FAF002239F2 /* NSData+Base64.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		D09793BF15CA35EF006904AF /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D09793AB15CA35EE006904AF /* main.m */; };
 		D09793C015CA35EF006904AF /* MCAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D09793AD15CA35EE006904AF /* MCAppDelegate.m */; };
 		D09793C115CA35EF006904AF /* MCButton.m in Sources */ = {isa = PBXBuildFile; fileRef = D09793AF15CA35EE006904AF /* MCButton.m */; };
@@ -78,6 +80,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		D05BA23C1606340B002239F2 /* NSString+Obfuscation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSString+Obfuscation.h"; path = "Classes/NSString+Obfuscation.h"; sourceTree = SOURCE_ROOT; };
+		D05BA23D1606340B002239F2 /* NSString+Obfuscation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSString+Obfuscation.m"; path = "Classes/NSString+Obfuscation.m"; sourceTree = SOURCE_ROOT; };
+		D05BA24116063FAF002239F2 /* NSData+Base64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSData+Base64.h"; path = "Classes/NSData+Base64.h"; sourceTree = SOURCE_ROOT; };
+		D05BA24216063FAF002239F2 /* NSData+Base64.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSData+Base64.m"; path = "Classes/NSData+Base64.m"; sourceTree = SOURCE_ROOT; };
 		D09793AB15CA35EE006904AF /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = Classes/main.m; sourceTree = SOURCE_ROOT; };
 		D09793AC15CA35EE006904AF /* MCAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MCAppDelegate.h; path = Classes/MCAppDelegate.h; sourceTree = SOURCE_ROOT; };
 		D09793AD15CA35EE006904AF /* MCAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MCAppDelegate.m; path = Classes/MCAppDelegate.m; sourceTree = SOURCE_ROOT; };
@@ -233,6 +239,7 @@
 			isa = PBXGroup;
 			children = (
 				D09793C915CA35F8006904AF /* Classes */,
+				D0C5AFC515E9907100710EA9 /* Categories */,
 				D09793CD15CA361A006904AF /* External */,
 				D09793AB15CA35EE006904AF /* main.m */,
 				D09793BE15CA35EF006904AF /* Prefix.pch */,
@@ -266,6 +273,17 @@
 			);
 			name = Tests;
 			path = MineRCONTests;
+			sourceTree = "<group>";
+		};
+		D0C5AFC515E9907100710EA9 /* Categories */ = {
+			isa = PBXGroup;
+			children = (
+				D05BA24116063FAF002239F2 /* NSData+Base64.h */,
+				D05BA24216063FAF002239F2 /* NSData+Base64.m */,
+				D05BA23C1606340B002239F2 /* NSString+Obfuscation.h */,
+				D05BA23D1606340B002239F2 /* NSString+Obfuscation.m */,
+			);
+			name = Categories;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -429,6 +447,8 @@
 				D09793C715CA35EF006904AF /* MCServerListViewController.m in Sources */,
 				D09793C815CA35EF006904AF /* MCTextField.m in Sources */,
 				D09793CC15CA3615006904AF /* GCDAsyncSocket.m in Sources */,
+				D05BA23E1606340B002239F2 /* NSString+Obfuscation.m in Sources */,
+				D05BA24316063FAF002239F2 /* NSData+Base64.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
