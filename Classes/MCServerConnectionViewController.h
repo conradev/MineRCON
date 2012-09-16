@@ -8,11 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface MCServerConnectionViewController : UIViewController
-
-@property (weak, nonatomic) id<UITextFieldDelegate> delegate;
-
-@property (weak, nonatomic) UITextField *inputField;
+@interface MCServerConnectionViewController : UIViewController <UITextFieldDelegate>
 
 - (void)appendOutput:(NSAttributedString *)response;
 

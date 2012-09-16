@@ -22,7 +22,7 @@
 #pragma mark - Intitialization
 
 - (id)init {
-    self = nil;
+    self = [self initWithServer:nil];
     return self;
 }
 
@@ -33,7 +33,6 @@
         _editViewController = [[MCServerEditViewController alloc] initWithServer:_server];
         
         _connectionViewController = [[MCServerConnectionViewController alloc] init];
-        _connectionViewController.delegate = self;
         
         _client = [[MCRCONClient alloc] initWithServer:_server];
         
@@ -55,25 +54,31 @@
     
     // Pick the initial view controller and display it immediately
     UIViewController *viewController = (_client.state == MCRCONClientReadyState || _client.state == MCRCONClientExecutingState) ? _connectionViewController : _editViewController;
+    
     [self addChildViewController:viewController];
     [self.view addSubview:viewController.view];
     viewController.view.frame = self.view.bounds;
     [viewController didMoveToParentViewController:self];
 }
 
+#pragma mark - Edit view controller
+
+- (void)connectButtonPressed:(id)sender {
+    [_client connect:^(BOOL success, NSError *error) {
+        if (error) {
+            // TODO: Handle error
+        }
+    }];
+}
+
 #pragma mark - Connection view controller
 
-- (BOOL)textFieldShouldReturn:(UITextField *)textField {
-    if ([textField isEqual:_connectionViewController.inputField]) {
-        [_client sendCommand:textField.text callback:^(NSAttributedString *response, NSError *error) {
-            [_connectionViewController appendOutput:response];
-            
-            // TODO: Handle error
-        }];
-        textField.text = @"";
-    }
-    
-    return NO;
+- (BOOL)sendButtonPressed:(NSString *)input {
+    [_client sendCommand:input callback:^(NSAttributedString *response, NSError *error) {
+        // TODO: Handle error
+        [_connectionViewController appendOutput:response];
+    }];
+    return YES;
 }
 
 #pragma View controller switching
@@ -83,8 +88,6 @@
         if ([keyPath isEqualToString:@"state"]) {
             MCRCONClientState state = [change[NSKeyValueChangeNewKey] intValue];
             
-            // If the connection is active, display the connection view controller
-            // Otherwise, display the editing view controller
             if (state == MCRCONClientReadyState || state == MCRCONClientExecutingState) {
                 [self displayChildViewController:_connectionViewController];
             } else {
@@ -92,7 +95,9 @@
             }
         }
     } else if ([object isEqual:_server]) {
-        self.title = _server.name.length ? _server.name : _server.hostname;
+        if ([keyPath isEqualToString:@"name"]) {
+            self.title = _server.name.length ? _server.name : _server.hostname;
+        }
     }
 }
 

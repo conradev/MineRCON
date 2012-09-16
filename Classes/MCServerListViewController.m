@@ -50,6 +50,9 @@ NSString * const MCServerCellIdentifier = @"MCServerCell";
     
     self.navigationItem.leftBarButtonItem = self.editButtonItem;
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addNewServer)];
+    
+    // TODO: Fix this so that state does not need to be restored
+    [self displayViewControllerForServer:nil];
 }
 
 #pragma mark - State restoration

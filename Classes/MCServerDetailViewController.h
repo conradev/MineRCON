@@ -10,12 +10,20 @@
 
 #import "MCRCONClient.h"
 
-@interface MCServerDetailViewController : UIViewController <UITextFieldDelegate>
-
-- (id)initWithServer:(MCServer *)server;
+@interface MCServerDetailViewController : UIViewController
 
 @property (readonly, strong, nonatomic) MCServer *server;
 
-@property (strong, nonatomic) MCRCONClient *client;
+@property (readonly, strong, nonatomic) MCRCONClient *client;
+
+- (id)initWithServer:(MCServer *)server;
+
+// Edit view controller
+
+- (void)connectButtonPressed:(id)sender;
+
+// Connection view controller
+
+- (BOOL)sendButtonPressed:(NSString *)input;
 
 @end
