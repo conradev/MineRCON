@@ -35,4 +35,12 @@
     [coder encodeInteger:_port forKey:@"MCPort"];
 }
 
+- (void)setPort:(NSInteger)port {
+    if (port <= 0 || port > 65535) {
+        port = 25575;
+    }
+    
+    _port = port;
+}
+
 @end
