@@ -12,6 +12,7 @@
 		D05BA273160662A8002239F2 /* NSString+Obfuscation.m in Sources */ = {isa = PBXBuildFile; fileRef = D05BA23D1606340B002239F2 /* NSString+Obfuscation.m */; };
 		D05BA278160663BF002239F2 /* NSAttributedString+Minecraft.m in Sources */ = {isa = PBXBuildFile; fileRef = D05BA275160663BF002239F2 /* NSAttributedString+Minecraft.m */; };
 		D05BA279160663BF002239F2 /* UIColor+Minecraft.m in Sources */ = {isa = PBXBuildFile; fileRef = D05BA277160663BF002239F2 /* UIColor+Minecraft.m */; };
+		D05BA27F16078355002239F2 /* NSStringObfuscationSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = D05BA27E16078355002239F2 /* NSStringObfuscationSpec.m */; };
 		D09793BF15CA35EF006904AF /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D09793AB15CA35EE006904AF /* main.m */; };
 		D09793C015CA35EF006904AF /* MCAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D09793AD15CA35EE006904AF /* MCAppDelegate.m */; };
 		D09793C115CA35EF006904AF /* MCButton.m in Sources */ = {isa = PBXBuildFile; fileRef = D09793AF15CA35EE006904AF /* MCButton.m */; };
@@ -92,6 +93,7 @@
 		D05BA275160663BF002239F2 /* NSAttributedString+Minecraft.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSAttributedString+Minecraft.m"; path = "Classes/NSAttributedString+Minecraft.m"; sourceTree = SOURCE_ROOT; };
 		D05BA276160663BF002239F2 /* UIColor+Minecraft.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIColor+Minecraft.h"; path = "Classes/UIColor+Minecraft.h"; sourceTree = SOURCE_ROOT; };
 		D05BA277160663BF002239F2 /* UIColor+Minecraft.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIColor+Minecraft.m"; path = "Classes/UIColor+Minecraft.m"; sourceTree = SOURCE_ROOT; };
+		D05BA27E16078355002239F2 /* NSStringObfuscationSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NSStringObfuscationSpec.m; path = Tests/NSStringObfuscationSpec.m; sourceTree = SOURCE_ROOT; };
 		D09793AB15CA35EE006904AF /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = Classes/main.m; sourceTree = SOURCE_ROOT; };
 		D09793AC15CA35EE006904AF /* MCAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MCAppDelegate.h; path = Classes/MCAppDelegate.h; sourceTree = SOURCE_ROOT; };
 		D09793AD15CA35EE006904AF /* MCAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MCAppDelegate.m; path = Classes/MCAppDelegate.m; sourceTree = SOURCE_ROOT; };
@@ -278,6 +280,7 @@
 				D09793DF15CA36A2006904AF /* Kiwi.xcodeproj */,
 				D09793F215CA36B4006904AF /* MCServerSpec.m */,
 				D0B194D315E34B9300FE96FF /* MCRCONClientSpec.m */,
+				D05BA27E16078355002239F2 /* NSStringObfuscationSpec.m */,
 				D09793F315CA36B4006904AF /* Tests-Info.plist */,
 			);
 			name = Tests;
@@ -474,6 +477,7 @@
 			files = (
 				D09793F415CA36B4006904AF /* MCServerSpec.m in Sources */,
 				D0B194D515E34BC900FE96FF /* MCRCONClientSpec.m in Sources */,
+				D05BA27F16078355002239F2 /* NSStringObfuscationSpec.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
