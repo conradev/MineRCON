@@ -18,6 +18,9 @@ enum {
 
 extern NSString * const MCRCONErrorDomain;
 
+// KVO
+extern NSString * const MCRCONClientStateKey;
+
 typedef enum MCRCONClientState {
     MCRCONClientDisconnectedState,
 	MCRCONClientConnectingState,

@@ -21,6 +21,10 @@ typedef enum RCONPacketType {
 
 NSString * const MCRCONErrorDomain = @"MCRCONErrorDomain";
 
+// KVO
+NSString * const MCRCONClientStateKey = @"state";
+
+// Packet construction
 NSString * const MCRCONPayloadKey = @"MCRCONPayloadKey";
 NSString * const MCRCONTagKey = @"MCRCONTagKey";
 NSString * const MCRCONPacketTypeKey = @"MCRCONPacketTypeKey";

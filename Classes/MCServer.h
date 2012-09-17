@@ -8,6 +8,12 @@
 
 #import <Foundation/Foundation.h>
 
+// KVO
+extern NSString * const MCServerNameKey;
+extern NSString * const MCServerHostnameKey;
+extern NSString * const MCServerPasswordKey;
+extern NSString * const MCServerPortKey;
+
 @interface MCServer : NSObject <NSCoding>
 
 @property (strong, nonatomic) NSString *name;

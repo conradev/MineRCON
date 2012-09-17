@@ -36,15 +36,17 @@
         
         _client = [[MCRCONClient alloc] initWithServer:_server];
         
-        [_client addObserver:self forKeyPath:@"state" options:NSKeyValueObservingOptionNew context:nil];
-        [_server addObserver:self forKeyPath:@"name" options:NSKeyValueObservingOptionNew context:nil];
+        [_client addObserver:self forKeyPath:MCRCONClientStateKey options:NSKeyValueObservingOptionNew context:nil];
+        [_server addObserver:self forKeyPath:MCServerNameKey options:NSKeyValueObservingOptionNew context:nil];
+        [_server addObserver:self forKeyPath:MCServerHostnameKey options:NSKeyValueObservingOptionNew context:nil];
     }
     return self;
 }
 
 - (void)dealloc {
-    [_client removeObserver:self forKeyPath:@"state"];
-    [_server removeObserver:self forKeyPath:@"name"];
+    [_client removeObserver:self forKeyPath:MCRCONClientStateKey];
+    [_server removeObserver:self forKeyPath:MCServerNameKey];
+    [_server removeObserver:self forKeyPath:MCServerHostnameKey];
 }
 
 - (void)viewDidLoad {
@@ -85,7 +87,7 @@
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
     if ([object isEqual:_client]) {
-        if ([keyPath isEqualToString:@"state"]) {
+        if ([keyPath isEqualToString:MCRCONClientStateKey]) {
             MCRCONClientState state = [change[NSKeyValueChangeNewKey] intValue];
             
             if (state == MCRCONClientReadyState || state == MCRCONClientExecutingState) {
@@ -95,9 +97,7 @@
             }
         }
     } else if ([object isEqual:_server]) {
-        if ([keyPath isEqualToString:@"name"]) {
-            self.title = _server.name.length ? _server.name : _server.hostname;
-        }
+        self.title = _server.name.length ? _server.name : _server.hostname;
     }
 }
 

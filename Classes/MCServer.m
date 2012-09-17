@@ -8,6 +8,12 @@
 
 #import "MCServer.h"
 
+// KVO
+NSString * const MCServerNameKey = @"name";
+NSString * const MCServerHostnameKey = @"hostname";
+NSString * const MCServerPasswordKey = @"password";
+NSString * const MCServerPortKey = @"port";
+
 @implementation MCServer
 
 - (id)init {

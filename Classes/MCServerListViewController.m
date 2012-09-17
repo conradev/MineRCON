@@ -36,8 +36,18 @@ NSString * const MCServerCellIdentifier = @"MCServerCell";
         
         _servers = [NSKeyedUnarchiver unarchiveObjectWithFile:serversPath];
         _servers = _servers ? _servers : [NSMutableArray array];
+        
+        [_servers enumerateObjectsUsingBlock:^(MCServer *server, NSUInteger idx, BOOL *stop) {
+            [self beginObservingServer:server];
+        }];
     }
     return self;
+}
+
+- (void)dealloc {
+    [_servers enumerateObjectsUsingBlock:^(MCServer *server, NSUInteger idx, BOOL *stop) {
+        [self stopObservingServer:server];
+    }];
 }
 
 - (void)viewDidLoad {
@@ -98,6 +108,31 @@ NSString * const MCServerCellIdentifier = @"MCServerCell";
     }
 }
 
+- (void)beginObservingServer:(MCServer *)server {
+    [server addObserver:self forKeyPath:MCServerNameKey options:NSKeyValueObservingOptionNew context:nil];
+    [server addObserver:self forKeyPath:MCServerHostnameKey options:NSKeyValueObservingOptionNew context:nil];
+    [server addObserver:self forKeyPath:MCServerPasswordKey options:NSKeyValueObservingOptionNew context:nil];
+    [server addObserver:self forKeyPath:MCServerPortKey options:NSKeyValueObservingOptionNew context:nil];
+}
+
+- (void)stopObservingServer:(MCServer *)server {
+    [server removeObserver:self forKeyPath:MCServerNameKey];
+    [server removeObserver:self forKeyPath:MCServerHostnameKey];
+    [server removeObserver:self forKeyPath:MCServerPasswordKey];
+    [server removeObserver:self forKeyPath:MCServerPortKey];
+}
+
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
+    if ([_servers containsObject:object]) {
+        // Reload row in table
+        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:[_servers indexOfObject:object] inSection:0];
+        [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+        
+        // Save changes
+        [self saveServers];
+    }
+}
+
 - (void)addNewServer {
     MCServer *server = [[MCServer alloc] init];
     
@@ -107,6 +142,7 @@ NSString * const MCServerCellIdentifier = @"MCServerCell";
     server.password = @"C8K$01996okp";
     
     [_servers addObject:server];
+    [self beginObservingServer:server];
     
     [self saveServers];
     
@@ -160,6 +196,7 @@ NSString * const MCServerCellIdentifier = @"MCServerCell";
         
         // Purge objects
         [_detailViewsCache removeObjectForKey:server];
+        [self stopObservingServer:server];
         [_servers removeObject:server];
         
         [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
