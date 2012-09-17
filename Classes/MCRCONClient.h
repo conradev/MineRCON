@@ -11,10 +11,9 @@
 enum {
     MCRCONErrorUnknown = -1,
     
-    MCRCONErrorPayloadTooLarge = -1000,
-    MCRCONErrorCannotEncodePayload = -1001,
+    MCRCONErrorUnauthorized = -1000,
     
-    MCRCONErrorUnauthorized = -2000
+    MCRCONErrorPayloadTooLarge = -2000
 };
 
 extern NSString * const MCRCONErrorDomain;

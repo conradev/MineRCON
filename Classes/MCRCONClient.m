@@ -216,14 +216,10 @@ NSString * const MCRCONPacketTypeKey = @"MCRCONPacketTypeKey";
 
 - (NSData *)packetFromDictionary:(NSDictionary *)dictionary error:(NSError **)error {
     
-    // Ensure the payload can be encoded into UTF-8
+    // Lossily convert to UTF-8
     NSString *payloadString = dictionary[MCRCONPayloadKey];
-    if (![payloadString canBeConvertedToEncoding:NSUTF8StringEncoding]) {
-        if (error) {
-            *error = [NSError errorWithDomain:MCRCONErrorDomain code:MCRCONErrorCannotEncodePayload userInfo:@{ NSLocalizedDescriptionKey : @"The payload that you attempted to send was not able to be encoded using UTF-8." }];
-        }
-        return nil;
-    }
+    payloadString = [[NSString alloc] initWithData:[payloadString dataUsingEncoding:NSUTF8StringEncoding allowLossyConversion:YES] encoding:NSUTF8StringEncoding];
+    NSAssert([payloadString canBeConvertedToEncoding:NSUTF8StringEncoding], @"String was not properly converted to UTF-8 encoding");
     
     // Ensure the payload is not too long
     const char* payload = [payloadString cStringUsingEncoding:NSUTF8StringEncoding];
