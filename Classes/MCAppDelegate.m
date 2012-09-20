@@ -22,6 +22,8 @@ NSString * const MCServerListIdentifier = @"MCServerListViewController";
 
 @implementation MCAppDelegate
 
+@synthesize keyboardFrame = _keyboardFrame;
+
 #pragma mark - Interface state restoration
 
 - (BOOL)application:(UIApplication *)application shouldSaveApplicationState:(NSCoder *)coder {
@@ -107,6 +109,12 @@ NSString * const MCServerListIdentifier = @"MCServerListViewController";
         CGRect keyboardFrame = [[note.userInfo objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue];
         _keyboardFrame = [_window convertRect:keyboardFrame fromWindow:nil];
     }];
+}
+
+- (CGRect)keyboardFrame {
+    if (!_keyboardShowing)
+        return CGRectZero;
+    return _keyboardFrame;
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {
