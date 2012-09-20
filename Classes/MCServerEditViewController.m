@@ -23,6 +23,8 @@
     __weak MCTextField *_passwordField;
     __weak MCButton *_connectButton;
     
+    __weak UITextField *_lastTextField;
+    
 }
 
 @end
@@ -128,10 +130,11 @@
     MCAppDelegate *appDelegate = (MCAppDelegate *)[[UIApplication sharedApplication] delegate];
     if ([[UIDevice currentDevice] userInterfaceIdiom] != UIUserInterfaceIdiomPhone) {
         if (appDelegate.keyboardShowing) {
-            // TODO:
-            // Optimally change this to find if there is a first-responder-to-be
-            // It's hard to do here, before the view is moved into the window!
-            [_nameField becomeFirstResponder];
+            if (_lastTextField) {
+                [_lastTextField becomeFirstResponder];
+            } else {
+                [_nameField becomeFirstResponder];
+            }
         } else {
             [_nameField resignFirstResponder];
             [_hostnameField resignFirstResponder];
@@ -157,6 +160,12 @@
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
+    
+    [@[ _nameField, _hostnameField, _passwordField] enumerateObjectsUsingBlock:^(UITextField *textField, NSUInteger idx, BOOL *stop) {
+        if ([textField isFirstResponder]) {
+            _lastTextField = textField;
+        }
+    }];
     
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillChangeFrameNotification object:nil];
 }
