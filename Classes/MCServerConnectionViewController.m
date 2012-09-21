@@ -97,10 +97,10 @@
     MCAppDelegate *appDelegate = (MCAppDelegate *)[[UIApplication sharedApplication] delegate];
     CGRect keyboardFrame = [self.view convertRect:appDelegate.keyboardFrame fromView:nil];
     keyboardFrame = CGRectIntersection(self.view.bounds, keyboardFrame);
-    
+
     // Initially adjust constraint for keyboard
     [self adjustViewWithKeyboardFrame:keyboardFrame];
-    
+
     // Be aware of all future keyboard changes
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillChangeFrame:) name:UIKeyboardWillChangeFrameNotification object:nil];
 }

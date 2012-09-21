@@ -260,10 +260,6 @@
 #pragma mark - External interface
 
 - (void)connectButtonPressed:(id)sender {
-    [_nameField resignFirstResponder];
-    [_hostnameField resignFirstResponder];
-    [_passwordField resignFirstResponder];
-    
     MCServerDetailViewController *parent = (MCServerDetailViewController *)[self parentViewController];
     [parent connectButtonPressed:sender];
 }
