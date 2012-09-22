@@ -104,7 +104,7 @@ NSString * const MCServerListIdentifier = @"MCServerListViewController";
     NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
 
     [center addObserverForName:UIKeyboardDidShowNotification object:nil queue:nil usingBlock:^(NSNotification *note) { _keyboardShowing = YES; }];
-    [center addObserverForName:UIKeyboardDidHideNotification object:nil queue:nil usingBlock:^(NSNotification *note) { _keyboardShowing = NO; }];
+    [center addObserverForName:UIKeyboardWillHideNotification object:nil queue:nil usingBlock:^(NSNotification *note) { _keyboardShowing = NO; }];
     [center addObserverForName:UIKeyboardDidChangeFrameNotification object:nil queue:nil usingBlock:^(NSNotification *note) {
         CGRect keyboardFrame = [[note.userInfo objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue];
         _keyboardFrame = [_window convertRect:keyboardFrame fromWindow:nil];

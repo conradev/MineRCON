@@ -260,6 +260,12 @@
 #pragma mark - External interface
 
 - (void)connectButtonPressed:(id)sender {
+    [@[ _nameField, _hostnameField, _passwordField] enumerateObjectsUsingBlock:^(UITextField *textField, NSUInteger idx, BOOL *stop) {
+        if ([textField isFirstResponder]) {
+            [textField resignFirstResponder];
+        }
+    }];
+    
     MCServerDetailViewController *parent = (MCServerDetailViewController *)[self parentViewController];
     [parent connectButtonPressed:sender];
 }
