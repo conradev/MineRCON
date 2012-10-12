@@ -11,6 +11,8 @@
 
 #import "MCAppDelegate.h"
 
+#import "NSAttributedString+Minecraft.h"
+
 @interface MCServerConnectionViewController () {
     __weak UIView *_containerView;
     __weak NSLayoutConstraint *_bottomConstraint;
@@ -69,7 +71,7 @@
     inputField.returnKeyType = UIReturnKeySend;
     _inputField = inputField;
     [_containerView addSubview:_inputField];
-    
+        
     // Make input field hug to sides
     [_containerView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[input]|" options:NSLayoutFormatAlignAllCenterX metrics:nil views:@{ @"input" : _inputField }]];
     
@@ -109,6 +111,16 @@
     [super viewWillDisappear:animated];
     
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillChangeFrameNotification object:nil];
+}
+
+#pragma mark - User Interface
+
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
+    if ([textField isEqual:_inputField]) {
+        textField.typingAttributes = [NSAttributedString defaultMinecraftAttributes];
+    }
+    
+    return YES;
 }
 
 #pragma mark - Keyboard state
@@ -190,7 +202,8 @@
     if ([textField isEqual:_inputField]) {
         MCServerDetailViewController *parent = (MCServerDetailViewController *)self.parentViewController;
         if ([parent sendButtonPressed:_inputField.text]) {
-            _inputField.text = @"";
+            _inputField.text = nil;
+            _inputField.typingAttributes = [NSAttributedString defaultMinecraftAttributes];
         }
     }
     
