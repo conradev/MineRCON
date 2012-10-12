@@ -55,9 +55,13 @@
     _outputView = outputView;
     [_containerView addSubview:_outputView];
     
+    // Add a tap recognizer to the output view
+    UITapGestureRecognizer *tapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(outputViewTapped:)];
+    [_outputView addGestureRecognizer:tapRecognizer];
+    
     // Make output view hug to sides
     [_containerView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[output]|" options:NSLayoutFormatAlignAllCenterX metrics:nil views:@{ @"output" : _outputView }]];
-
+    
     // Add input field to heirarchy
     UITextField *inputField = [[UITextField alloc] init];
     inputField.delegate = self;
@@ -121,6 +125,10 @@
     }
     
     return YES;
+}
+
+- (void)outputViewTapped:(id)sender {
+    [_inputField resignFirstResponder];
 }
 
 #pragma mark - Keyboard state
