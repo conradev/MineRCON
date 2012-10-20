@@ -23,12 +23,6 @@ static void destroy_click_sound() {
     AudioServicesDisposeSystemSoundID(click);
 }
 
-@interface MCButton () {
-    __weak UIEvent *_lastEvent;
-}
-
-@end
-
 @implementation MCButton
 
 - (id)init {
@@ -37,6 +31,8 @@ static void destroy_click_sound() {
         self.titleLabel.font = [UIFont fontWithName:@"Minecraft" size:16.0f];
         self.titleLabel.shadowColor = [UIColor colorWithHue:0.0f saturation:0.0f brightness:0.21875f alpha:1.0f];
         self.titleLabel.shadowOffset = CGSizeMake(2, 2);
+        
+        [self addTarget:self action:@selector(playClickSound) forControlEvents:UIControlEventTouchUpInside];
         
         [self setBackgroundImage:[UIImage imageNamed:@"Button"] forState:UIControlStateNormal];
         [self setTitleColor:[UIColor colorWithHue:0.0f saturation:0.0f brightness:0.87843f alpha:1.0f] forState:UIControlStateNormal];
@@ -48,17 +44,8 @@ static void destroy_click_sound() {
     return self;
 }
 
-- (void)sendAction:(SEL)action to:(id)target forEvent:(UIEvent *)event {
-    // Don't play more than one sound per event
-    if (![event isEqual:_lastEvent]) {
-        NSArray *actions = [self actionsForTarget:target forControlEvent:UIControlEventTouchUpInside];
-        if ([actions containsObject:NSStringFromSelector(action)]) {            
-            AudioServicesPlaySystemSound(click);
-            _lastEvent = event;
-        }
-    }
-    
-    [super sendAction:action to:target forEvent:event];
+- (void)playClickSound {
+    AudioServicesPlaySystemSound(click);
 }
 
 - (CGSize)intrinsicContentSize {
