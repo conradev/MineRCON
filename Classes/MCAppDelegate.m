@@ -10,11 +10,13 @@
 
 #import "MCServerListViewController.h"
 
+#import "HockeySDK.h"
+
 NSString * const MCSplitViewIdentifier = @"MCSplitViewController";
 NSString * const MCMasterNavigationIdentifier = @"MCNavigationController";
 NSString * const MCServerListIdentifier = @"MCServerListViewController";
 
-@interface MCAppDelegate () {
+@interface MCAppDelegate () <BITHockeyManagerDelegate, BITUpdateManagerDelegate, BITCrashManagerDelegate> {
     MCServerListViewController *_listViewController;
 }
 
@@ -94,6 +96,11 @@ NSString * const MCServerListIdentifier = @"MCServerListViewController";
     // Appearance tweaks
     [[UINavigationBar appearance] setTintColor:[UIColor darkGrayColor]];
     
+    // Set up HockeyApp
+    BITHockeyManager *hockeyManager = [BITHockeyManager sharedHockeyManager];
+    [hockeyManager configureWithBetaIdentifier:@"" liveIdentifier:@"" delegate:self];
+    [hockeyManager startManager];
+    
     // Make the window visible
     [_window makeKeyAndVisible];
 
@@ -102,7 +109,8 @@ NSString * const MCServerListIdentifier = @"MCServerListViewController";
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
     NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
-
+    
+    // Global keyboard event handling
     [center addObserverForName:UIKeyboardDidShowNotification object:nil queue:nil usingBlock:^(NSNotification *note) { _keyboardShowing = YES; }];
     [center addObserverForName:UIKeyboardWillHideNotification object:nil queue:nil usingBlock:^(NSNotification *note) { _keyboardShowing = NO; }];
     [center addObserverForName:UIKeyboardDidChangeFrameNotification object:nil queue:nil usingBlock:^(NSNotification *note) {

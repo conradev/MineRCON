@@ -7,12 +7,17 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D0433EB716375B900000BBC3 /* CrashReporter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0433EB616375B900000BBC3 /* CrashReporter.framework */; };
+		D0433EBE16375C310000BBC3 /* HockeySDKResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = D06DD61816375AD7000F8C80 /* HockeySDKResources.bundle */; };
 		D05BA24316063FAF002239F2 /* NSData+Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = D05BA24216063FAF002239F2 /* NSData+Base64.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		D05BA263160661C0002239F2 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D05BA262160661C0002239F2 /* Default-568h@2x.png */; };
 		D05BA273160662A8002239F2 /* NSString+Obfuscation.m in Sources */ = {isa = PBXBuildFile; fileRef = D05BA23D1606340B002239F2 /* NSString+Obfuscation.m */; };
 		D05BA278160663BF002239F2 /* NSAttributedString+Minecraft.m in Sources */ = {isa = PBXBuildFile; fileRef = D05BA275160663BF002239F2 /* NSAttributedString+Minecraft.m */; };
 		D05BA279160663BF002239F2 /* UIColor+Minecraft.m in Sources */ = {isa = PBXBuildFile; fileRef = D05BA277160663BF002239F2 /* UIColor+Minecraft.m */; };
 		D05BA27F16078355002239F2 /* NSStringObfuscationSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = D05BA27E16078355002239F2 /* NSStringObfuscationSpec.m */; };
+		D06DD61D16375B0C000F8C80 /* libHockeySDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D06DD61616375AD7000F8C80 /* libHockeySDK.a */; };
+		D06DD62116375B3A000F8C80 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D06DD62016375B3A000F8C80 /* QuartzCore.framework */; };
+		D06DD62316375B43000F8C80 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D06DD62216375B43000F8C80 /* SystemConfiguration.framework */; };
 		D09793BF15CA35EF006904AF /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D09793AB15CA35EE006904AF /* main.m */; };
 		D09793C015CA35EF006904AF /* MCAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D09793AD15CA35EE006904AF /* MCAppDelegate.m */; };
 		D09793C115CA35EF006904AF /* MCButton.m in Sources */ = {isa = PBXBuildFile; fileRef = D09793AF15CA35EE006904AF /* MCButton.m */; };
@@ -46,6 +51,55 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		D06DD60F16375AD7000F8C80 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D06DD60316375AD7000F8C80 /* HockeySDK.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 1E59544115B6C3DC00A03429;
+			remoteInfo = HockeySDK;
+		};
+		D06DD61116375AD7000F8C80 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D06DD60316375AD7000F8C80 /* HockeySDK.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = E400561A148D79B500EB22B9;
+			remoteInfo = "HockeySDK-Device";
+		};
+		D06DD61316375AD7000F8C80 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D06DD60316375AD7000F8C80 /* HockeySDK.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 1E59547C15B6C41300A03429;
+			remoteInfo = "HockeySDK-Simulator";
+		};
+		D06DD61516375AD7000F8C80 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D06DD60316375AD7000F8C80 /* HockeySDK.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 1E5954F215B6F24A00A03429;
+			remoteInfo = HockeySDKLib;
+		};
+		D06DD61716375AD7000F8C80 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D06DD60316375AD7000F8C80 /* HockeySDK.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 1E59550A15B6F45800A03429;
+			remoteInfo = HockeySDKResources;
+		};
+		D06DD61916375AF8000F8C80 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D06DD60316375AD7000F8C80 /* HockeySDK.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 1E5954CB15B6F24A00A03429;
+			remoteInfo = HockeySDKLib;
+		};
+		D06DD61B16375AFD000F8C80 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D06DD60316375AD7000F8C80 /* HockeySDK.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 1E59550915B6F45800A03429;
+			remoteInfo = HockeySDKResources;
+		};
 		D09793EA15CA36A3006904AF /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = D09793DF15CA36A2006904AF /* Kiwi.xcodeproj */;
@@ -84,6 +138,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		D0433EB616375B900000BBC3 /* CrashReporter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CrashReporter.framework; path = Classes/HockeySDK/Vendor/CrashReporter.framework; sourceTree = SOURCE_ROOT; };
 		D05BA23C1606340B002239F2 /* NSString+Obfuscation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSString+Obfuscation.h"; path = "Classes/NSString+Obfuscation.h"; sourceTree = SOURCE_ROOT; };
 		D05BA23D1606340B002239F2 /* NSString+Obfuscation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSString+Obfuscation.m"; path = "Classes/NSString+Obfuscation.m"; sourceTree = SOURCE_ROOT; };
 		D05BA24116063FAF002239F2 /* NSData+Base64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSData+Base64.h"; path = "Classes/NSData+Base64.h"; sourceTree = SOURCE_ROOT; };
@@ -94,6 +149,9 @@
 		D05BA276160663BF002239F2 /* UIColor+Minecraft.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIColor+Minecraft.h"; path = "Classes/UIColor+Minecraft.h"; sourceTree = SOURCE_ROOT; };
 		D05BA277160663BF002239F2 /* UIColor+Minecraft.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIColor+Minecraft.m"; path = "Classes/UIColor+Minecraft.m"; sourceTree = SOURCE_ROOT; };
 		D05BA27E16078355002239F2 /* NSStringObfuscationSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NSStringObfuscationSpec.m; path = Tests/NSStringObfuscationSpec.m; sourceTree = SOURCE_ROOT; };
+		D06DD60316375AD7000F8C80 /* HockeySDK.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = HockeySDK.xcodeproj; path = Classes/HockeySDK/Support/HockeySDK.xcodeproj; sourceTree = SOURCE_ROOT; };
+		D06DD62016375B3A000F8C80 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		D06DD62216375B43000F8C80 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		D09793AB15CA35EE006904AF /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = Classes/main.m; sourceTree = SOURCE_ROOT; };
 		D09793AC15CA35EE006904AF /* MCAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MCAppDelegate.h; path = Classes/MCAppDelegate.h; sourceTree = SOURCE_ROOT; };
 		D09793AD15CA35EE006904AF /* MCAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MCAppDelegate.m; path = Classes/MCAppDelegate.m; sourceTree = SOURCE_ROOT; };
@@ -144,10 +202,14 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D06DD61D16375B0C000F8C80 /* libHockeySDK.a in Frameworks */,
+				D0433EB716375B900000BBC3 /* CrashReporter.framework in Frameworks */,
 				D09F088C15EBD1500012FC7C /* CFNetwork.framework in Frameworks */,
 				D09F088A15EBD1350012FC7C /* Security.framework in Frameworks */,
 				D09F088815EBD1190012FC7C /* AudioToolbox.framework in Frameworks */,
 				D0B89CE915C52E1D00EC6B55 /* UIKit.framework in Frameworks */,
+				D06DD62316375B43000F8C80 /* SystemConfiguration.framework in Frameworks */,
+				D06DD62116375B3A000F8C80 /* QuartzCore.framework in Frameworks */,
 				D0B89CEB15C52E1D00EC6B55 /* Foundation.framework in Frameworks */,
 				D0B89CED15C52E1D00EC6B55 /* CoreGraphics.framework in Frameworks */,
 			);
@@ -167,6 +229,44 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		D0433EB816375BA80000BBC3 /* HockeyApp */ = {
+			isa = PBXGroup;
+			children = (
+				D0433EB616375B900000BBC3 /* CrashReporter.framework */,
+				D06DD60316375AD7000F8C80 /* HockeySDK.xcodeproj */,
+			);
+			name = HockeyApp;
+			sourceTree = "<group>";
+		};
+		D0433EB916375BB40000BBC3 /* CocoaAsyncSocket */ = {
+			isa = PBXGroup;
+			children = (
+				D09793CA15CA3615006904AF /* GCDAsyncSocket.h */,
+				D09793CB15CA3615006904AF /* GCDAsyncSocket.m */,
+			);
+			name = CocoaAsyncSocket;
+			sourceTree = "<group>";
+		};
+		D0433EBA16375BD40000BBC3 /* Kiwi */ = {
+			isa = PBXGroup;
+			children = (
+				D09793DF15CA36A2006904AF /* Kiwi.xcodeproj */,
+			);
+			name = Kiwi;
+			sourceTree = "<group>";
+		};
+		D06DD60416375AD7000F8C80 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				D06DD61016375AD7000F8C80 /* HockeySDK.framework */,
+				D06DD61216375AD7000F8C80 /* libHockeySDK-iphoneos.a */,
+				D06DD61416375AD7000F8C80 /* libHockeySDK-iphonesimulator.a */,
+				D06DD61616375AD7000F8C80 /* libHockeySDK.a */,
+				D06DD61816375AD7000F8C80 /* HockeySDKResources.bundle */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		D09793C915CA35F8006904AF /* Classes */ = {
 			isa = PBXGroup;
 			children = (
@@ -186,19 +286,22 @@
 				D09793B315CA35EF006904AF /* MCServer.m */,
 				D09793BC15CA35EF006904AF /* MCTextField.h */,
 				D09793BD15CA35EF006904AF /* MCTextField.m */,
+				D0053FBA1628E18900FAE4CC /* MCEditTextField.h */,
+				D0053FBB1628E18900FAE4CC /* MCEditTextField.m */,
 				D09793AE15CA35EE006904AF /* MCButton.h */,
 				D09793AF15CA35EE006904AF /* MCButton.m */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
 		};
-		D09793CD15CA361A006904AF /* External */ = {
+		D09793CD15CA361A006904AF /* Vendor */ = {
 			isa = PBXGroup;
 			children = (
-				D09793CA15CA3615006904AF /* GCDAsyncSocket.h */,
-				D09793CB15CA3615006904AF /* GCDAsyncSocket.m */,
+				D0433EBA16375BD40000BBC3 /* Kiwi */,
+				D0433EB816375BA80000BBC3 /* HockeyApp */,
+				D0433EB916375BB40000BBC3 /* CocoaAsyncSocket */,
 			);
-			name = External;
+			name = Vendor;
 			sourceTree = "<group>";
 		};
 		D09793E015CA36A2006904AF /* Products */ = {
@@ -215,6 +318,8 @@
 		D0B89CD915C52E1C00EC6B55 = {
 			isa = PBXGroup;
 			children = (
+				D06DD62216375B43000F8C80 /* SystemConfiguration.framework */,
+				D06DD62016375B3A000F8C80 /* QuartzCore.framework */,
 				D0B89CEE15C52E1D00EC6B55 /* MineRCON */,
 				D0B89D1815C52E1D00EC6B55 /* Tests */,
 				D0B89CE715C52E1D00EC6B55 /* Frameworks */,
@@ -250,7 +355,7 @@
 			children = (
 				D09793C915CA35F8006904AF /* Classes */,
 				D0C5AFC515E9907100710EA9 /* Categories */,
-				D09793CD15CA361A006904AF /* External */,
+				D09793CD15CA361A006904AF /* Vendor */,
 				D09793AB15CA35EE006904AF /* main.m */,
 				D09793BE15CA35EF006904AF /* Prefix.pch */,
 				D0B89CEF15C52E1D00EC6B55 /* Resources */,
@@ -277,7 +382,6 @@
 		D0B89D1815C52E1D00EC6B55 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
-				D09793DF15CA36A2006904AF /* Kiwi.xcodeproj */,
 				D09793F215CA36B4006904AF /* MCServerSpec.m */,
 				D0B194D315E34B9300FE96FF /* MCRCONClientSpec.m */,
 				D05BA27E16078355002239F2 /* NSStringObfuscationSpec.m */,
@@ -316,6 +420,8 @@
 			buildRules = (
 			);
 			dependencies = (
+				D06DD61C16375AFD000F8C80 /* PBXTargetDependency */,
+				D06DD61A16375AF8000F8C80 /* PBXTargetDependency */,
 			);
 			name = MineRCON;
 			productName = MineRCON;
@@ -364,6 +470,10 @@
 			projectDirPath = "";
 			projectReferences = (
 				{
+					ProductGroup = D06DD60416375AD7000F8C80 /* Products */;
+					ProjectRef = D06DD60316375AD7000F8C80 /* HockeySDK.xcodeproj */;
+				},
+				{
 					ProductGroup = D09793E015CA36A2006904AF /* Products */;
 					ProjectRef = D09793DF15CA36A2006904AF /* Kiwi.xcodeproj */;
 				},
@@ -377,6 +487,41 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
+		D06DD61016375AD7000F8C80 /* HockeySDK.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = HockeySDK.framework;
+			remoteRef = D06DD60F16375AD7000F8C80 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		D06DD61216375AD7000F8C80 /* libHockeySDK-iphoneos.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = "libHockeySDK-iphoneos.a";
+			remoteRef = D06DD61116375AD7000F8C80 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		D06DD61416375AD7000F8C80 /* libHockeySDK-iphonesimulator.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = "libHockeySDK-iphonesimulator.a";
+			remoteRef = D06DD61316375AD7000F8C80 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		D06DD61616375AD7000F8C80 /* libHockeySDK.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libHockeySDK.a;
+			remoteRef = D06DD61516375AD7000F8C80 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		D06DD61816375AD7000F8C80 /* HockeySDKResources.bundle */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = HockeySDKResources.bundle;
+			remoteRef = D06DD61716375AD7000F8C80 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 		D09793EB15CA36A3006904AF /* libKiwi.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
@@ -412,6 +557,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D0433EBE16375C310000BBC3 /* HockeySDKResources.bundle in Resources */,
 				D09793D515CA364B006904AF /* Background.png in Resources */,
 				D09793D715CA364B006904AF /* Button_disabled.png in Resources */,
 				D09793D815CA364B006904AF /* Button_highlighted.png in Resources */,
@@ -484,6 +630,16 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		D06DD61A16375AF8000F8C80 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = HockeySDKLib;
+			targetProxy = D06DD61916375AF8000F8C80 /* PBXContainerItemProxy */;
+		};
+		D06DD61C16375AFD000F8C80 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = HockeySDKResources;
+			targetProxy = D06DD61B16375AFD000F8C80 /* PBXContainerItemProxy */;
+		};
 		D0B89D1715C52E1D00EC6B55 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = D0B89CE315C52E1C00EC6B55 /* MineRCON */;
@@ -555,10 +711,20 @@
 		D0B89D2415C52E1D00EC6B55 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/Classes/HockeySDK/Vendor\"",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Classes/Prefix.pch;
 				INFOPLIST_FILE = Resources/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				OTHER_LDFLAGS = (
+					"-all_load",
+					"-ObjC",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/Classes/HockeySDK/Classes";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;

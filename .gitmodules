@@ -4,3 +4,6 @@
 [submodule "Tests/Kiwi"]
 	path = Tests/Kiwi
 	url = git://github.com/allending/Kiwi.git
+[submodule "Classes/HockeySDK"]
+	path = Classes/HockeySDK
+	url = git://github.com/bitstadium/HockeySDK-iOS.git
