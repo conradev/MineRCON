@@ -11,16 +11,16 @@
 
 #import "MCAppDelegate.h"
 
-#import "MCTextField.h"
+#import "MCEditTextField.h"
 #import "MCButton.h"
 
 @interface MCServerEditViewController () {
     __weak UIScrollView *_containerView;
     __weak NSLayoutConstraint *_bottomConstraint;
 
-    __weak MCTextField *_nameField;
-    __weak MCTextField *_hostnameField;
-    __weak MCTextField *_passwordField;
+    __weak MCEditTextField *_nameField;
+    __weak MCEditTextField *_hostnameField;
+    __weak MCEditTextField *_passwordField;
     __weak MCButton *_connectButton;
     
     __weak UITextField *_lastTextField;
@@ -64,35 +64,38 @@
     _bottomConstraint = bottomConstraint;
     [self.view addConstraint:_bottomConstraint];
     
-    MCTextField *nameField = [[MCTextField alloc] init];
+    MCEditTextField *nameField = [[MCEditTextField alloc] init];
     nameField.text = _server.name;
     nameField.returnKeyType = UIReturnKeyNext;
-    nameField.translatesAutoresizingMaskIntoConstraints = NO;
-    nameField.delegate = self;
     _nameField = nameField;
     [_containerView addSubview:_nameField];
     [_containerView addConstraint:[NSLayoutConstraint constraintWithItem:_nameField attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:_containerView attribute:NSLayoutAttributeCenterX multiplier:1.0f constant:0.0f]];
     
-    MCTextField *hostnameField = [[MCTextField alloc] init];
+    MCEditTextField *hostnameField = [[MCEditTextField alloc] init];
     hostnameField.text = _server.hostname;
     hostnameField.autocapitalizationType = UITextAutocapitalizationTypeNone;
     hostnameField.returnKeyType = UIReturnKeyNext;
-    hostnameField.translatesAutoresizingMaskIntoConstraints = NO;
-    hostnameField.delegate = self;
     _hostnameField = hostnameField;
     [_containerView addSubview:_hostnameField];
     [_containerView addConstraint:[NSLayoutConstraint constraintWithItem:_hostnameField attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:_containerView attribute:NSLayoutAttributeCenterX multiplier:1.0f constant:0.0f]];
     
-    MCTextField *passwordField = [[MCTextField alloc] init];
+    MCEditTextField *passwordField = [[MCEditTextField alloc] init];
     passwordField.text = _server.password;
     passwordField.autocapitalizationType = UITextAutocapitalizationTypeNone;
     passwordField.returnKeyType = UIReturnKeyDone;
     passwordField.secureTextEntry = YES;
-    passwordField.translatesAutoresizingMaskIntoConstraints = NO;
-    passwordField.delegate = self;
     _passwordField = passwordField;
     [_containerView addSubview:_passwordField];
     [_containerView addConstraint:[NSLayoutConstraint constraintWithItem:_passwordField attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:_containerView attribute:NSLayoutAttributeCenterX multiplier:1.0f constant:0.0f]];
+    
+    // Properties common to all three fields
+    [@[_nameField, _hostnameField, _passwordField] enumerateObjectsUsingBlock:^(UITextField *textField, NSUInteger idx, BOOL *stop) {
+        textField.delegate = self;
+        textField.translatesAutoresizingMaskIntoConstraints = NO;
+        textField.autocorrectionType = UITextAutocorrectionTypeNo;
+        textField.spellCheckingType = UITextSpellCheckingTypeNo;
+        textField.keyboardType = UIKeyboardTypeASCIICapable;
+    }];
     
     MCButton *connectButton = [[MCButton alloc] init];
     [connectButton setTitle:@"Connect" forState:UIControlStateNormal];

@@ -11,14 +11,14 @@
 
 #import "MCAppDelegate.h"
 
-#import "NSAttributedString+Minecraft.h"
+#import "MCTextField.h"
 
 @interface MCServerConnectionViewController () {
     __weak UIView *_containerView;
     __weak NSLayoutConstraint *_bottomConstraint;
 
     __weak UITextView *_outputView;
-    __weak UITextField *_inputField;
+    __weak MCTextField *_inputField;
 }
 
 @end
@@ -63,11 +63,10 @@
     [_containerView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[output]|" options:NSLayoutFormatAlignAllCenterX metrics:nil views:@{ @"output" : _outputView }]];
     
     // Add input field to heirarchy
-    UITextField *inputField = [[UITextField alloc] init];
+    MCTextField *inputField = [[MCTextField alloc] init];
     inputField.delegate = self;
     inputField.translatesAutoresizingMaskIntoConstraints = NO;
     inputField.backgroundColor = [UIColor grayColor];
-    inputField.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
     inputField.autocapitalizationType = UITextAutocapitalizationTypeNone;
     inputField.autocorrectionType = UITextAutocorrectionTypeNo;
     inputField.spellCheckingType = UITextSpellCheckingTypeNo;
@@ -118,14 +117,6 @@
 }
 
 #pragma mark - User Interface
-
-- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
-    if ([textField isEqual:_inputField]) {
-        textField.typingAttributes = [NSAttributedString defaultMinecraftAttributes];
-    }
-    
-    return YES;
-}
 
 - (void)outputViewTapped:(id)sender {
     [_inputField resignFirstResponder];
@@ -211,7 +202,6 @@
         MCServerDetailViewController *parent = (MCServerDetailViewController *)self.parentViewController;
         if ([parent sendButtonPressed:_inputField.text]) {
             _inputField.text = nil;
-            _inputField.typingAttributes = [NSAttributedString defaultMinecraftAttributes];
         }
     }
     
