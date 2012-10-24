@@ -98,7 +98,7 @@ NSString * const MCServerListIdentifier = @"MCServerListViewController";
     
     // Set up HockeyApp
     BITHockeyManager *hockeyManager = [BITHockeyManager sharedHockeyManager];
-    [hockeyManager configureWithBetaIdentifier:@"" liveIdentifier:@"" delegate:self];
+    [hockeyManager configureWithBetaIdentifier:@"a7501c5e67fff3beee23f67033660276" liveIdentifier:@"56af34ce7a237742eb1db93c348cfb95" delegate:self];
     [hockeyManager startManager];
     
     // Make the window visible
@@ -146,6 +146,18 @@ NSString * const MCServerListIdentifier = @"MCServerListViewController";
 - (void)applicationWillTerminate:(UIApplication *)application
 {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+}
+
+#pragma mark - HockeyApp
+
+- (NSString *)customDeviceIdentifierForUpdateManager:(BITUpdateManager *)updateManager {
+    
+#ifndef CONFIGURATION_AppStore
+    if ([[UIDevice currentDevice] respondsToSelector:@selector(uniqueIdentifier)])
+        return [[UIDevice currentDevice] performSelector:@selector(uniqueIdentifier)];
+#endif
+    
+    return nil;
 }
 
 @end
