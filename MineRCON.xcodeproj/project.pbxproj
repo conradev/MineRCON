@@ -202,6 +202,7 @@
 		D09F088715EBD1190012FC7C /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		D09F088915EBD1350012FC7C /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		D09F088B15EBD14F0012FC7C /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
+		D0A9CE12163880E800B1D4C5 /* BuildNumber.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = BuildNumber.xcconfig; sourceTree = SOURCE_ROOT; };
 		D0B194D315E34B9300FE96FF /* MCRCONClientSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MCRCONClientSpec.m; path = Tests/MCRCONClientSpec.m; sourceTree = SOURCE_ROOT; };
 		D0B89CE415C52E1D00EC6B55 /* MineRCON.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MineRCON.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D0B89CE815C52E1D00EC6B55 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
@@ -380,6 +381,7 @@
 		D0B89CEE15C52E1D00EC6B55 /* MineRCON */ = {
 			isa = PBXGroup;
 			children = (
+				D0A9CE12163880E800B1D4C5 /* BuildNumber.xcconfig */,
 				D09793C915CA35F8006904AF /* Classes */,
 				D0C5AFC515E9907100710EA9 /* Categories */,
 				D0B89D1815C52E1D00EC6B55 /* Tests */,
@@ -445,6 +447,7 @@
 				D0B89CE015C52E1C00EC6B55 /* Sources */,
 				D0B89CE115C52E1C00EC6B55 /* Frameworks */,
 				D0B89CE215C52E1C00EC6B55 /* Resources */,
+				D0A9CE131638849800B1D4C5 /* Increment Build Number */,
 			);
 			buildRules = (
 			);
@@ -609,6 +612,20 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		D0A9CE131638849800B1D4C5 /* Increment Build Number */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 12;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Increment Build Number";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if [ \"$CONFIGURATION\" == \"AdHoc\"  ] || [ \"$CONFIGURATION\" == \"Debug\"  ];\nthen /usr/bin/perl -pe 's/(BUILD_NUMBER = )(\\d+)/$1.($2+1)/eg' -i BuildNumber.xcconfig\nfi";
+		};
 		D0B89D0F15C52E1D00EC6B55 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -695,6 +712,7 @@
 /* Begin XCBuildConfiguration section */
 		D0433ED8163765700000BBC3 /* AdHoc */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = D0A9CE12163880E800B1D4C5 /* BuildNumber.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				BUNDLE_DISPLAY_NAME_SUFFIX = " β";
@@ -734,6 +752,7 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Classes/Prefix.pch;
+				GCC_PREPROCESSOR_DEFINITIONS = "CONFIGURATION_${CONFIGURATION}";
 				INFOPLIST_FILE = Resources/Info.plist;
 				OTHER_LDFLAGS = (
 					"-ObjC",
@@ -769,6 +788,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				BUILD_NUMBER = 1;
 				BUNDLE_DISPLAY_NAME_SUFFIX = "";
 				BUNDLE_ID_SUFFIX = "";
 				CLANG_ANALYZER_SECURITY_FLOATLOOPCOUNTER = YES;
@@ -803,6 +823,7 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Classes/Prefix.pch;
+				GCC_PREPROCESSOR_DEFINITIONS = "CONFIGURATION_${CONFIGURATION}";
 				INFOPLIST_FILE = Resources/Info.plist;
 				OTHER_LDFLAGS = (
 					"-ObjC",
@@ -873,6 +894,7 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Classes/Prefix.pch;
+				GCC_PREPROCESSOR_DEFINITIONS = "CONFIGURATION_${CONFIGURATION}";
 				INFOPLIST_FILE = Resources/Info.plist;
 				OTHER_LDFLAGS = (
 					"-ObjC",
@@ -947,6 +969,7 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Classes/Prefix.pch;
+				GCC_PREPROCESSOR_DEFINITIONS = "CONFIGURATION_${CONFIGURATION}";
 				INFOPLIST_FILE = Resources/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				OTHER_LDFLAGS = (

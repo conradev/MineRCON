@@ -20,7 +20,7 @@ NSString * const MCSplitViewIdentifier = @"MCSplitViewController";
 NSString * const MCMasterNavigationIdentifier = @"MCNavigationController";
 NSString * const MCServerListIdentifier = @"MCServerListViewController";
 
-#ifdef BETA
+#if defined(CONFIGURATION_Debug) || defined(CONFIGURATION_AdHoc)
 int ddLogLevel = LOG_LEVEL_VERBOSE;
 #else
 int ddLogLevel = LOG_LEVEL_WARN;
@@ -169,7 +169,7 @@ int ddLogLevel = LOG_LEVEL_WARN;
     [_fileLogger performSelector:@selector(currentLogFileHandle)];
     
     [DDLog addLogger:_fileLogger];
-#ifdef BETA
+#if defined(CONFIGURATION_Debug) || defined(CONFIGURATION_AdHoc)
     [DDLog addLogger:[DDTTYLogger sharedInstance]];
 #endif
 }
@@ -178,7 +178,7 @@ int ddLogLevel = LOG_LEVEL_WARN;
 
 - (NSString *)customDeviceIdentifierForUpdateManager:(BITUpdateManager *)updateManager {
     
-#ifdef BETA
+#if defined(CONFIGURATION_Debug) || defined(CONFIGURATION_AdHoc)
     if ([[UIDevice currentDevice] respondsToSelector:@selector(uniqueIdentifier)])
         return [[UIDevice currentDevice] performSelector:@selector(uniqueIdentifier)];
 #endif
