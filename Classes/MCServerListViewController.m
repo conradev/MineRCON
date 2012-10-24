@@ -9,6 +9,10 @@
 #import "MCServerListViewController.h"
 #import "MCServerDetailViewController.h"
 
+#import "DDLog.h"
+
+extern int ddLogLevel;
+
 NSString * const MCSelectedIndexKey = @"MCSelectedIndex";
 
 NSString * const MCServerCellIdentifier = @"MCServerCell";
@@ -103,7 +107,7 @@ NSString * const MCServerCellIdentifier = @"MCServerCell";
         [data writeToFile:serversPath options:NSDataWritingFileProtectionComplete error:&error]; // Always use protection
         
         if (error) {
-            NSLog(@"Error occured saving data: %@", [error localizedDescription]);
+            DDLogError(@"Error occured saving data: %@", error);
         }
     }
 }

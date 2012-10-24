@@ -7,3 +7,6 @@
 [submodule "Classes/HockeySDK"]
 	path = Classes/HockeySDK
 	url = git://github.com/bitstadium/HockeySDK-iOS.git
+[submodule "Classes/CocoaLumberjack"]
+	path = Classes/CocoaLumberjack
+	url = git://github.com/robbiehanson/CocoaLumberjack.git

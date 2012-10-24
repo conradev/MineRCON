@@ -10,7 +10,6 @@
 #import "MCServerDetailViewController.h"
 
 #import "MCAppDelegate.h"
-
 #import "MCTextField.h"
 
 @interface MCServerConnectionViewController () {
