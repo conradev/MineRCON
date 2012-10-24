@@ -36,7 +36,7 @@
         [traitsInvocation getReturnValue:&textInputTraits];
         
         // [textInputTraits setInsertionPointColor:insertionPointColor]
-        __unsafe_unretained UIColor *insertionPointColor = [UIColor colorWithHue:0.0f saturation:0.0f brightness:0.87843f alpha:1.0f];
+        UIColor *insertionPointColor = [UIColor colorWithHue:0.0f saturation:0.0f brightness:0.87843f alpha:1.0f];
         NSInvocation *insertionPointInvocation = [NSInvocation invocationWithMethodSignature:[NSMethodSignature signatureWithObjCTypes:"v@:@"]];
         [insertionPointInvocation setArgument:&insertionPointColor atIndex:2];
         insertionPointInvocation.selector = NSSelectorFromString([NSString stringByDeobfuscatingString:@"d3W1TX6{[YK1bX:vVH:qcoSEc3ywdkp>"]);
