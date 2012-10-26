@@ -21,6 +21,10 @@ extern NSString * const MCRCONErrorDomain;
 // KVO
 extern NSString * const MCRCONClientStateKey;
 
+// NSNotificationCenter
+extern NSString * const MCRCONClientStateWillChangeNotification;
+extern NSString * const MCRCONClientStateDidChangeNotification;
+
 typedef enum MCRCONClientState {
     MCRCONClientDisconnectedState,
 	MCRCONClientConnectingState,

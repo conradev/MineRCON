@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		D0053FBC1628E18900FAE4CC /* MCEditTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = D0053FBB1628E18900FAE4CC /* MCEditTextField.m */; };
+		D00F99FE16389AFE009CA90B /* MCEjectButton.m in Sources */ = {isa = PBXBuildFile; fileRef = D00F99FD16389AFE009CA90B /* MCEjectButton.m */; };
 		D0433EB716375B900000BBC3 /* CrashReporter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0433EB616375B900000BBC3 /* CrashReporter.framework */; };
 		D0433EBE16375C310000BBC3 /* HockeySDKResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = D06DD61816375AD7000F8C80 /* HockeySDKResources.bundle */; };
 		D05BA24316063FAF002239F2 /* NSData+Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = D05BA24216063FAF002239F2 /* NSData+Base64.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -145,6 +146,8 @@
 /* Begin PBXFileReference section */
 		D0053FBA1628E18900FAE4CC /* MCEditTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MCEditTextField.h; path = Classes/MCEditTextField.h; sourceTree = SOURCE_ROOT; };
 		D0053FBB1628E18900FAE4CC /* MCEditTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MCEditTextField.m; path = Classes/MCEditTextField.m; sourceTree = SOURCE_ROOT; };
+		D00F99FC16389AFE009CA90B /* MCEjectButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MCEjectButton.h; path = Classes/MCEjectButton.h; sourceTree = SOURCE_ROOT; };
+		D00F99FD16389AFE009CA90B /* MCEjectButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MCEjectButton.m; path = Classes/MCEjectButton.m; sourceTree = SOURCE_ROOT; };
 		D0433EB616375B900000BBC3 /* CrashReporter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CrashReporter.framework; path = Classes/HockeySDK/Vendor/CrashReporter.framework; sourceTree = SOURCE_ROOT; };
 		D05BA23C1606340B002239F2 /* NSString+Obfuscation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSString+Obfuscation.h"; path = "Classes/NSString+Obfuscation.h"; sourceTree = SOURCE_ROOT; };
 		D05BA23D1606340B002239F2 /* NSString+Obfuscation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSString+Obfuscation.m"; path = "Classes/NSString+Obfuscation.m"; sourceTree = SOURCE_ROOT; };
@@ -318,6 +321,8 @@
 				D0053FBB1628E18900FAE4CC /* MCEditTextField.m */,
 				D09793AE15CA35EE006904AF /* MCButton.h */,
 				D09793AF15CA35EE006904AF /* MCButton.m */,
+				D00F99FC16389AFE009CA90B /* MCEjectButton.h */,
+				D00F99FD16389AFE009CA90B /* MCEjectButton.m */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -665,6 +670,7 @@
 				D07E7FBE1637A691003B904C /* DDFileLogger.m in Sources */,
 				D07E7FBF1637A691003B904C /* DDLog.m in Sources */,
 				D07E7FC01637A691003B904C /* DDTTYLogger.m in Sources */,
+				D00F99FE16389AFE009CA90B /* MCEjectButton.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

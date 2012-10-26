@@ -8,6 +8,8 @@
 
 #import "MCServerListViewController.h"
 #import "MCServerDetailViewController.h"
+#import "MCRCONClient.h"
+#import "MCEjectButton.h"
 
 #import "DDLog.h"
 
@@ -44,6 +46,12 @@ NSString * const MCServerCellIdentifier = @"MCServerCell";
         [_servers enumerateObjectsUsingBlock:^(MCServer *server, NSUInteger idx, BOOL *stop) {
             [self beginObservingServer:server];
         }];
+        
+        __weak MCServerListViewController *weakSelf = self;
+        [[NSNotificationCenter defaultCenter] addObserverForName:MCRCONClientStateDidChangeNotification object:nil queue:nil usingBlock:^(NSNotification *note) {
+            MCServer *server = (MCServer *)note.object;
+            [weakSelf reloadRowForServer:server];
+        }];
     }
     return self;
 }
@@ -52,6 +60,8 @@ NSString * const MCServerCellIdentifier = @"MCServerCell";
     [_servers enumerateObjectsUsingBlock:^(MCServer *server, NSUInteger idx, BOOL *stop) {
         [self stopObservingServer:server];
     }];
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:MCRCONClientStateDidChangeNotification object:nil];
 }
 
 - (void)viewDidLoad {
@@ -129,8 +139,7 @@ NSString * const MCServerCellIdentifier = @"MCServerCell";
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
     if ([_servers containsObject:object]) {
         // Reload row in table
-        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:[_servers indexOfObject:object] inSection:0];
-        [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+        [self reloadRowForServer:(MCServer *)object];
         
         // Save changes
         [self saveServers];
@@ -157,6 +166,11 @@ NSString * const MCServerCellIdentifier = @"MCServerCell";
     [self tableView:self.tableView didSelectRowAtIndexPath:indexPath];
 }
 
+- (void)reloadRowForServer:(MCServer *)server {
+    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:[_servers indexOfObject:server] inSection:0];
+    [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+}
+
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -172,10 +186,17 @@ NSString * const MCServerCellIdentifier = @"MCServerCell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:MCServerCellIdentifier];
     if (cell == nil) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:MCServerCellIdentifier];
+        
+        MCEjectButton *ejectButton = [[MCEjectButton alloc] initWithFrame:CGRectMake(0, 0, 15, 12)];
+        [ejectButton addTarget:self action:@selector(ejectButtonPressed:event:) forControlEvents:UIControlEventTouchUpInside];
+        cell.accessoryView = ejectButton;
     }
     
     MCServer *server = _servers[indexPath.row];
     cell.textLabel.text = server.name.length ? server.name : server.hostname;
+    
+    MCServerDetailViewController *detailViewController = [_detailViewsCache objectForKey:server];
+    cell.accessoryView.hidden = (!detailViewController || detailViewController.client.state == MCRCONClientDisconnectedState);
     
     return cell;
 }
@@ -226,6 +247,16 @@ NSString * const MCServerCellIdentifier = @"MCServerCell";
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     MCServer *server = _servers[indexPath.row];
     [self displayViewControllerForServer:server];
+}
+
+- (void)ejectButtonPressed:(MCEjectButton *)sender event:(id)event {
+    CGPoint buttonPoint = [self.tableView convertPoint:sender.center fromView:sender.superview];
+    NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:buttonPoint];
+    
+    MCServer *server = _servers[indexPath.row];
+    
+    MCServerDetailViewController *detailViewController = [_detailViewsCache objectForKey:server];
+    [detailViewController.client disconnect];
 }
 
 #pragma mark - Navigation controller delegate

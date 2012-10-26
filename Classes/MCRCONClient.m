@@ -24,6 +24,10 @@ NSString * const MCRCONErrorDomain = @"MCRCONErrorDomain";
 // KVO
 NSString * const MCRCONClientStateKey = @"state";
 
+// NSNotificationCenter
+NSString * const MCRCONClientStateWillChangeNotification = @"MCRCONClientStateWillChangeNotification";
+NSString * const MCRCONClientStateDidChangeNotification = @"MCRCONClientStateDidChangeNotification";
+
 // Packet construction
 NSString * const MCRCONPayloadKey = @"MCRCONPayloadKey";
 NSString * const MCRCONTagKey = @"MCRCONTagKey";
@@ -76,6 +80,22 @@ NSString * const MCRCONPacketTypeKey = @"MCRCONPacketTypeKey";
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
     if ([object isEqual:_server]) {
         [self disconnect];
+    }
+}
+
+- (void)willChangeValueForKey:(NSString *)key {
+    if ([key isEqualToString:MCRCONClientStateKey]) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:MCRCONClientStateWillChangeNotification object:self];
+    }
+    
+    [super willChangeValueForKey:key];
+}
+
+- (void)didChangeValueForKey:(NSString *)key {
+    [super didChangeValueForKey:key];
+    
+    if ([key isEqualToString:MCRCONClientStateKey]) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:MCRCONClientStateDidChangeNotification object:self];
     }
 }
 
