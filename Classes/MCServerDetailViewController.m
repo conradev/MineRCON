@@ -93,6 +93,8 @@
             if (state == MCRCONClientReadyState || state == MCRCONClientExecutingState) {
                 [self displayChildViewController:_connectionViewController];
             } else {
+                [_connectionViewController clearOutput];
+                
                 [self displayChildViewController:_editViewController];
             }
         }

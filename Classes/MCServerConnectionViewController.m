@@ -111,7 +111,7 @@
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
-    
+
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillChangeFrameNotification object:nil];
 }
 
@@ -185,6 +185,10 @@
 }
 
 #pragma mark - External interface
+
+- (void)clearOutput {
+    _outputView.attributedText = nil;
+}
 
 - (void)appendOutput:(NSAttributedString *)response {
     if (response) {

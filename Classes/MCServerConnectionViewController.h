@@ -10,6 +10,8 @@
 
 @interface MCServerConnectionViewController : UIViewController <UITextFieldDelegate>
 
+- (void)clearOutput;
+
 - (void)appendOutput:(NSAttributedString *)response;
 
 @end
