@@ -26,7 +26,8 @@ NSString * const MCFormatSpecifierItalics = @"o";
         specifier = MCFormatSpecifierReset;
     }
     
-    NSMutableDictionary *attributes = [NSMutableDictionary dictionaryWithDictionary:@{ NSFontAttributeName : [UIFont fontWithName:@"Minecraft" size:16.0f] }];
+    CGFloat fontSize = [[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad ? 16.0f : 12.0f;
+    NSMutableDictionary *attributes = [NSMutableDictionary dictionaryWithDictionary:@{ NSFontAttributeName : [UIFont fontWithName:@"Minecraft" size:fontSize] }];
     
     if ([specifier isEqualToString:MCFormatSpecifierBold]) {
         // We got nothing, folks!
