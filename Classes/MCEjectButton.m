@@ -16,22 +16,23 @@
     [ejectColor setFill];
     [ejectColor setStroke];
     
+    CGPoint center = CGPointMake(CGRectGetMidX(rect), CGRectGetMidY(rect));
+    
     // Draw triangle
     UIBezierPath *trianglePath = [UIBezierPath bezierPath];
-    [trianglePath moveToPoint:CGPointMake(7.5, 1)];
-    [trianglePath addLineToPoint:CGPointMake(1, 7)];
-    [trianglePath addLineToPoint:CGPointMake(14, 7)];
+    [trianglePath moveToPoint:CGPointMake(center.x, center.y - 5)];
+    [trianglePath addLineToPoint:CGPointMake(center.x - 6.5, center.y + 1)];
+    [trianglePath addLineToPoint:CGPointMake(center.x + 6.5, center.y + 1)];
     [trianglePath closePath];
-    trianglePath.lineWidth = 1;
+    trianglePath.lineWidth = 1.0;
     [trianglePath fill];
     [trianglePath stroke];
     
     // Draw rectangle
-    UIBezierPath *rectanglePath = [UIBezierPath bezierPathWithRect:CGRectMake(0, 10, 15, 2)];
-    rectanglePath.lineWidth = 1;
+    UIBezierPath *rectanglePath = [UIBezierPath bezierPathWithRect:CGRectMake(center.x - 7.5, center.y + 4, 15, 3)];
     [rectanglePath fill];
-    [rectanglePath stroke];
     
+    // Draw touch gradient
     if (self.touchInside) {
         CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
         CGContextRef context = UIGraphicsGetCurrentContext();
@@ -39,10 +40,14 @@
         NSArray *gradientColors = @[ (id)[UIColor colorWithWhite:1.0f alpha:1.0f].CGColor, (id)[UIColor colorWithWhite:1.0f alpha:0.0f].CGColor ];
         CGGradientRef gradient = CGGradientCreateWithColors(colorSpace, (__bridge CFArrayRef)(gradientColors), NULL);
         
-        CGContextSaveGState(context);
-        CGPoint center = CGPointMake(CGRectGetMidX(rect), CGRectGetMidY(rect));
-        CGContextDrawRadialGradient(context, gradient, center, 1, center, 6, kCGGradientDrawsBeforeStartLocation | kCGGradientDrawsAfterEndLocation);
-        CGContextRestoreGState(context);
+        CGPoint gradientCenter = CGPointMake(center.x, center.y + 2);
+        
+        CGFloat outerRadius = CGRectGetHeight(rect) - gradientCenter.y;
+        if (center.x < outerRadius) {
+            outerRadius = center.x;
+        }
+        
+        CGContextDrawRadialGradient(context, gradient, gradientCenter, 1, gradientCenter, outerRadius, kCGGradientDrawsBeforeStartLocation | kCGGradientDrawsAfterEndLocation);
             
         CGGradientRelease(gradient);
         CGColorSpaceRelease(colorSpace);
@@ -64,7 +69,7 @@
     };
     
     UITableViewCell *cell = getTableCell(self);
-    highlighted = cell ? cell.selected : highlighted;
+    highlighted = cell ? (cell.selected || cell.highlighted) : highlighted;
     
     [super setHighlighted:highlighted];
     [self setNeedsDisplay];

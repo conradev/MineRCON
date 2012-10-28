@@ -49,8 +49,8 @@ NSString * const MCServerCellIdentifier = @"MCServerCell";
         
         __weak MCServerListViewController *weakSelf = self;
         [[NSNotificationCenter defaultCenter] addObserverForName:MCRCONClientStateDidChangeNotification object:nil queue:nil usingBlock:^(NSNotification *note) {
-            MCServer *server = (MCServer *)note.object;
-            [weakSelf reloadRowForServer:server];
+            MCRCONClient *client = (MCRCONClient *)note.object;
+            [weakSelf reloadRowForServer:client.server];
         }];
     }
     return self;
@@ -69,6 +69,9 @@ NSString * const MCServerCellIdentifier = @"MCServerCell";
     
     self.title = @"Servers";
     self.clearsSelectionOnViewWillAppear = NO;
+    
+    // 
+    self.tableView.delaysContentTouches = NO;
     
     self.tableView.rowHeight = 58.0f;
     
@@ -166,11 +169,6 @@ NSString * const MCServerCellIdentifier = @"MCServerCell";
     [self tableView:self.tableView didSelectRowAtIndexPath:indexPath];
 }
 
-- (void)reloadRowForServer:(MCServer *)server {
-    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:[_servers indexOfObject:server] inSection:0];
-    [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
-}
-
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -181,24 +179,33 @@ NSString * const MCServerCellIdentifier = @"MCServerCell";
     return _servers.count;
 }
 
+- (void)reloadRowForServer:(MCServer *)server {
+    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:[_servers indexOfObject:server] inSection:0];    
+    [self configureCell:[self.tableView cellForRowAtIndexPath:indexPath] withServer:server];
+}
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:MCServerCellIdentifier];
     if (cell == nil) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:MCServerCellIdentifier];
         
-        MCEjectButton *ejectButton = [[MCEjectButton alloc] initWithFrame:CGRectMake(0, 0, 15, 12)];
+        MCEjectButton *ejectButton = [[MCEjectButton alloc] initWithFrame:CGRectMake(0, 0, 30, 30)];
         [ejectButton addTarget:self action:@selector(ejectButtonPressed:event:) forControlEvents:UIControlEventTouchUpInside];
         cell.accessoryView = ejectButton;
     }
     
     MCServer *server = _servers[indexPath.row];
+    [self configureCell:cell withServer:server];
+    
+    return cell;
+}
+
+- (void)configureCell:(UITableViewCell *)cell withServer:(MCServer *)server {
     cell.textLabel.text = server.name.length ? server.name : server.hostname;
     
     MCServerDetailViewController *detailViewController = [_detailViewsCache objectForKey:server];
     cell.accessoryView.hidden = (!detailViewController || detailViewController.client.state == MCRCONClientDisconnectedState);
-    
-    return cell;
 }
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
