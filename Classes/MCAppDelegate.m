@@ -64,7 +64,7 @@ int ddLogLevel = LOG_LEVEL_WARN;
     [center addObserverForName:UIKeyboardDidShowNotification object:nil queue:nil usingBlock:^(NSNotification *note) { _keyboardShowing = YES; }];
     [center addObserverForName:UIKeyboardWillHideNotification object:nil queue:nil usingBlock:^(NSNotification *note) { _keyboardShowing = NO; }];
     [center addObserverForName:UIKeyboardDidChangeFrameNotification object:nil queue:nil usingBlock:^(NSNotification *note) {
-        CGRect keyboardFrame = [[note.userInfo objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue];
+        CGRect keyboardFrame = [note.userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue];
         _keyboardFrame = [_window convertRect:keyboardFrame fromWindow:nil];
     }];
 }
