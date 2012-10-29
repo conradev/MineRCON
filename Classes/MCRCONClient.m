@@ -11,6 +11,8 @@
 #import "GCDAsyncSocket.h"
 #import "NSAttributedString+Minecraft.h"
 
+#import "DDLog.h"
+
 #define AUTH_TAG 1
 
 typedef enum RCONPacketType {
@@ -18,6 +20,8 @@ typedef enum RCONPacketType {
     RCONAuthentication = 3,
     RCONCommand = 2
 } RCONPacketType;
+
+extern int ddLogLevel;
 
 NSString * const MCRCONErrorDomain = @"MCRCONErrorDomain";
 
@@ -64,27 +68,29 @@ NSString * const MCRCONPacketTypeKey = @"MCRCONPacketTypeKey";
         _currentTag = AUTH_TAG + 1;
         _server = server;
         
-        [_server addObserver:self forKeyPath:@"hostname" options:NSKeyValueObservingOptionNew context:nil];
-        [_server addObserver:self forKeyPath:@"port" options:NSKeyValueObservingOptionNew context:nil];
-        [_server addObserver:self forKeyPath:@"password" options:NSKeyValueObservingOptionNew context:nil];
+        [_server addObserver:self forKeyPath:MCServerHostnameKey options:NSKeyValueObservingOptionNew context:nil];
+        [_server addObserver:self forKeyPath:MCServerPortKey options:NSKeyValueObservingOptionNew context:nil];
+        [_server addObserver:self forKeyPath:MCServerPasswordKey options:NSKeyValueObservingOptionNew context:nil];
     }
     return self;
 }
 
 - (void)dealloc {
-    [_server removeObserver:self forKeyPath:@"hostname"];
-    [_server removeObserver:self forKeyPath:@"port"];
-    [_server removeObserver:self forKeyPath:@"password"];
+    [_server removeObserver:self forKeyPath:MCServerHostnameKey];
+    [_server removeObserver:self forKeyPath:MCServerPortKey];
+    [_server removeObserver:self forKeyPath:MCServerPasswordKey];
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
     if ([object isEqual:_server]) {
+        DDLogWarn(@"(%@): Disconnecting due to key value change (%@) in server object: %@", self, change, _server);
         [self disconnect];
     }
 }
 
 - (void)willChangeValueForKey:(NSString *)key {
     if ([key isEqualToString:MCRCONClientStateKey]) {
+        DDLogInfo(@"(%@): Posting state will change notification", self);
         [[NSNotificationCenter defaultCenter] postNotificationName:MCRCONClientStateWillChangeNotification object:self];
     }
     
@@ -95,14 +101,28 @@ NSString * const MCRCONPacketTypeKey = @"MCRCONPacketTypeKey";
     [super didChangeValueForKey:key];
     
     if ([key isEqualToString:MCRCONClientStateKey]) {
+        DDLogInfo(@"(%@): Posting state did change notification", self);
         [[NSNotificationCenter defaultCenter] postNotificationName:MCRCONClientStateDidChangeNotification object:self];
     }
 }
 
 #pragma mark - Public methods
 
-- (void)connect:(void(^)(BOOL success, NSError *error))callback {
+- (void)connect:(void(^)(BOOL success, NSError *error))origCallback {
     @synchronized (self) {
+        DDLogInfo(@"(%@): Connecting to server: %@:%i", self, _server.hostname, _server.port);
+        
+        // Wrap block for error logging
+        __weak MCRCONClient *weakSelf = self;
+        void (^callback)(BOOL, NSError *) = ^(BOOL success, NSError *error) {
+            if (error) {
+                DDLogError(@"(%@): Connection to server \"%@:%i\" failed with error: %@", weakSelf, weakSelf.server.hostname, weakSelf.server.port, error);
+            } else if (success) {
+                DDLogInfo(@"(%@) Connection and authentication with server \"%@:%i\" was successful", weakSelf, weakSelf.server.hostname, weakSelf.server.port);
+            }
+            origCallback(success, error);
+        };
+        
         if (self.state == MCRCONClientExecutingState || self.state == MCRCONClientReadyState) {
             if (callback) {
                 callback(YES, nil);
@@ -129,8 +149,21 @@ NSString * const MCRCONPacketTypeKey = @"MCRCONPacketTypeKey";
     }
 }
 
-- (void)sendCommand:(NSString *)command callback:(void(^)(NSAttributedString *response, NSError *error))callback {
+- (void)sendCommand:(NSString *)command callback:(void(^)(NSAttributedString *response, NSError *error))origCallback {
     @synchronized (self) {
+        DDLogInfo(@"(%@): Sending command: %@", self, command);
+
+        // Wrap block for error logging
+        __weak MCRCONClient *weakSelf = self;
+        void (^callback)(NSAttributedString *, NSError *) = ^(NSAttributedString *response, NSError *error) {
+            if (error) {
+                DDLogError(@"(%@): Sending commpand \"%@\" failed with error: %@", weakSelf, command, error);
+            } else if (response) {
+                DDLogInfo(@"(%@): Sending commpand \"%@\" was successful", weakSelf, command);
+            }
+            origCallback(response, error);
+        };
+        
         if (self.state == MCRCONClientReadyState) {
             NSDictionary *dictionary = @{ MCRCONTagKey : @(_currentTag), MCRCONPacketTypeKey : @(RCONCommand), MCRCONPayloadKey : command };
             NSError *error = nil;
@@ -154,6 +187,7 @@ NSString * const MCRCONPacketTypeKey = @"MCRCONPacketTypeKey";
 }
 
 - (void)disconnect {
+    DDLogInfo(@"(%@): Ordering socket to disconnect", self);
     [_socket disconnect];
     self.state = MCRCONClientDisconnectedState;
 }
@@ -165,12 +199,18 @@ NSString * const MCRCONPacketTypeKey = @"MCRCONPacketTypeKey";
     NSDictionary *dictionary = @{ MCRCONTagKey : @(AUTH_TAG), MCRCONPacketTypeKey : @(RCONAuthentication), MCRCONPayloadKey : _server.password };
     NSData *data = [self packetFromDictionary:dictionary error:&error];
     
+    DDLogInfo(@"(%@): Socket connected to host: %@:%i", self, host, port);
+    
     if (data) {
+        DDLogInfo(@"(%@): Sending authentication packet", self);
+
         self.state = MCRCONClientAuthenticatingState;
 
         [_socket writeData:data withTimeout:30 tag:AUTH_TAG];
         [_socket readDataWithTimeout:30 tag:AUTH_TAG];        
     } else {
+        DDLogError(@"(%@): Socket authentication failed with error: %@", self, error);
+
         [self disconnect];
 
         if (_connectCallback) {
@@ -182,11 +222,14 @@ NSString * const MCRCONPacketTypeKey = @"MCRCONPacketTypeKey";
 
 - (void)socketDidDisconnect:(GCDAsyncSocket *)socket withError:(NSError *)error {
     if (error) {
+        DDLogError(@"(%@): Socket disconnected with error: %@", self, error);
         if (_connectCallback) {
             _connectCallback(NO, error);
         } else if (_commandCallback) {
             _commandCallback(nil, error);
         }
+    } else {
+        DDLogInfo(@"(%@): Socket disconnected without error", self);
     }
     
     _connectCallback = nil;
@@ -248,9 +291,13 @@ NSString * const MCRCONPacketTypeKey = @"MCRCONPacketTypeKey";
     // Ensure the payload is not too long
     const char* payload = [payloadString cStringUsingEncoding:NSUTF8StringEncoding];
     if (strlen(payload) > 1446) {
+        NSError *errorObj = [NSError errorWithDomain:MCRCONErrorDomain code:MCRCONErrorPayloadTooLarge userInfo:@{ NSLocalizedDescriptionKey : @"The payload that you attempted to send was too large." }];
+        DDLogError(@"(%@): Error constructing packet: %@", self, errorObj);
+
         if (error) {
-            *error = [NSError errorWithDomain:MCRCONErrorDomain code:MCRCONErrorPayloadTooLarge userInfo:@{ NSLocalizedDescriptionKey : @"The payload that you attempted to send was too large." }];
+            *error = errorObj;
         }
+
         return nil;
     }
     
@@ -271,7 +318,10 @@ NSString * const MCRCONPacketTypeKey = @"MCRCONPacketTypeKey";
     memcpy(packet + (3 * sizeof(int)), payload, strlen(payload));
     memcpy(packet + (3 * sizeof(int)) + strlen(payload), &pad, sizeof(pad));
     
-    return [NSData dataWithBytesNoCopy:packet length:totalLength];
+    NSData *data = [NSData dataWithBytesNoCopy:packet length:totalLength];
+    DDLogInfo(@"(%@): Successfully constructed dictionary %@ into packet data %@", self, dictionary, data);
+    
+    return data;
 }
 
 - (NSDictionary *)dictionaryFromPacket:(NSData *)data {
@@ -296,7 +346,10 @@ NSString * const MCRCONPacketTypeKey = @"MCRCONPacketTypeKey";
         payloadString = [[NSString alloc] initWithBytesNoCopy:(void *)payload length:payloadLength encoding:NSISOLatin1StringEncoding freeWhenDone:YES];
     }
     
-    return [NSDictionary dictionaryWithObjectsAndKeys:@(type), MCRCONPacketTypeKey, @(tag), MCRCONTagKey, payloadString, MCRCONPayloadKey, nil];
+    NSDictionary *dictionary = [NSDictionary dictionaryWithObjectsAndKeys:@(type), MCRCONPacketTypeKey, @(tag), MCRCONTagKey, payloadString, MCRCONPayloadKey, nil];
+    DDLogInfo(@"(%@): Successfully deconstructed packet data %@ into dictionary %@", self, data, dictionary);
+
+    return dictionary;
 }
 
 @end
