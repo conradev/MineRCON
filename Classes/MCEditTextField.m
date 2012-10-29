@@ -23,7 +23,7 @@
 
 - (CGSize)intrinsicContentSize {
     BOOL isPad = [[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad;
-    return (CGSize){ isPad ? 400 : 280 , isPad ? 44 : 33 };
+    return (CGSize){ isPad ? 404 : 280 , isPad ? 44 : 30.5 };
 }
 
 - (CGRect)textRectForBounds:(CGRect)bounds {

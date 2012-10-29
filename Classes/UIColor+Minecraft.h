@@ -13,4 +13,13 @@
 + (UIColor *)foregroundColorForMinecraftSpecifier:(NSString *)specifier;
 + (UIColor *)backgroundColorForMinecraftSpecifier:(NSString *)specifier;
 
++ (UIColor *)minecraftInterfaceForegroundColor;
++ (UIColor *)minecraftInterfaceBackgroundColor;
+
++ (UIColor *)minecraftSelectedInterfaceForegroundColor;
++ (UIColor *)minecraftSelectedInterfaceBackgroundColor;
+
++ (UIColor *)minecraftSecondaryInterfaceForegroundColor;
++ (UIColor *)minecraftSecondaryInterfaceBackgroundColor;
+
 @end

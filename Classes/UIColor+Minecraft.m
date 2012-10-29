@@ -18,6 +18,15 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 static NSDictionary *foregroundColors;
 static NSDictionary *backgroundColors;
 
+static UIColor *interfaceForegroundColor;
+static UIColor *interfaceBackgroundColor;
+
+static UIColor *selectedInterfaceForegroundColor;
+static UIColor *selectedInterfaceBackgroundColor;
+
+static UIColor *secondaryInterfaceForegroundColor;
+static UIColor *secondaryInterfaceBackgroundColor;
+
 __attribute__((constructor))
 static void initialize_minecraft_colors() {
     foregroundColors = @{ @"0" : UIColorFromRGB(0x000000),
@@ -73,6 +82,54 @@ static void initialize_minecraft_colors() {
     }
     
     return backgroundColors[specifier];
+}
+
++ (UIColor *)minecraftInterfaceForegroundColor {
+    if (!interfaceForegroundColor) {
+        interfaceForegroundColor = UIColorFromRGB(0xE0E0E0);
+    }
+    
+    return interfaceForegroundColor;
+}
+
++ (UIColor *)minecraftInterfaceBackgroundColor {
+    if (!interfaceBackgroundColor) {
+        interfaceBackgroundColor = UIColorFromRGB(0x383838);
+    }
+    
+    return interfaceBackgroundColor;
+}
+
++ (UIColor *)minecraftSelectedInterfaceForegroundColor {
+    if (!selectedInterfaceForegroundColor) {
+        selectedInterfaceForegroundColor = UIColorFromRGB(0xFFFFA0);
+    }
+    
+    return selectedInterfaceForegroundColor;
+}
+
++ (UIColor *)minecraftSelectedInterfaceBackgroundColor {
+    if (!selectedInterfaceBackgroundColor) {
+        selectedInterfaceBackgroundColor = UIColorFromRGB(0x3F3F28);
+    }
+    
+    return selectedInterfaceBackgroundColor;
+}
+
++ (UIColor *)minecraftSecondaryInterfaceForegroundColor {
+    if (!secondaryInterfaceForegroundColor) {
+        secondaryInterfaceForegroundColor = UIColorFromRGB(0xA0A0A0);
+    }
+    
+    return secondaryInterfaceForegroundColor;
+}
+
++ (UIColor *)minecraftSecondaryInterfaceBackgroundColor {
+    if (!secondaryInterfaceBackgroundColor) {
+        secondaryInterfaceBackgroundColor = UIColorFromRGB(0x282828);
+    }
+    
+    return secondaryInterfaceBackgroundColor;
 }
 
 @end

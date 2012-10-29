@@ -10,4 +10,6 @@
 
 @interface MCButton : UIButton
 
+- (void)setMinecraftText:(NSString *)text;
+
 @end

@@ -9,6 +9,7 @@
 #import "MCTextField.h"
 
 #import "NSString+Obfuscation.h"
+#import "UIColor+Minecraft.h"
 #import "NSAttributedString+Minecraft.h"
 
 @interface UITextInputTraits : NSObject
@@ -36,7 +37,7 @@
         [traitsInvocation getReturnValue:&textInputTraits];
         
         // [textInputTraits setInsertionPointColor:insertionPointColor]
-        UIColor *insertionPointColor = [UIColor colorWithHue:0.0f saturation:0.0f brightness:0.87843f alpha:1.0f];
+        UIColor *insertionPointColor = [UIColor minecraftInterfaceForegroundColor];
         NSInvocation *insertionPointInvocation = [NSInvocation invocationWithMethodSignature:[NSMethodSignature signatureWithObjCTypes:"v@:@"]];
         [insertionPointInvocation setArgument:&insertionPointColor atIndex:2];
         insertionPointInvocation.selector = NSSelectorFromString([NSString stringByDeobfuscatingString:@"d3W1TX6{[YK1bX:vVH:qcoSEc3ywdkp>"]);
@@ -58,13 +59,13 @@
     [super setText:text];
     
     NSMutableAttributedString *attributedText = [[NSMutableAttributedString alloc] initWithAttributedString:self.attributedText];
-    [attributedText setAttributes:[NSMutableAttributedString defaultMinecraftAttributes] range:NSMakeRange(0, attributedText.length)];
+    [attributedText setAttributes:[NSMutableAttributedString minecraftInterfaceAttributes] range:NSMakeRange(0, attributedText.length)];
     self.attributedText = attributedText;
 }
 
 - (void)setAttributedText:(NSAttributedString *)origAttributedText {
     NSMutableAttributedString *attributedText = [[NSMutableAttributedString alloc] initWithAttributedString:origAttributedText];
-    [attributedText setAttributes:[NSMutableAttributedString defaultMinecraftAttributes] range:NSMakeRange(0, attributedText.length)];
+    [attributedText setAttributes:[NSMutableAttributedString minecraftInterfaceAttributes] range:NSMakeRange(0, attributedText.length)];
     [super setAttributedText:attributedText];
 }
 

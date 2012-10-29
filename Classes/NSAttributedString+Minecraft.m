@@ -21,42 +21,68 @@ NSString * const MCFormatSpecifierItalics = @"o";
 
 @implementation NSAttributedString (Minecraft)
 
++ (NSDictionary *)_minecraftAttributesWithForegroundColor:(UIColor *)foregroundColor backgroundColor:(UIColor *)backgroundColor {
+    
+    BOOL isPad = ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad);
+    CGFloat fontSize = isPad ? 16.0f : 12.0f;
+    NSMutableDictionary *attributes = [NSMutableDictionary dictionaryWithDictionary:@{ NSFontAttributeName : [UIFont fontWithName:@"Minecraft" size:fontSize] }];
+    
+    if (foregroundColor) {
+        attributes[NSForegroundColorAttributeName] = foregroundColor;
+    }
+    
+    if (backgroundColor) {
+        NSShadow *shadow = [[NSShadow alloc] init];
+        CGFloat offset = isPad ? 2.0 : (3.0/2.0);
+        shadow.shadowOffset = CGSizeMake(offset, offset);
+        shadow.shadowColor = backgroundColor;
+        attributes[NSShadowAttributeName] = shadow;
+    }
+    
+    return [NSDictionary dictionaryWithDictionary:attributes];
+}
+
 + (NSDictionary *)_minecraftAttributesForSpecifier:(NSString *)specifier {
     if (specifier.length != 1) {
         specifier = MCFormatSpecifierReset;
     }
     
-    CGFloat fontSize = [[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad ? 16.0f : 12.0f;
-    NSMutableDictionary *attributes = [NSMutableDictionary dictionaryWithDictionary:@{ NSFontAttributeName : [UIFont fontWithName:@"Minecraft" size:fontSize] }];
+    UIColor *foregroundColor = [UIColor foregroundColorForMinecraftSpecifier:specifier];
+    UIColor *backgroundColor = [UIColor backgroundColorForMinecraftSpecifier:specifier];
+    NSMutableDictionary *attributes = [NSMutableDictionary dictionaryWithDictionary:[self _minecraftAttributesWithForegroundColor:foregroundColor backgroundColor:backgroundColor]];
     
     if ([specifier isEqualToString:MCFormatSpecifierBold]) {
         // We got nothing, folks!
+        // This would require an additional font
     } else if ([specifier isEqualToString:MCFormatSpecifierItalics]) {
         // We got nothing, folks!
+        // This would require an additional font
     } else if ([specifier isEqualToString:MCFormatSpecifierStrike]) {
         attributes[NSStrikethroughStyleAttributeName] = @(NSUnderlineStyleSingle);
     } else if ([specifier isEqualToString:MCFormatSpecifierUnderline]) {
         attributes[NSUnderlineStyleAttributeName] = @(NSUnderlineStyleSingle);
-    } else {
-        UIColor *foregroundColor = [UIColor foregroundColorForMinecraftSpecifier:specifier];
-        if (foregroundColor) {
-            attributes[NSForegroundColorAttributeName] = foregroundColor;
-        }
-        
-        UIColor *backgroundColor = [UIColor backgroundColorForMinecraftSpecifier:specifier];
-        if (backgroundColor) {
-            NSShadow *shadow = [[NSShadow alloc] init];
-            shadow.shadowOffset = CGSizeMake(2, 2);
-            shadow.shadowColor = backgroundColor;
-            attributes[NSShadowAttributeName] = shadow;
-        }
     }
     
     return [NSDictionary dictionaryWithDictionary:attributes];
 }
 
 + (NSDictionary *)defaultMinecraftAttributes {
-    return [self _minecraftAttributesForSpecifier:nil];
+    return [self _minecraftAttributesForSpecifier:MCFormatSpecifierReset];
+}
+
++ (NSDictionary *)minecraftInterfaceAttributes {
+    return [self _minecraftAttributesWithForegroundColor:[UIColor minecraftInterfaceForegroundColor]
+                                         backgroundColor:[UIColor minecraftInterfaceBackgroundColor]];
+}
+
++ (NSDictionary *)minecraftSelectedInterfaceAttributes {
+    return [self _minecraftAttributesWithForegroundColor:[UIColor minecraftSelectedInterfaceForegroundColor]
+                                         backgroundColor:[UIColor minecraftSelectedInterfaceBackgroundColor]];
+}
+
++ (NSDictionary *)minecraftSecondaryInterfaceAttributes {
+    return [self _minecraftAttributesWithForegroundColor:[UIColor minecraftSecondaryInterfaceForegroundColor]
+                                         backgroundColor:[UIColor minecraftSecondaryInterfaceBackgroundColor]];
 }
 
 + (NSAttributedString *)attributedStringWithMinecraftString:(NSString *)string {

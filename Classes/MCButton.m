@@ -7,8 +7,14 @@
 //
 
 #import <AudioToolbox/AudioToolbox.h>
+#import <QuartzCore/QuartzCore.h>
 
 #import "MCButton.h"
+#import "NSAttributedString+Minecraft.h"
+
+@interface UIView (Debug)
+- (id)recursiveDescription;
+@end
 
 SystemSoundID click;
 
@@ -27,21 +33,28 @@ static void destroy_click_sound() {
 
 - (id)init {
     if ((self = [super init])) {
-        // TODO: Switch to attributed text
-        self.titleLabel.font = [UIFont fontWithName:@"Minecraft" size:16.0f];
-        self.titleLabel.shadowColor = [UIColor colorWithHue:0.0f saturation:0.0f brightness:0.21875f alpha:1.0f];
-        self.titleLabel.shadowOffset = CGSizeMake(2, 2);
-        
         [self addTarget:self action:@selector(playClickSound) forControlEvents:UIControlEventTouchUpInside];
         
         [self setBackgroundImage:[UIImage imageNamed:@"Button"] forState:UIControlStateNormal];
-        [self setTitleColor:[UIColor colorWithHue:0.0f saturation:0.0f brightness:0.87843f alpha:1.0f] forState:UIControlStateNormal];
         [self setBackgroundImage:[UIImage imageNamed:@"Button_highlighted"] forState:UIControlStateHighlighted];
-        [self setTitleColor:[UIColor colorWithRed:1.0f green:1.0f blue:0.625f alpha:1.0f] forState:UIControlStateHighlighted];
         [self setBackgroundImage:[UIImage imageNamed:@"Button_disabled"] forState:UIControlStateDisabled];
-        [self setTitleColor:[UIColor colorWithHue:0.0f saturation:0.0f brightness:0.62745f alpha:1.0f] forState:UIControlStateDisabled];        
     }
     return self;
+}
+
+- (void)didAddSubview:(UIView *)subview {
+    [super didAddSubview:subview];
+    
+    // I don't want mushy pixels on my button image!
+    if ([subview isKindOfClass:[UIImageView class]]) {
+        [[subview layer] setMagnificationFilter:kCAFilterNearest];
+    }
+}
+
+- (void)setMinecraftText:(NSString *)text {
+    [self setAttributedTitle:[[NSAttributedString alloc] initWithString:text attributes:[NSAttributedString minecraftInterfaceAttributes]] forState:UIControlStateNormal];
+    [self setAttributedTitle:[[NSAttributedString alloc] initWithString:text attributes:[NSAttributedString minecraftSelectedInterfaceAttributes]] forState:UIControlStateHighlighted];
+    [self setAttributedTitle:[[NSAttributedString alloc] initWithString:text attributes:[NSAttributedString minecraftSecondaryInterfaceAttributes]] forState:UIControlStateDisabled];
 }
 
 - (void)playClickSound {
@@ -49,7 +62,8 @@ static void destroy_click_sound() {
 }
 
 - (CGSize)intrinsicContentSize {
-    return (CGSize){ 280, 40 };
+    BOOL isPad = [[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad;
+    return (CGSize){ isPad ? 400 : 276 , isPad ? 40 : 28 };
 }
 
 @end

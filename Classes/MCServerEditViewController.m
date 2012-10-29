@@ -11,6 +11,7 @@
 
 #import "MCAppDelegate.h"
 
+#import "NSAttributedString+Minecraft.h"
 #import "MCEditTextField.h"
 #import "MCButton.h"
 
@@ -64,12 +65,21 @@
     _bottomConstraint = bottomConstraint;
     [self.view addConstraint:_bottomConstraint];
     
+    CGFloat labelInset = 4.0f;
+    
     MCEditTextField *nameField = [[MCEditTextField alloc] init];
     nameField.text = _server.name;
     nameField.returnKeyType = UIReturnKeyNext;
     _nameField = nameField;
     [_containerView addSubview:_nameField];
     [_containerView addConstraint:[NSLayoutConstraint constraintWithItem:_nameField attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:_containerView attribute:NSLayoutAttributeCenterX multiplier:1.0f constant:0.0f]];
+    
+    UILabel *nameLabel = [[UILabel alloc] init];
+    nameLabel.backgroundColor = [UIColor clearColor];
+    nameLabel.translatesAutoresizingMaskIntoConstraints = NO;
+    nameLabel.attributedText = [[NSAttributedString alloc] initWithString:@"Server Name" attributes:[NSAttributedString minecraftSecondaryInterfaceAttributes]];
+    [_containerView addSubview:nameLabel];
+    [_containerView addConstraint:[NSLayoutConstraint constraintWithItem:nameLabel attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:_nameField attribute:NSLayoutAttributeLeft multiplier:1.0f constant:labelInset]];
     
     MCEditTextField *hostnameField = [[MCEditTextField alloc] init];
     hostnameField.text = _server.hostname;
@@ -79,6 +89,13 @@
     [_containerView addSubview:_hostnameField];
     [_containerView addConstraint:[NSLayoutConstraint constraintWithItem:_hostnameField attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:_containerView attribute:NSLayoutAttributeCenterX multiplier:1.0f constant:0.0f]];
     
+    UILabel *hostnameLabel = [[UILabel alloc] init];
+    hostnameLabel.backgroundColor = [UIColor clearColor];
+    hostnameLabel.translatesAutoresizingMaskIntoConstraints = NO;
+    hostnameLabel.attributedText = [[NSAttributedString alloc] initWithString:@"Server Address" attributes:[NSAttributedString minecraftSecondaryInterfaceAttributes]];
+    [_containerView addSubview:hostnameLabel];
+    [_containerView addConstraint:[NSLayoutConstraint constraintWithItem:hostnameLabel attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:_hostnameField attribute:NSLayoutAttributeLeft multiplier:1.0f constant:labelInset]];
+    
     MCEditTextField *passwordField = [[MCEditTextField alloc] init];
     passwordField.text = _server.password;
     passwordField.autocapitalizationType = UITextAutocapitalizationTypeNone;
@@ -87,6 +104,13 @@
     _passwordField = passwordField;
     [_containerView addSubview:_passwordField];
     [_containerView addConstraint:[NSLayoutConstraint constraintWithItem:_passwordField attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:_containerView attribute:NSLayoutAttributeCenterX multiplier:1.0f constant:0.0f]];
+    
+    UILabel *passwordLabel = [[UILabel alloc] init];
+    passwordLabel.backgroundColor = [UIColor clearColor];
+    passwordLabel.translatesAutoresizingMaskIntoConstraints = NO;
+    passwordLabel.attributedText = [[NSAttributedString alloc] initWithString:@"Password" attributes:[NSAttributedString minecraftSecondaryInterfaceAttributes]];
+    [_containerView addSubview:passwordLabel];
+    [_containerView addConstraint:[NSLayoutConstraint constraintWithItem:passwordLabel attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:_passwordField attribute:NSLayoutAttributeLeft multiplier:1.0f constant:labelInset]];
     
     // Properties common to all three fields
     [@[_nameField, _hostnameField, _passwordField] enumerateObjectsUsingBlock:^(UITextField *textField, NSUInteger idx, BOOL *stop) {
@@ -98,7 +122,7 @@
     }];
     
     MCButton *connectButton = [[MCButton alloc] init];
-    [connectButton setTitle:@"Connect" forState:UIControlStateNormal];
+    [connectButton setMinecraftText:@"Connect"];
     [connectButton addTarget:self action:@selector(connectButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
     connectButton.translatesAutoresizingMaskIntoConstraints = NO;
     _connectButton = connectButton;
@@ -108,9 +132,9 @@
     BOOL isPad = [[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad;
     
     // Vertical layout
-    NSDictionary *views = @{ @"name" : _nameField, @"hostname" : _hostnameField, @"password" : _passwordField, @"button" : _connectButton };
-    NSDictionary *metrics = @{ @"spacing" : @(isPad ? 60 : 20) };
-    [_containerView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-[name]-(spacing)-[hostname]-(spacing)-[password]-(spacing)-[button]-(spacing)-|" options:NSLayoutFormatAlignAllCenterX metrics:metrics views:views]];
+    NSDictionary *views = @{  @"nameLabel" : nameLabel, @"name" : _nameField, @"hostnameLabel" : hostnameLabel, @"hostname" : _hostnameField, @"passwordLabel" : passwordLabel, @"password" : _passwordField, @"button" : _connectButton };
+    NSDictionary *metrics = @{ @"spacing" : @(isPad ? 20 : 10), @"buttonSpacing" : @(isPad ? 40 : 20) };
+    [_containerView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-[nameLabel]-(5)-[name]-(spacing)-[hostnameLabel]-(5)-[hostname]-(spacing)-[passwordLabel]-(5)-[password]-(buttonSpacing)-[button]-|" options:NSLayoutFormatAlignAllCenterX metrics:metrics views:views]];
 }
 
 #pragma mark - View state
@@ -164,11 +188,7 @@
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
     
-    [@[ _nameField, _hostnameField, _passwordField] enumerateObjectsUsingBlock:^(UITextField *textField, NSUInteger idx, BOOL *stop) {
-        if ([textField isFirstResponder]) {
-            _lastTextField = textField;
-        }
-    }];
+    _lastTextField = [self currentlyEditingTextField];
     
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillChangeFrameNotification object:nil];
 }
@@ -216,6 +236,8 @@
         
         [self.view setNeedsLayout];
         [self.view layoutIfNeeded];
+        
+        [self scrollViewToVisible:[self currentlyEditingTextField] animated:NO];
     };
     
     [UIView animateWithDuration:duration delay:0.0f options:options animations:animations completion:nil];
@@ -224,7 +246,36 @@
 #pragma mark - Text field delegate
 
 - (void)textFieldDidBeginEditing:(UITextField *)textField {
-    [_containerView scrollRectToVisible:textField.frame animated:YES];
+    [self scrollViewToVisible:textField animated:YES];
+}
+
+- (void)scrollViewToVisible:(UIView *)view animated:(BOOL)animate {
+    if (!view) {
+        return;
+    }
+    
+    CGPoint origin = view.frame.origin;
+    CGPoint antiOrigin = (CGPoint){ CGRectGetMaxX(view.frame), CGRectGetMaxY(view.frame) };
+    
+    if (!CGRectContainsPoint(_containerView.bounds, origin) && origin.y < _containerView.contentOffset.y) {
+        [_containerView setContentOffset:CGPointMake(_containerView.contentOffset.x, origin.y) animated:animate];
+    } else if (!CGRectContainsPoint(_containerView.bounds, antiOrigin) && antiOrigin.y > (_containerView.contentOffset.y + _containerView.frame.size.height)) {
+        [_containerView setContentOffset:CGPointMake(_containerView.contentOffset.x, antiOrigin.y - _containerView.frame.size.height) animated:animate];
+    }
+}
+
+- (UITextField *)currentlyEditingTextField {
+    NSArray *textFields = @[ _nameField, _hostnameField, _passwordField];
+    NSUInteger index = [textFields indexOfObjectPassingTest:^BOOL(UITextField *textField, NSUInteger idx, BOOL *stop) {
+        *stop = [textField isFirstResponder];
+        return *stop;
+    }];
+    
+    if (index != NSNotFound) {
+        return textFields[index];
+    } else {
+        return nil;
+    }
 }
 
 - (void)textFieldDidEndEditing:(UITextField *)textField {

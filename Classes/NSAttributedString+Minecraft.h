@@ -21,6 +21,10 @@ extern NSString * const MCFormatSpecifierItalics;
 
 + (NSDictionary *)defaultMinecraftAttributes;
 
++ (NSDictionary *)minecraftInterfaceAttributes;
++ (NSDictionary *)minecraftSelectedInterfaceAttributes;
++ (NSDictionary *)minecraftSecondaryInterfaceAttributes;
+
 + (NSAttributedString *)attributedStringWithMinecraftString:(NSString *)string;
 
 @end
