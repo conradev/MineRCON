@@ -19,6 +19,7 @@
 		D02BF5D0163DD699003FB1D5 /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D02BF5C6163DD699003FB1D5 /* Icon@2x.png */; };
 		D02BF5D1163DD699003FB1D5 /* iTunesArtwork in Resources */ = {isa = PBXBuildFile; fileRef = D02BF5C7163DD699003FB1D5 /* iTunesArtwork */; };
 		D02BF5D2163DD699003FB1D5 /* iTunesArtwork@2x in Resources */ = {isa = PBXBuildFile; fileRef = D02BF5C8163DD699003FB1D5 /* iTunesArtwork@2x */; };
+		D02BF5D5163E4374003FB1D5 /* DDASLLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = D02BF5D4163E4374003FB1D5 /* DDASLLogger.m */; };
 		D0433EB716375B900000BBC3 /* CrashReporter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0433EB616375B900000BBC3 /* CrashReporter.framework */; };
 		D0433EBE16375C310000BBC3 /* HockeySDKResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = D06DD61816375AD7000F8C80 /* HockeySDKResources.bundle */; };
 		D05BA24316063FAF002239F2 /* NSData+Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = D05BA24216063FAF002239F2 /* NSData+Base64.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -167,6 +168,8 @@
 		D02BF5C6163DD699003FB1D5 /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon@2x.png"; sourceTree = "<group>"; };
 		D02BF5C7163DD699003FB1D5 /* iTunesArtwork */ = {isa = PBXFileReference; lastKnownFileType = file; path = iTunesArtwork; sourceTree = "<group>"; };
 		D02BF5C8163DD699003FB1D5 /* iTunesArtwork@2x */ = {isa = PBXFileReference; lastKnownFileType = file; path = "iTunesArtwork@2x"; sourceTree = "<group>"; };
+		D02BF5D3163E4374003FB1D5 /* DDASLLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DDASLLogger.h; path = Classes/CocoaLumberjack/Lumberjack/DDASLLogger.h; sourceTree = SOURCE_ROOT; };
+		D02BF5D4163E4374003FB1D5 /* DDASLLogger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DDASLLogger.m; path = Classes/CocoaLumberjack/Lumberjack/DDASLLogger.m; sourceTree = SOURCE_ROOT; };
 		D0433EB616375B900000BBC3 /* CrashReporter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CrashReporter.framework; path = Classes/HockeySDK/Vendor/CrashReporter.framework; sourceTree = SOURCE_ROOT; };
 		D05BA23C1606340B002239F2 /* NSString+Obfuscation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSString+Obfuscation.h"; path = "Classes/NSString+Obfuscation.h"; sourceTree = SOURCE_ROOT; };
 		D05BA23D1606340B002239F2 /* NSString+Obfuscation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSString+Obfuscation.m"; path = "Classes/NSString+Obfuscation.m"; sourceTree = SOURCE_ROOT; };
@@ -328,6 +331,8 @@
 				D07E7FB91637A691003B904C /* DDFileLogger.m */,
 				D07E7FBA1637A691003B904C /* DDLog.h */,
 				D07E7FBB1637A691003B904C /* DDLog.m */,
+				D02BF5D3163E4374003FB1D5 /* DDASLLogger.h */,
+				D02BF5D4163E4374003FB1D5 /* DDASLLogger.m */,
 				D07E7FBC1637A691003B904C /* DDTTYLogger.h */,
 				D07E7FBD1637A691003B904C /* DDTTYLogger.m */,
 			);
@@ -716,6 +721,7 @@
 				D07E7FBF1637A691003B904C /* DDLog.m in Sources */,
 				D07E7FC01637A691003B904C /* DDTTYLogger.m in Sources */,
 				D00F99FE16389AFE009CA90B /* MCEjectButton.m in Sources */,
+				D02BF5D5163E4374003FB1D5 /* DDASLLogger.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

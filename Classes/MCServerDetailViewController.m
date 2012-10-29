@@ -11,6 +11,10 @@
 #import "MCServerConnectionViewController.h"
 #import "MCServerEditViewController.h"
 
+#import "DDLog.h"
+
+extern int ddLogLevel;
+
 @interface MCServerDetailViewController () {
     MCServerEditViewController *_editViewController;
     MCServerConnectionViewController *_connectionViewController;
@@ -109,6 +113,8 @@
     
     // Get the currently displayed child view controller
     UIViewController *fromViewController = self.childViewControllers[0];
+    
+    DDLogInfo(@"(%@): Transitioning from %@ to %@", self, fromViewController, toViewController);
     
     // Begin transaction
     [fromViewController willMoveToParentViewController:nil];

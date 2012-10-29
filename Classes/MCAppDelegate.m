@@ -14,6 +14,7 @@
 
 #import "DDLog.h"
 #import "DDFileLogger.h"
+#import "DDASLLogger.h"
 #import "DDTTYLogger.h"
 
 NSString * const MCSplitViewIdentifier = @"MCSplitViewController";
@@ -40,11 +41,11 @@ int ddLogLevel = LOG_LEVEL_WARN;
 #pragma mark - Application state changes
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    // Set up view controllers
-    [self setupViewControllers];
-        
     // Set up logging
     [self setupLogging];
+    
+    // Set up view controllers
+    [self setupViewControllers];
     
     // Set up HockeyApp
     BITHockeyManager *hockeyManager = [BITHockeyManager sharedHockeyManager];
@@ -61,9 +62,16 @@ int ddLogLevel = LOG_LEVEL_WARN;
     NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
     
     // Global keyboard event handling
-    [center addObserverForName:UIKeyboardDidShowNotification object:nil queue:nil usingBlock:^(NSNotification *note) { _keyboardShowing = YES; }];
-    [center addObserverForName:UIKeyboardWillHideNotification object:nil queue:nil usingBlock:^(NSNotification *note) { _keyboardShowing = NO; }];
+    [center addObserverForName:UIKeyboardDidShowNotification object:nil queue:nil usingBlock:^(NSNotification *note) {
+        DDLogInfo(@"(%@): Keyboard is showing", [[UIApplication sharedApplication] delegate]);
+        _keyboardShowing = YES;
+    }];
+    [center addObserverForName:UIKeyboardWillHideNotification object:nil queue:nil usingBlock:^(NSNotification *note) {
+        DDLogInfo(@"(%@): Keyboard is hidden", [[UIApplication sharedApplication] delegate]);
+        _keyboardShowing = NO;
+    }];
     [center addObserverForName:UIKeyboardDidChangeFrameNotification object:nil queue:nil usingBlock:^(NSNotification *note) {
+        DDLogInfo(@"(%@): Keyboard did change frame", [[UIApplication sharedApplication] delegate]);
         CGRect keyboardFrame = [note.userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue];
         _keyboardFrame = [_window convertRect:keyboardFrame fromWindow:nil];
     }];
@@ -120,6 +128,8 @@ int ddLogLevel = LOG_LEVEL_WARN;
     if (_window != nil)
         return;
     
+    DDLogInfo(@"(%@): Instantiating view heirarchy", [[UIApplication sharedApplication] delegate]);
+    
     _window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     
     // Create the master list view controller if it doesn't exist
@@ -158,20 +168,26 @@ int ddLogLevel = LOG_LEVEL_WARN;
     if (_fileLogger != nil)
         return;
     
+    [DDLog addLogger:[DDASLLogger sharedInstance]];
+#if defined(CONFIGURATION_Debug) || defined(CONFIGURATION_AdHoc)
+    [DDLog addLogger:[DDTTYLogger sharedInstance]];
+#endif
+    
     _fileLogger = [[DDFileLogger alloc] init];
     _fileLogger.maximumFileSize = (1024 * 1024); // 1 MB
     _fileLogger.rollingFrequency = 0;
     _fileLogger.logFileManager.maximumNumberOfLogFiles = 5;
+    
+    DDLogInfo(@"(%@): Instantiating file logger: %@", [[UIApplication sharedApplication] delegate], _fileLogger);
     
     // Roll log (upon application launch
     [_fileLogger performSelector:@selector(currentLogFileHandle)];
     [_fileLogger rollLogFile];
     [_fileLogger performSelector:@selector(currentLogFileHandle)];
     
+    DDLogInfo(@"(%@): Rolled log file for logger: %@", [[UIApplication sharedApplication] delegate], _fileLogger);
+    
     [DDLog addLogger:_fileLogger];
-#if defined(CONFIGURATION_Debug) || defined(CONFIGURATION_AdHoc)
-    [DDLog addLogger:[DDTTYLogger sharedInstance]];
-#endif
 }
 
 #pragma mark - HockeyApp
