@@ -52,8 +52,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.title = _server.name.length ? _server.name : _server.hostname;
-    
+    self.title = [_server displayName];
+
     // Pick the initial view controller and display it immediately
     UIViewController *viewController = (_client.state == MCRCONClientReadyState || _client.state == MCRCONClientExecutingState) ? _connectionViewController : _editViewController;
     
@@ -99,7 +99,7 @@
             }
         }
     } else if ([object isEqual:_server]) {
-        self.title = _server.name.length ? _server.name : _server.hostname;
+        self.title = [_server displayName];
     }
 }
 

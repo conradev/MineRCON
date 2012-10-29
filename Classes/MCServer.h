@@ -22,4 +22,6 @@ extern NSString * const MCServerPortKey;
 @property (strong, nonatomic) NSString *password;
 @property (nonatomic) NSInteger port;
 
+- (NSString *)displayName;
+
 @end

@@ -63,7 +63,7 @@ static void destroy_click_sound() {
 
 - (CGSize)intrinsicContentSize {
     BOOL isPad = [[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad;
-    return (CGSize){ isPad ? 400 : 276 , isPad ? 40 : 28 };
+    return (CGSize){ isPad ? 400 : 276 , isPad ? 40 : 35 };
 }
 
 @end

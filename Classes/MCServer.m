@@ -49,4 +49,8 @@ NSString * const MCServerPortKey = @"port";
     _port = port;
 }
 
+- (NSString *)displayName {
+    return _name.length ? _name : (_hostname.length ? _hostname : @"Untitled server");
+}
+
 @end

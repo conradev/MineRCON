@@ -70,16 +70,12 @@ NSString * const MCServerCellIdentifier = @"MCServerCell";
     self.title = @"Servers";
     self.clearsSelectionOnViewWillAppear = NO;
     
-    // 
     self.tableView.delaysContentTouches = NO;
     
     self.tableView.rowHeight = 58.0f;
     
     self.navigationItem.leftBarButtonItem = self.editButtonItem;
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addNewServer)];
-    
-    // TODO: Fix this so that state does not need to be restored
-    [self displayViewControllerForServer:nil];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addNewServer)];    
 }
 
 #pragma mark - State restoration
@@ -100,11 +96,14 @@ NSString * const MCServerCellIdentifier = @"MCServerCell";
     NSUInteger index = (NSUInteger)[coder decodeIntegerForKey:MCSelectedIndexKey];
     index = index < _servers.count ? index : _servers.count - 1;
     MCServer *server = _servers.count ? _servers[index] : nil;
-    [self displayViewControllerForServer:server];
     
     if (server) {
         NSIndexPath *indexPath = [NSIndexPath indexPathForRow:[_servers indexOfObject:server] inSection:0];
         [self.tableView selectRowAtIndexPath:indexPath animated:NO scrollPosition:UITableViewScrollPositionNone];
+    }
+    
+    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
+        [self displayViewControllerForServer:server];
     }
 }
 
@@ -152,11 +151,6 @@ NSString * const MCServerCellIdentifier = @"MCServerCell";
 - (void)addNewServer {
     MCServer *server = [[MCServer alloc] init];
     
-    // TODO: Remove defaults
-    server.name = [[NSDate date] description];
-    server.hostname = @"mc.kramerapps.com";
-    server.password = @"C8K$01996okp";
-    
     [_servers addObject:server];
     [self beginObservingServer:server];
     
@@ -202,8 +196,8 @@ NSString * const MCServerCellIdentifier = @"MCServerCell";
 }
 
 - (void)configureCell:(UITableViewCell *)cell withServer:(MCServer *)server {
-    cell.textLabel.text = server.name.length ? server.name : server.hostname;
-    
+    cell.textLabel.text = [server displayName];
+        
     MCServerDetailViewController *detailViewController = [_detailViewsCache objectForKey:server];
     cell.accessoryView.hidden = (!detailViewController || detailViewController.client.state == MCRCONClientDisconnectedState);
 }

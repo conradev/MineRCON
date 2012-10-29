@@ -168,6 +168,12 @@
             [_passwordField resignFirstResponder];
         }
     }
+    
+    if (!_server) {
+        [_nameField resignFirstResponder];
+        [_hostnameField resignFirstResponder];
+        [_passwordField resignFirstResponder];
+    }
 }
 
 - (void)viewDidAppear:(BOOL)animated {
