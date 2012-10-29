@@ -108,6 +108,10 @@ int ddLogLevel = LOG_LEVEL_WARN;
     hockeyManager.updateManager.delegate = self;
     [hockeyManager startManager];
     
+#if defined(CONFIGURATION_Debug)
+    hockeyManager.updateManager.updateSetting = BITUpdateCheckManually;
+#endif
+    
     // Use verbose logging if last session crashed
     if (hockeyManager.crashManager.didCrashInLastSession) {
         ddLogLevel = LOG_LEVEL_VERBOSE;
