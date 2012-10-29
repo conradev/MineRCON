@@ -319,7 +319,10 @@ NSString * const MCRCONPacketTypeKey = @"MCRCONPacketTypeKey";
     memcpy(packet + (3 * sizeof(int)) + strlen(payload), &pad, sizeof(pad));
     
     NSData *data = [NSData dataWithBytesNoCopy:packet length:totalLength];
-    DDLogInfo(@"(%@): Successfully constructed dictionary %@ into packet data %@", self, dictionary, data);
+    
+    if (type != RCONAuthentication) {
+        DDLogInfo(@"(%@): Successfully constructed dictionary %@ into packet data %@", self, dictionary, data);
+    }
     
     return data;
 }
