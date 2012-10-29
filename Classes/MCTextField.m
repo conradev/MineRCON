@@ -70,7 +70,7 @@
 }
 
 - (void)fixTypingAttributes {
-    self.typingAttributes = [NSAttributedString defaultMinecraftAttributes];
+    self.typingAttributes = [NSAttributedString minecraftInterfaceAttributes];
 }
 
 @end
