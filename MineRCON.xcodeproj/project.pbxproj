@@ -9,6 +9,16 @@
 /* Begin PBXBuildFile section */
 		D0053FBC1628E18900FAE4CC /* MCEditTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = D0053FBB1628E18900FAE4CC /* MCEditTextField.m */; };
 		D00F99FE16389AFE009CA90B /* MCEjectButton.m in Sources */ = {isa = PBXBuildFile; fileRef = D00F99FD16389AFE009CA90B /* MCEjectButton.m */; };
+		D02BF5C9163DD699003FB1D5 /* Icon-72.png in Resources */ = {isa = PBXBuildFile; fileRef = D02BF5BF163DD699003FB1D5 /* Icon-72.png */; };
+		D02BF5CA163DD699003FB1D5 /* Icon-72@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D02BF5C0163DD699003FB1D5 /* Icon-72@2x.png */; };
+		D02BF5CB163DD699003FB1D5 /* Icon-Small-50.png in Resources */ = {isa = PBXBuildFile; fileRef = D02BF5C1163DD699003FB1D5 /* Icon-Small-50.png */; };
+		D02BF5CC163DD699003FB1D5 /* Icon-Small-50@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D02BF5C2163DD699003FB1D5 /* Icon-Small-50@2x.png */; };
+		D02BF5CD163DD699003FB1D5 /* Icon-Small.png in Resources */ = {isa = PBXBuildFile; fileRef = D02BF5C3163DD699003FB1D5 /* Icon-Small.png */; };
+		D02BF5CE163DD699003FB1D5 /* Icon-Small@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D02BF5C4163DD699003FB1D5 /* Icon-Small@2x.png */; };
+		D02BF5CF163DD699003FB1D5 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = D02BF5C5163DD699003FB1D5 /* Icon.png */; };
+		D02BF5D0163DD699003FB1D5 /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D02BF5C6163DD699003FB1D5 /* Icon@2x.png */; };
+		D02BF5D1163DD699003FB1D5 /* iTunesArtwork in Resources */ = {isa = PBXBuildFile; fileRef = D02BF5C7163DD699003FB1D5 /* iTunesArtwork */; };
+		D02BF5D2163DD699003FB1D5 /* iTunesArtwork@2x in Resources */ = {isa = PBXBuildFile; fileRef = D02BF5C8163DD699003FB1D5 /* iTunesArtwork@2x */; };
 		D0433EB716375B900000BBC3 /* CrashReporter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0433EB616375B900000BBC3 /* CrashReporter.framework */; };
 		D0433EBE16375C310000BBC3 /* HockeySDKResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = D06DD61816375AD7000F8C80 /* HockeySDKResources.bundle */; };
 		D05BA24316063FAF002239F2 /* NSData+Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = D05BA24216063FAF002239F2 /* NSData+Base64.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -17,7 +27,6 @@
 		D05BA278160663BF002239F2 /* NSAttributedString+Minecraft.m in Sources */ = {isa = PBXBuildFile; fileRef = D05BA275160663BF002239F2 /* NSAttributedString+Minecraft.m */; };
 		D05BA279160663BF002239F2 /* UIColor+Minecraft.m in Sources */ = {isa = PBXBuildFile; fileRef = D05BA277160663BF002239F2 /* UIColor+Minecraft.m */; };
 		D05BA27F16078355002239F2 /* NSStringObfuscationSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = D05BA27E16078355002239F2 /* NSStringObfuscationSpec.m */; };
-		D06DD5F416362E68000F8C80 /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D06DD5F316362E68000F8C80 /* Icon@2x.png */; };
 		D06DD61D16375B0C000F8C80 /* libHockeySDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D06DD61616375AD7000F8C80 /* libHockeySDK.a */; };
 		D06DD62116375B3A000F8C80 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D06DD62016375B3A000F8C80 /* QuartzCore.framework */; };
 		D06DD62316375B43000F8C80 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D06DD62216375B43000F8C80 /* SystemConfiguration.framework */; };
@@ -148,6 +157,16 @@
 		D0053FBB1628E18900FAE4CC /* MCEditTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MCEditTextField.m; path = Classes/MCEditTextField.m; sourceTree = SOURCE_ROOT; };
 		D00F99FC16389AFE009CA90B /* MCEjectButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MCEjectButton.h; path = Classes/MCEjectButton.h; sourceTree = SOURCE_ROOT; };
 		D00F99FD16389AFE009CA90B /* MCEjectButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MCEjectButton.m; path = Classes/MCEjectButton.m; sourceTree = SOURCE_ROOT; };
+		D02BF5BF163DD699003FB1D5 /* Icon-72.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-72.png"; sourceTree = "<group>"; };
+		D02BF5C0163DD699003FB1D5 /* Icon-72@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-72@2x.png"; sourceTree = "<group>"; };
+		D02BF5C1163DD699003FB1D5 /* Icon-Small-50.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-Small-50.png"; sourceTree = "<group>"; };
+		D02BF5C2163DD699003FB1D5 /* Icon-Small-50@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-Small-50@2x.png"; sourceTree = "<group>"; };
+		D02BF5C3163DD699003FB1D5 /* Icon-Small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-Small.png"; sourceTree = "<group>"; };
+		D02BF5C4163DD699003FB1D5 /* Icon-Small@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-Small@2x.png"; sourceTree = "<group>"; };
+		D02BF5C5163DD699003FB1D5 /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
+		D02BF5C6163DD699003FB1D5 /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon@2x.png"; sourceTree = "<group>"; };
+		D02BF5C7163DD699003FB1D5 /* iTunesArtwork */ = {isa = PBXFileReference; lastKnownFileType = file; path = iTunesArtwork; sourceTree = "<group>"; };
+		D02BF5C8163DD699003FB1D5 /* iTunesArtwork@2x */ = {isa = PBXFileReference; lastKnownFileType = file; path = "iTunesArtwork@2x"; sourceTree = "<group>"; };
 		D0433EB616375B900000BBC3 /* CrashReporter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CrashReporter.framework; path = Classes/HockeySDK/Vendor/CrashReporter.framework; sourceTree = SOURCE_ROOT; };
 		D05BA23C1606340B002239F2 /* NSString+Obfuscation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSString+Obfuscation.h"; path = "Classes/NSString+Obfuscation.h"; sourceTree = SOURCE_ROOT; };
 		D05BA23D1606340B002239F2 /* NSString+Obfuscation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSString+Obfuscation.m"; path = "Classes/NSString+Obfuscation.m"; sourceTree = SOURCE_ROOT; };
@@ -159,7 +178,6 @@
 		D05BA276160663BF002239F2 /* UIColor+Minecraft.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIColor+Minecraft.h"; path = "Classes/UIColor+Minecraft.h"; sourceTree = SOURCE_ROOT; };
 		D05BA277160663BF002239F2 /* UIColor+Minecraft.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIColor+Minecraft.m"; path = "Classes/UIColor+Minecraft.m"; sourceTree = SOURCE_ROOT; };
 		D05BA27E16078355002239F2 /* NSStringObfuscationSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NSStringObfuscationSpec.m; path = Tests/NSStringObfuscationSpec.m; sourceTree = SOURCE_ROOT; };
-		D06DD5F316362E68000F8C80 /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon@2x.png"; path = "Resources/Icon@2x.png"; sourceTree = SOURCE_ROOT; };
 		D06DD60316375AD7000F8C80 /* HockeySDK.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = HockeySDK.xcodeproj; path = Classes/HockeySDK/Support/HockeySDK.xcodeproj; sourceTree = SOURCE_ROOT; };
 		D06DD62016375B3A000F8C80 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		D06DD62216375B43000F8C80 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
@@ -247,6 +265,24 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		D02BF5BE163DD699003FB1D5 /* Icons */ = {
+			isa = PBXGroup;
+			children = (
+				D02BF5BF163DD699003FB1D5 /* Icon-72.png */,
+				D02BF5C0163DD699003FB1D5 /* Icon-72@2x.png */,
+				D02BF5C1163DD699003FB1D5 /* Icon-Small-50.png */,
+				D02BF5C2163DD699003FB1D5 /* Icon-Small-50@2x.png */,
+				D02BF5C3163DD699003FB1D5 /* Icon-Small.png */,
+				D02BF5C4163DD699003FB1D5 /* Icon-Small@2x.png */,
+				D02BF5C5163DD699003FB1D5 /* Icon.png */,
+				D02BF5C6163DD699003FB1D5 /* Icon@2x.png */,
+				D02BF5C7163DD699003FB1D5 /* iTunesArtwork */,
+				D02BF5C8163DD699003FB1D5 /* iTunesArtwork@2x */,
+			);
+			name = Icons;
+			path = Resources/Icons;
+			sourceTree = SOURCE_ROOT;
+		};
 		D0433EB816375BA80000BBC3 /* HockeyApp */ = {
 			isa = PBXGroup;
 			children = (
@@ -401,8 +437,8 @@
 		D0B89CEF15C52E1D00EC6B55 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				D02BF5BE163DD699003FB1D5 /* Icons */,
 				D05BA262160661C0002239F2 /* Default-568h@2x.png */,
-				D06DD5F316362E68000F8C80 /* Icon@2x.png */,
 				D09793CE15CA364B006904AF /* Background.png */,
 				D09793D015CA364B006904AF /* Button_disabled.png */,
 				D09793D115CA364B006904AF /* Button_highlighted.png */,
@@ -603,7 +639,16 @@
 				D09793DE15CA3656006904AF /* InfoPlist.strings in Resources */,
 				D09F088615EAD5870012FC7C /* Click.aiff in Resources */,
 				D05BA263160661C0002239F2 /* Default-568h@2x.png in Resources */,
-				D06DD5F416362E68000F8C80 /* Icon@2x.png in Resources */,
+				D02BF5C9163DD699003FB1D5 /* Icon-72.png in Resources */,
+				D02BF5CA163DD699003FB1D5 /* Icon-72@2x.png in Resources */,
+				D02BF5CB163DD699003FB1D5 /* Icon-Small-50.png in Resources */,
+				D02BF5CC163DD699003FB1D5 /* Icon-Small-50@2x.png in Resources */,
+				D02BF5CD163DD699003FB1D5 /* Icon-Small.png in Resources */,
+				D02BF5CE163DD699003FB1D5 /* Icon-Small@2x.png in Resources */,
+				D02BF5CF163DD699003FB1D5 /* Icon.png in Resources */,
+				D02BF5D0163DD699003FB1D5 /* Icon@2x.png in Resources */,
+				D02BF5D1163DD699003FB1D5 /* iTunesArtwork in Resources */,
+				D02BF5D2163DD699003FB1D5 /* iTunesArtwork@2x in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
