@@ -85,6 +85,7 @@ NSString * const MCServerCellIdentifier = @"MCServerCell";
     
     NSIndexPath *selectedIndex;
     if ((selectedIndex = [self.tableView indexPathForSelectedRow])) {
+        DDLogInfo(@"(%@): Encoding view state as selecting server: %@", self, _servers[selectedIndex.row]);
         [coder encodeInteger:selectedIndex.row forKey:MCSelectedIndexKey];
     }
 }
@@ -96,6 +97,8 @@ NSString * const MCServerCellIdentifier = @"MCServerCell";
     NSUInteger index = (NSUInteger)[coder decodeIntegerForKey:MCSelectedIndexKey];
     index = index < _servers.count ? index : _servers.count - 1;
     MCServer *server = _servers.count ? _servers[index] : nil;
+    
+    DDLogInfo(@"(%@): Decoded saved state to select server: %@", self, server);
     
     if (server) {
         NSIndexPath *indexPath = [NSIndexPath indexPathForRow:[_servers indexOfObject:server] inSection:0];
@@ -119,12 +122,15 @@ NSString * const MCServerCellIdentifier = @"MCServerCell";
         [data writeToFile:serversPath options:NSDataWritingFileProtectionComplete error:&error]; // Always use protection
         
         if (error) {
-            DDLogError(@"Error occured saving data: %@", error);
+            DDLogError(@"(%@): Error occured saving data: %@", self, error);
+        } else {
+            DDLogInfo(@"(%@): Successfully saved list of servers", self);
         }
     }
 }
 
 - (void)beginObservingServer:(MCServer *)server {
+    DDLogInfo(@"(%@): Beginning observation on server: %@", self, server);
     [server addObserver:self forKeyPath:MCServerNameKey options:NSKeyValueObservingOptionNew context:nil];
     [server addObserver:self forKeyPath:MCServerHostnameKey options:NSKeyValueObservingOptionNew context:nil];
     [server addObserver:self forKeyPath:MCServerPasswordKey options:NSKeyValueObservingOptionNew context:nil];
@@ -132,6 +138,7 @@ NSString * const MCServerCellIdentifier = @"MCServerCell";
 }
 
 - (void)stopObservingServer:(MCServer *)server {
+    DDLogInfo(@"(%@): Stopping observation on server: %@", self, server);
     [server removeObserver:self forKeyPath:MCServerNameKey];
     [server removeObserver:self forKeyPath:MCServerHostnameKey];
     [server removeObserver:self forKeyPath:MCServerPasswordKey];
@@ -150,6 +157,8 @@ NSString * const MCServerCellIdentifier = @"MCServerCell";
 
 - (void)addNewServer {
     MCServer *server = [[MCServer alloc] init];
+    
+    DDLogInfo(@"(%@): Creating new server: %@", self, server);
     
     [_servers addObject:server];
     [self beginObservingServer:server];
@@ -174,7 +183,8 @@ NSString * const MCServerCellIdentifier = @"MCServerCell";
 }
 
 - (void)reloadRowForServer:(MCServer *)server {
-    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:[_servers indexOfObject:server] inSection:0];    
+    DDLogInfo(@"(%@): Reloading table view row for server: %@", self, server);
+    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:[_servers indexOfObject:server] inSection:0];
     [self configureCell:[self.tableView cellForRowAtIndexPath:indexPath] withServer:server];
 }
 
@@ -220,6 +230,8 @@ NSString * const MCServerCellIdentifier = @"MCServerCell";
             [self displayViewControllerForServer:nil];
         }
         
+        DDLogInfo(@"(%@): Deleting server: %@", self, server);
+        
         // Purge objects
         [_detailViewsCache removeObjectForKey:server];
         [self stopObservingServer:server];
@@ -240,6 +252,8 @@ NSString * const MCServerCellIdentifier = @"MCServerCell";
     [_servers removeObject:server];
     [_servers insertObject:server atIndex:toIndexPath.row];
     
+    DDLogInfo(@"(%@): Moving server from index %i to index %i", self, fromIndexPath.row, toIndexPath.row);
+    
     [self saveServers];
 }
 
@@ -247,6 +261,7 @@ NSString * const MCServerCellIdentifier = @"MCServerCell";
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     MCServer *server = _servers[indexPath.row];
+    DDLogInfo(@"(%@): Did select row for server: %@", self, server);
     [self displayViewControllerForServer:server];
 }
 
@@ -255,6 +270,8 @@ NSString * const MCServerCellIdentifier = @"MCServerCell";
     NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:buttonPoint];
     
     MCServer *server = _servers[indexPath.row];
+    
+    DDLogInfo(@"(%@): Eject button pressed on cell for server: %@", self, server);
     
     MCServerDetailViewController *detailViewController = [_detailViewsCache objectForKey:server];
     [detailViewController.client disconnect];
