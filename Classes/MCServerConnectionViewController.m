@@ -51,9 +51,11 @@
     outputView.editable = NO;
     outputView.indicatorStyle = UIScrollViewIndicatorStyleWhite;
     outputView.dataDetectorTypes = UIDataDetectorTypeLink;
+    outputView.accessibilityLabel = @"Command Output";
+    outputView.accessibilityTraits |= UIAccessibilityTraitUpdatesFrequently;
     _outputView = outputView;
     [_containerView addSubview:_outputView];
-    
+        
     // Add a tap recognizer to the output view
     UITapGestureRecognizer *tapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(outputViewTapped:)];
     [_outputView addGestureRecognizer:tapRecognizer];
@@ -71,6 +73,7 @@
     inputField.spellCheckingType = UITextSpellCheckingTypeNo;
     inputField.enablesReturnKeyAutomatically = YES;
     inputField.returnKeyType = UIReturnKeySend;
+    inputField.accessibilityLabel = @"Command Prompt";
     _inputField = inputField;
     [_containerView addSubview:_inputField];
         
@@ -105,6 +108,8 @@
     // Initially adjust constraint for keyboard
     [self adjustViewWithKeyboardFrame:keyboardFrame];
 
+    UIAccessibilityPostNotification(UIAccessibilityScreenChangedNotification, _inputField);
+    
     // Be aware of all future keyboard changes
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillChangeFrame:) name:UIKeyboardWillChangeFrameNotification object:nil];
 }
@@ -184,6 +189,21 @@
     }
 }
 
+#pragma mark - Accessibility
+
+- (BOOL)accessibilityPerformMagicTap {
+    if (_inputField.text.length) {
+        MCServerDetailViewController *parent = (MCServerDetailViewController *)self.parentViewController;
+        if ([parent sendButtonPressed:_inputField.text]) {
+            _inputField.text = nil;
+        }
+        
+        return YES;
+    }
+    
+    return NO;
+}
+
 #pragma mark - External interface
 
 - (void)clearOutput {
@@ -195,6 +215,8 @@
         NSMutableAttributedString *content = [[NSMutableAttributedString alloc] initWithAttributedString:_outputView.attributedText];
         [content appendAttributedString:response];
         _outputView.attributedText = content;
+                
+        UIAccessibilityPostNotification(UIAccessibilityAnnouncementNotification, [NSString stringWithFormat:@"Response received. %@", response.string]);
     }
 
     [self scrollToBottomAnimated:YES];

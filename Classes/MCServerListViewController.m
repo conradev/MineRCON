@@ -196,6 +196,7 @@ NSString * const MCServerCellIdentifier = @"MCServerCell";
         
         MCEjectButton *ejectButton = [[MCEjectButton alloc] initWithFrame:CGRectMake(0, 0, 30, 30)];
         [ejectButton addTarget:self action:@selector(ejectButtonPressed:event:) forControlEvents:UIControlEventTouchUpInside];
+        ejectButton.accessibilityLabel = @"Disconnect";
         cell.accessoryView = ejectButton;
     }
     
