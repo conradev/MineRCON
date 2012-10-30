@@ -10,13 +10,18 @@
 
 #import "MCEditTextField.h"
 
+#import "NSAttributedString+Minecraft.h"
+#import "UIColor+Minecraft.h"
+
 @implementation MCEditTextField
 
 - (id)init {
     if ((self = [super init])) {
         self.backgroundColor = [UIColor blackColor];
-        self.layer.borderColor = [[UIColor colorWithHue:0.0f saturation:0.0f brightness:0.63f alpha:1.0f] CGColor];
-        self.layer.borderWidth = 2.0f;        
+        self.layer.borderColor = [[UIColor minecraftSecondaryInterfaceForegroundColor] CGColor];
+        self.layer.borderWidth = 2.0f;
+        
+        self.minecraftAttributes = [NSAttributedString minecraftInterfaceAttributes];
     }
     return self;
 }
