@@ -22,7 +22,10 @@
 
 - (id)init {
     if ((self = [super init])) {
-        self.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;        
+        self.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
+        
+        [self addTarget:self action:@selector(fixTypingAttributes) forControlEvents:UIControlEventEditingDidBegin];
+        [self addTarget:self action:@selector(fixTypingAttributes) forControlEvents:UIControlEventEditingChanged];
     }
     
     return self;
@@ -61,6 +64,12 @@
         orig = (CGRect){{ orig.origin.x + 2, orig.origin.y + orig.size.height - orig.size.width}, {orig.size.height * (7.0f/12.0f), orig.size.width}};
     }
     return orig;
+}
+
+- (void)fixTypingAttributes {
+    if (!self.secureTextEntry) {
+        self.typingAttributes = _minecraftAttributes;
+    }
 }
 
 @end

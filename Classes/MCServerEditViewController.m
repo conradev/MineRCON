@@ -68,7 +68,9 @@
     CGFloat labelInset = 4.0f;
     
     MCEditTextField *nameField = [[MCEditTextField alloc] init];
-    nameField.text = _server.name;
+    if (_server.name) {
+        nameField.attributedText = [[NSAttributedString alloc] initWithString:_server.name attributes:nameField.minecraftAttributes];
+    }
     nameField.returnKeyType = UIReturnKeyNext;
     _nameField = nameField;
     [_containerView addSubview:_nameField];
@@ -82,7 +84,9 @@
     [_containerView addConstraint:[NSLayoutConstraint constraintWithItem:nameLabel attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:_nameField attribute:NSLayoutAttributeLeft multiplier:1.0f constant:labelInset]];
     
     MCEditTextField *hostnameField = [[MCEditTextField alloc] init];
-    hostnameField.text = _server.hostname;
+    if (_server.hostname) {
+        hostnameField.attributedText = [[NSAttributedString alloc] initWithString:_server.hostname attributes:hostnameField.minecraftAttributes];
+    }
     hostnameField.autocapitalizationType = UITextAutocapitalizationTypeNone;
     hostnameField.returnKeyType = UIReturnKeyNext;
     _hostnameField = hostnameField;
@@ -113,7 +117,7 @@
     [_containerView addConstraint:[NSLayoutConstraint constraintWithItem:passwordLabel attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:_passwordField attribute:NSLayoutAttributeLeft multiplier:1.0f constant:labelInset]];
     
     // Properties common to all three fields
-    [@[_nameField, _hostnameField, _passwordField] enumerateObjectsUsingBlock:^(UITextField *textField, NSUInteger idx, BOOL *stop) {
+    [@[_nameField, _hostnameField, _passwordField] enumerateObjectsUsingBlock:^(MCEditTextField *textField, NSUInteger idx, BOOL *stop) {
         textField.delegate = self;
         textField.translatesAutoresizingMaskIntoConstraints = NO;
         textField.autocorrectionType = UITextAutocorrectionTypeNo;

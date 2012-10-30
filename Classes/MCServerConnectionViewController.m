@@ -12,6 +12,8 @@
 #import "MCAppDelegate.h"
 #import "MCTextField.h"
 
+#import "NSAttributedString+Minecraft.h"
+
 @interface MCServerConnectionViewController () {
     __weak UIView *_containerView;
     __weak NSLayoutConstraint *_bottomConstraint;
@@ -63,6 +65,7 @@
     
     // Add input field to heirarchy
     MCTextField *inputField = [[MCTextField alloc] init];
+    inputField.minecraftAttributes = [NSAttributedString defaultMinecraftAttributes];
     inputField.delegate = self;
     inputField.translatesAutoresizingMaskIntoConstraints = NO;
     inputField.backgroundColor = [UIColor grayColor];
