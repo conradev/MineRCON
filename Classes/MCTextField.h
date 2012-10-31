@@ -10,4 +10,6 @@
 
 @interface MCTextField : UITextField
 
+@property (strong, nonatomic) NSDictionary *minecraftAttributes;
+
 @end

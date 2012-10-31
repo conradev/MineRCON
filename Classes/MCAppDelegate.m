@@ -27,8 +27,9 @@ int ddLogLevel = LOG_LEVEL_VERBOSE;
 int ddLogLevel = LOG_LEVEL_WARN;
 #endif
 
-@interface MCAppDelegate () <BITHockeyManagerDelegate, BITUpdateManagerDelegate, BITCrashManagerDelegate> {
+@interface MCAppDelegate () <UISplitViewControllerDelegate, UINavigationControllerDelegate, BITHockeyManagerDelegate, BITUpdateManagerDelegate, BITCrashManagerDelegate> {
     DDFileLogger *_fileLogger;
+    UIBarButtonItem *_serversButton;    
     MCServerListViewController *_listViewController;
 }
 
@@ -49,7 +50,6 @@ int ddLogLevel = LOG_LEVEL_WARN;
     _fileLogger.logFileManager.maximumNumberOfLogFiles = 5;
     
     // Add default log drains
-    [DDLog addLogger:_fileLogger];
     [DDLog addLogger:[DDASLLogger sharedInstance]];
 #if defined(CONFIGURATION_Debug) || defined(CONFIGURATION_AdHoc)
     [DDLog addLogger:[DDTTYLogger sharedInstance]];
@@ -57,10 +57,11 @@ int ddLogLevel = LOG_LEVEL_WARN;
     
     DDLogInfo(@"(%@): Instantiating file logger: %@", [[UIApplication sharedApplication] delegate], _fileLogger);
     
-    // Roll log file (once upon every application start)
+    // Roll log file (once upon every application start) and add file logger
     [_fileLogger performSelector:@selector(currentLogFileHandle)];
     [_fileLogger rollLogFile];
     [_fileLogger performSelector:@selector(currentLogFileHandle)];
+    [DDLog addLogger:_fileLogger];
     
     DDLogInfo(@"(%@): Rolled log file for logger: %@", [[UIApplication sharedApplication] delegate], _fileLogger);
     DDLogInfo(@"(%@): Instantiating view heirarchy", [[UIApplication sharedApplication] delegate]);
@@ -86,12 +87,14 @@ int ddLogLevel = LOG_LEVEL_WARN;
         // Create a split view controller with master and detail view controllers
         _splitViewController = [[UISplitViewController alloc] init];
         _splitViewController.restorationIdentifier = MCSplitViewIdentifier;
-        _splitViewController.delegate = _listViewController;
+        _splitViewController.delegate = self;
         _splitViewController.viewControllers = @[_navigationController, detailNavigationController];
         
         // Make the split view controller the root view controller
         _window.rootViewController = _splitViewController;
     }
+    
+    _listViewController.detailNavigationController.delegate = self;
     
     // Global appearance tweaks
     [[UINavigationBar appearance] setTintColor:[UIColor darkGrayColor]];
@@ -107,6 +110,10 @@ int ddLogLevel = LOG_LEVEL_WARN;
     hockeyManager.crashManager.delegate = self;
     hockeyManager.updateManager.delegate = self;
     [hockeyManager startManager];
+    
+#if defined(CONFIGURATION_Debug)
+    hockeyManager.updateManager.updateSetting = BITUpdateCheckManually;
+#endif
     
     // Use verbose logging if last session crashed
     if (hockeyManager.crashManager.didCrashInLastSession) {
@@ -210,6 +217,37 @@ int ddLogLevel = LOG_LEVEL_WARN;
     }
     
     return nil;
+}
+
+
+#pragma mark - Split view controller delegate
+
+- (void)splitViewController:(UISplitViewController *)svc willHideViewController:(UIViewController *)aViewController withBarButtonItem:(UIBarButtonItem *)button forPopoverController:(UIPopoverController *)popover {
+    button.possibleTitles = [NSSet setWithObject:@"Servers"];
+    [self splitViewController:svc didChangeBarButtonItem:button];
+}
+
+- (void)splitViewController:(UISplitViewController *)svc willShowViewController:(UIViewController *)aViewController invalidatingBarButtonItem:(UIBarButtonItem *)button {
+    [self splitViewController:svc didChangeBarButtonItem:nil];
+}
+
+- (void)splitViewController:(UISplitViewController *)svc didChangeBarButtonItem:(UIBarButtonItem *)button {
+    _serversButton = button;
+    
+    // Update the left bar item on the currwently displayed view controller
+    NSArray *viewControllers = _listViewController.detailNavigationController.viewControllers;
+    if (viewControllers.count) {
+        UIViewController *detailViewController = viewControllers[0];
+        [detailViewController.navigationItem setLeftBarButtonItem:_serversButton animated:YES];
+    }
+}
+
+#pragma mark - Navigation controller delegate
+
+- (void)navigationController:(UINavigationController *)navigationController willShowViewController:(UIViewController *)viewController animated:(BOOL)animated {
+    if (![viewController isEqual:_listViewController]) {
+        [viewController.navigationItem setLeftBarButtonItem:_serversButton animated:YES];
+    }
 }
 
 #pragma mark - Other

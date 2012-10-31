@@ -21,9 +21,7 @@ NSString * const MCServerCellIdentifier = @"MCServerCell";
 
 @interface MCServerListViewController () {
     NSMutableArray *_servers;
-    NSCache *_detailViewsCache;
-    
-    UIBarButtonItem *_serversButton;
+    NSCache *_detailViewsCache;    
 }
 
 @end
@@ -34,7 +32,6 @@ NSString * const MCServerCellIdentifier = @"MCServerCell";
 
 - (id)init {
     if ((self = [super init])) {
-        _serversButton = nil;
         _detailViewsCache = [[NSCache alloc] init];
 
         NSString *documentsDirectory = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)[0];
@@ -75,7 +72,9 @@ NSString * const MCServerCellIdentifier = @"MCServerCell";
     self.tableView.rowHeight = 58.0f;
     
     self.navigationItem.leftBarButtonItem = self.editButtonItem;
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addNewServer)];    
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addNewServer)];
+    
+    [self displayViewControllerForServer:nil];
 }
 
 #pragma mark - State restoration
@@ -92,7 +91,7 @@ NSString * const MCServerCellIdentifier = @"MCServerCell";
 
 - (void)decodeRestorableStateWithCoder:(NSCoder *)coder {
     [super decodeRestorableStateWithCoder:coder];
-        
+ 
     // Get the server at the stored index and display it
     NSUInteger index = (NSUInteger)[coder decodeIntegerForKey:MCSelectedIndexKey];
     index = index < _servers.count ? index : _servers.count - 1;
@@ -157,7 +156,7 @@ NSString * const MCServerCellIdentifier = @"MCServerCell";
 
 - (void)addNewServer {
     MCServer *server = [[MCServer alloc] init];
-    
+        
     DDLogInfo(@"(%@): Creating new server: %@", self, server);
     
     [_servers addObject:server];
@@ -169,7 +168,7 @@ NSString * const MCServerCellIdentifier = @"MCServerCell";
     NSIndexPath *indexPath = [NSIndexPath indexPathForRow:[_servers indexOfObject:server] inSection:0];
     [self.tableView insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
     [self.tableView selectRowAtIndexPath:indexPath animated:NO scrollPosition:UITableViewScrollPositionNone];
-    [self tableView:self.tableView didSelectRowAtIndexPath:indexPath];
+    [self displayViewControllerForServer:server];
 }
 
 #pragma mark - Table view data source
@@ -208,7 +207,7 @@ NSString * const MCServerCellIdentifier = @"MCServerCell";
 
 - (void)configureCell:(UITableViewCell *)cell withServer:(MCServer *)server {
     cell.textLabel.text = [server displayName];
-        
+    
     MCServerDetailViewController *detailViewController = [_detailViewsCache objectForKey:server];
     cell.accessoryView.hidden = (!detailViewController || detailViewController.client.state == MCRCONClientDisconnectedState);
 }
@@ -278,8 +277,6 @@ NSString * const MCServerCellIdentifier = @"MCServerCell";
     [detailViewController.client disconnect];
 }
 
-#pragma mark - Navigation controller delegate
-
 - (void)displayViewControllerForServer:(MCServer *)server {
     // Do not display a blank view controler on the same navigation stack (on iPhone)
     if (!server && [_detailNavigationController.viewControllers containsObject:self]) {
@@ -296,38 +293,6 @@ NSString * const MCServerCellIdentifier = @"MCServerCell";
         [_detailNavigationController pushViewController:detailViewController animated:YES];
     } else {
         _detailNavigationController.viewControllers = @[detailViewController];
-    }
-}
-
-- (void)setDetailNavigationController:(UINavigationController *)detailNavigationController {
-    _detailNavigationController = detailNavigationController;
-    _detailNavigationController.delegate = self;
-}
-
-- (void)navigationController:(UINavigationController *)navigationController willShowViewController:(UIViewController *)viewController animated:(BOOL)animated {
-    if (![viewController isEqual:self]) {
-        viewController.navigationItem.leftBarButtonItem = _serversButton;
-    }
-}
-
-#pragma mark - Split view controller delegate
-
-- (void)splitViewController:(UISplitViewController *)svc willHideViewController:(UIViewController *)aViewController withBarButtonItem:(UIBarButtonItem *)button forPopoverController:(UIPopoverController *)popover {
-    button.possibleTitles = [NSSet setWithObject:@"Servers"];
-    [self splitViewController:svc didChangeBarButtonItem:button];
-}
-
-- (void)splitViewController:(UISplitViewController *)svc willShowViewController:(UIViewController *)aViewController invalidatingBarButtonItem:(UIBarButtonItem *)button {
-    [self splitViewController:svc didChangeBarButtonItem:nil];
-}
-
-- (void)splitViewController:(UISplitViewController *)svc didChangeBarButtonItem:(UIBarButtonItem *)button {
-    _serversButton = button;
-    
-    // Update the left bar item on the currwently displayed view controller
-    if (_detailNavigationController.viewControllers.count) {
-        UIViewController *detailViewController = _detailNavigationController.viewControllers[0];
-        [detailViewController.navigationItem setLeftBarButtonItem:_serversButton animated:YES];
     }
 }
 
