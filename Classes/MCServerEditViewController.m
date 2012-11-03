@@ -72,6 +72,7 @@
         nameField.attributedText = [[NSAttributedString alloc] initWithString:_server.name attributes:nameField.minecraftAttributes];
     }
     nameField.returnKeyType = UIReturnKeyNext;
+    nameField.accessibilityLabel = @"Server Name";
     _nameField = nameField;
     [_containerView addSubview:_nameField];
     [_containerView addConstraint:[NSLayoutConstraint constraintWithItem:_nameField attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:_containerView attribute:NSLayoutAttributeCenterX multiplier:1.0f constant:0.0f]];
@@ -79,6 +80,7 @@
     UILabel *nameLabel = [[UILabel alloc] init];
     nameLabel.backgroundColor = [UIColor clearColor];
     nameLabel.translatesAutoresizingMaskIntoConstraints = NO;
+    nameLabel.isAccessibilityElement = NO;
     nameLabel.attributedText = [[NSAttributedString alloc] initWithString:@"Server Name" attributes:[NSAttributedString minecraftSecondaryInterfaceAttributes]];
     [_containerView addSubview:nameLabel];
     [_containerView addConstraint:[NSLayoutConstraint constraintWithItem:nameLabel attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:_nameField attribute:NSLayoutAttributeLeft multiplier:1.0f constant:labelInset]];
@@ -89,6 +91,7 @@
     }
     hostnameField.autocapitalizationType = UITextAutocapitalizationTypeNone;
     hostnameField.returnKeyType = UIReturnKeyNext;
+    hostnameField.accessibilityLabel = @"Server Address";
     _hostnameField = hostnameField;
     [_containerView addSubview:_hostnameField];
     [_containerView addConstraint:[NSLayoutConstraint constraintWithItem:_hostnameField attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:_containerView attribute:NSLayoutAttributeCenterX multiplier:1.0f constant:0.0f]];
@@ -96,6 +99,7 @@
     UILabel *hostnameLabel = [[UILabel alloc] init];
     hostnameLabel.backgroundColor = [UIColor clearColor];
     hostnameLabel.translatesAutoresizingMaskIntoConstraints = NO;
+    hostnameLabel.isAccessibilityElement = NO;
     hostnameLabel.attributedText = [[NSAttributedString alloc] initWithString:@"Server Address" attributes:[NSAttributedString minecraftSecondaryInterfaceAttributes]];
     [_containerView addSubview:hostnameLabel];
     [_containerView addConstraint:[NSLayoutConstraint constraintWithItem:hostnameLabel attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:_hostnameField attribute:NSLayoutAttributeLeft multiplier:1.0f constant:labelInset]];
@@ -105,6 +109,7 @@
     passwordField.autocapitalizationType = UITextAutocapitalizationTypeNone;
     passwordField.returnKeyType = UIReturnKeyDone;
     passwordField.secureTextEntry = YES;
+    passwordField.accessibilityLabel = @"Password";
     _passwordField = passwordField;
     [_containerView addSubview:_passwordField];
     [_containerView addConstraint:[NSLayoutConstraint constraintWithItem:_passwordField attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:_containerView attribute:NSLayoutAttributeCenterX multiplier:1.0f constant:0.0f]];
@@ -112,6 +117,7 @@
     UILabel *passwordLabel = [[UILabel alloc] init];
     passwordLabel.backgroundColor = [UIColor clearColor];
     passwordLabel.translatesAutoresizingMaskIntoConstraints = NO;
+    passwordLabel.isAccessibilityElement = NO;
     passwordLabel.attributedText = [[NSAttributedString alloc] initWithString:@"Password" attributes:[NSAttributedString minecraftSecondaryInterfaceAttributes]];
     [_containerView addSubview:passwordLabel];
     [_containerView addConstraint:[NSLayoutConstraint constraintWithItem:passwordLabel attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:_passwordField attribute:NSLayoutAttributeLeft multiplier:1.0f constant:labelInset]];
@@ -129,6 +135,7 @@
     [connectButton setMinecraftText:@"Connect"];
     [connectButton addTarget:self action:@selector(connectButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
     connectButton.translatesAutoresizingMaskIntoConstraints = NO;
+    connectButton.accessibilityHint = @"Connects to the server";
     _connectButton = connectButton;
     [_containerView addSubview:_connectButton];
     [_containerView addConstraint:[NSLayoutConstraint constraintWithItem:_connectButton attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:_containerView attribute:NSLayoutAttributeCenterX multiplier:1.0f constant:0.0f]];
@@ -190,6 +197,8 @@
     
     // Initially adjust constraint for keyboard
     [self adjustViewWithKeyboardFrame:keyboardFrame];
+    
+    [self refocusCursorWithNotification:UIAccessibilityScreenChangedNotification];
     
     // Be aware of all future keyboard changes
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillChangeFrame:) name:UIKeyboardWillChangeFrameNotification object:nil];
@@ -319,6 +328,33 @@
     }
     
     return NO;
+}
+
+#pragma mark - Accessibility
+
+- (BOOL)accessibilityPerformMagicTap {
+    [self connectButtonPressed:nil];
+    return YES;
+}
+
+- (BOOL)accessibilityElementsHidden {
+    return (_server == nil);
+}
+
+- (BOOL)shouldGroupAccessibilityChildren {
+    return YES;
+}
+
+- (void)refocusCursorWithNotification:(UIAccessibilityNotifications)notification {
+    UITextField *currentlyEditing = [self currentlyEditingTextField];
+    if (!currentlyEditing) {
+        currentlyEditing = _nameField;
+    }
+    UIAccessibilityPostNotification(notification, currentlyEditing);
+}
+
+- (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {
+    [self refocusCursorWithNotification:UIAccessibilityLayoutChangedNotification];
 }
 
 #pragma mark - External interface
