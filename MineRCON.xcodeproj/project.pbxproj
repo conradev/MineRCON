@@ -22,7 +22,7 @@
 		D02BF5D5163E4374003FB1D5 /* DDASLLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = D02BF5D4163E4374003FB1D5 /* DDASLLogger.m */; };
 		D0433EB716375B900000BBC3 /* CrashReporter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0433EB616375B900000BBC3 /* CrashReporter.framework */; };
 		D0433EBE16375C310000BBC3 /* HockeySDKResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = D06DD61816375AD7000F8C80 /* HockeySDKResources.bundle */; };
-		D04F708C1644A6070053E05A /* MCPromptTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = D04F708B1644A6070053E05A /* MCPromptTextField.m */; };
+		D04F713F1644AFF50053E05A /* MCPromptTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = D04F713E1644AFF50053E05A /* MCPromptTextField.m */; };
 		D05BA24316063FAF002239F2 /* NSData+Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = D05BA24216063FAF002239F2 /* NSData+Base64.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		D05BA263160661C0002239F2 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D05BA262160661C0002239F2 /* Default-568h@2x.png */; };
 		D05BA273160662A8002239F2 /* NSString+Obfuscation.m in Sources */ = {isa = PBXBuildFile; fileRef = D05BA23D1606340B002239F2 /* NSString+Obfuscation.m */; };
@@ -172,8 +172,8 @@
 		D02BF5D3163E4374003FB1D5 /* DDASLLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DDASLLogger.h; path = Classes/CocoaLumberjack/Lumberjack/DDASLLogger.h; sourceTree = SOURCE_ROOT; };
 		D02BF5D4163E4374003FB1D5 /* DDASLLogger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DDASLLogger.m; path = Classes/CocoaLumberjack/Lumberjack/DDASLLogger.m; sourceTree = SOURCE_ROOT; };
 		D0433EB616375B900000BBC3 /* CrashReporter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CrashReporter.framework; path = Classes/HockeySDK/Vendor/CrashReporter.framework; sourceTree = SOURCE_ROOT; };
-		D04F708A1644A6060053E05A /* MCPromptTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MCPromptTextField.h; path = Classes/MCPromptTextField.h; sourceTree = SOURCE_ROOT; };
-		D04F708B1644A6070053E05A /* MCPromptTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MCPromptTextField.m; path = Classes/MCPromptTextField.m; sourceTree = SOURCE_ROOT; };
+		D04F713D1644AFF50053E05A /* MCPromptTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MCPromptTextField.h; path = Classes/MCPromptTextField.h; sourceTree = SOURCE_ROOT; };
+		D04F713E1644AFF50053E05A /* MCPromptTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MCPromptTextField.m; path = Classes/MCPromptTextField.m; sourceTree = SOURCE_ROOT; };
 		D05BA23C1606340B002239F2 /* NSString+Obfuscation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSString+Obfuscation.h"; path = "Classes/NSString+Obfuscation.h"; sourceTree = SOURCE_ROOT; };
 		D05BA23D1606340B002239F2 /* NSString+Obfuscation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSString+Obfuscation.m"; path = "Classes/NSString+Obfuscation.m"; sourceTree = SOURCE_ROOT; };
 		D05BA24116063FAF002239F2 /* NSData+Base64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSData+Base64.h"; path = "Classes/NSData+Base64.h"; sourceTree = SOURCE_ROOT; };
@@ -361,8 +361,8 @@
 				D09793B315CA35EF006904AF /* MCServer.m */,
 				D09793BC15CA35EF006904AF /* MCTextField.h */,
 				D09793BD15CA35EF006904AF /* MCTextField.m */,
-				D04F708A1644A6060053E05A /* MCPromptTextField.h */,
-				D04F708B1644A6070053E05A /* MCPromptTextField.m */,
+				D04F713D1644AFF50053E05A /* MCPromptTextField.h */,
+				D04F713E1644AFF50053E05A /* MCPromptTextField.m */,
 				D0053FBA1628E18900FAE4CC /* MCEditTextField.h */,
 				D0053FBB1628E18900FAE4CC /* MCEditTextField.m */,
 				D09793AE15CA35EE006904AF /* MCButton.h */,
@@ -727,7 +727,7 @@
 				D07E7FC01637A691003B904C /* DDTTYLogger.m in Sources */,
 				D00F99FE16389AFE009CA90B /* MCEjectButton.m in Sources */,
 				D02BF5D5163E4374003FB1D5 /* DDASLLogger.m in Sources */,
-				D04F708C1644A6070053E05A /* MCPromptTextField.m in Sources */,
+				D04F713F1644AFF50053E05A /* MCPromptTextField.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
