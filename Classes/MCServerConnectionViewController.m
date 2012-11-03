@@ -10,7 +10,7 @@
 #import "MCServerDetailViewController.h"
 
 #import "MCAppDelegate.h"
-#import "MCTextField.h"
+#import "MCPromptTextField.h"
 
 #import "NSAttributedString+Minecraft.h"
 
@@ -19,7 +19,7 @@
     __weak NSLayoutConstraint *_bottomConstraint;
 
     __weak UITextView *_outputView;
-    __weak MCTextField *_inputField;
+    __weak MCPromptTextField *_inputField;
 }
 
 @end
@@ -64,25 +64,24 @@
     [_containerView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[output]|" options:NSLayoutFormatAlignAllCenterX metrics:nil views:@{ @"output" : _outputView }]];
     
     // Add input field to heirarchy
-    MCTextField *inputField = [[MCTextField alloc] init];
-    inputField.minecraftAttributes = [NSAttributedString defaultMinecraftAttributes];
+    MCPromptTextField *inputField = [[MCPromptTextField alloc] init];
     inputField.delegate = self;
     inputField.translatesAutoresizingMaskIntoConstraints = NO;
-    inputField.backgroundColor = [UIColor grayColor];
-    inputField.autocapitalizationType = UITextAutocapitalizationTypeNone;
-    inputField.autocorrectionType = UITextAutocorrectionTypeNo;
-    inputField.spellCheckingType = UITextSpellCheckingTypeNo;
-    inputField.enablesReturnKeyAutomatically = YES;
-    inputField.returnKeyType = UIReturnKeySend;
+    inputField.accessibilityLabel = @"Command Prompt";
     _inputField = inputField;
     [_containerView addSubview:_inputField];
         
     // Make input field hug to sides
     [_containerView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[input]|" options:NSLayoutFormatAlignAllCenterX metrics:nil views:@{ @"input" : _inputField }]];
     
+    // Calculate proper text field height
+    CGFloat textHeight = [@"Minecraft" sizeWithFont:_inputField.minecraftAttributes[NSFontAttributeName]].height;
+    CGFloat textFieldHeight = textHeight * 2.25f;
+    
     // Align the input field and output view vertically
     NSDictionary *views = @{ @"input" : _inputField, @"output" : _outputView };
-    [_containerView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[output][input(40)]|" options:NSLayoutFormatAlignAllCenterX metrics:nil views:views]];
+    NSDictionary *metrics = @{ @"inputHeight" : @(textFieldHeight) };
+    [_containerView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[output][input(inputHeight)]|" options:NSLayoutFormatAlignAllCenterX metrics:metrics views:views]];
 }
 
 #pragma mark - View state
@@ -208,6 +207,7 @@
         MCServerDetailViewController *parent = (MCServerDetailViewController *)self.parentViewController;
         if ([parent sendButtonPressed:_inputField.text]) {
             _inputField.text = nil;
+            _inputField.typingAttributes = _inputField.minecraftAttributes;
         }
     }
     
