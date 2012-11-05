@@ -45,6 +45,8 @@
 	<string>${BUILD_NUMBER}</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>UILaunchImageFile</key>
+	<string>Default.png</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>Minecraft.ttf</string>
