@@ -21,10 +21,16 @@ NSString * const MCFormatSpecifierItalics = @"o";
 
 @implementation NSAttributedString (Minecraft)
 
-+ (NSDictionary *)_minecraftAttributesWithForegroundColor:(UIColor *)foregroundColor backgroundColor:(UIColor *)backgroundColor {
++ (CGFloat)_minecraftInterfaceFontSize {
+    return [[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad ? 16.0f : 14.0f;
+}
+
++ (CGFloat)_minecraftTextFontSize {
+    return [[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad ? 16.0f : 12.0f;
+}
+
++ (NSDictionary *)_minecraftAttributesWithForegroundColor:(UIColor *)foregroundColor backgroundColor:(UIColor *)backgroundColor fontSize:(CGFloat)fontSize {
     
-    BOOL isPad = ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad);
-    CGFloat fontSize = isPad ? 16.0f : 12.0f;
     NSMutableDictionary *attributes = [NSMutableDictionary dictionaryWithDictionary:@{ NSFontAttributeName : [UIFont fontWithName:@"Minecraft" size:fontSize] }];
     
     if (foregroundColor) {
@@ -32,8 +38,11 @@ NSString * const MCFormatSpecifierItalics = @"o";
     }
     
     if (backgroundColor) {
+        // A lowercase "x" is five "blocks" high, the shadow should be one "block"
+        // below and to the right
+        CGFloat offset = [attributes[NSFontAttributeName] xHeight] * (1.0f/5.0f);
+        
         NSShadow *shadow = [[NSShadow alloc] init];
-        CGFloat offset = isPad ? 2.0 : (3.0/2.0);
         shadow.shadowOffset = CGSizeMake(offset, offset);
         shadow.shadowColor = backgroundColor;
         attributes[NSShadowAttributeName] = shadow;
@@ -49,7 +58,8 @@ NSString * const MCFormatSpecifierItalics = @"o";
     
     UIColor *foregroundColor = [UIColor foregroundColorForMinecraftSpecifier:specifier];
     UIColor *backgroundColor = [UIColor backgroundColorForMinecraftSpecifier:specifier];
-    NSMutableDictionary *attributes = [NSMutableDictionary dictionaryWithDictionary:[self _minecraftAttributesWithForegroundColor:foregroundColor backgroundColor:backgroundColor]];
+    CGFloat fontSize = [self _minecraftTextFontSize];
+    NSMutableDictionary *attributes = [NSMutableDictionary dictionaryWithDictionary:[self _minecraftAttributesWithForegroundColor:foregroundColor backgroundColor:backgroundColor fontSize:fontSize]];
     
     if ([specifier isEqualToString:MCFormatSpecifierBold]) {
         // We got nothing, folks!
@@ -72,17 +82,20 @@ NSString * const MCFormatSpecifierItalics = @"o";
 
 + (NSDictionary *)minecraftInterfaceAttributes {
     return [self _minecraftAttributesWithForegroundColor:[UIColor minecraftInterfaceForegroundColor]
-                                         backgroundColor:[UIColor minecraftInterfaceBackgroundColor]];
+                                         backgroundColor:[UIColor minecraftInterfaceBackgroundColor]
+                                                fontSize:[self _minecraftInterfaceFontSize]];
 }
 
 + (NSDictionary *)minecraftSelectedInterfaceAttributes {
     return [self _minecraftAttributesWithForegroundColor:[UIColor minecraftSelectedInterfaceForegroundColor]
-                                         backgroundColor:[UIColor minecraftSelectedInterfaceBackgroundColor]];
+                                         backgroundColor:[UIColor minecraftSelectedInterfaceBackgroundColor]
+                                                fontSize:[self _minecraftInterfaceFontSize]];
 }
 
 + (NSDictionary *)minecraftSecondaryInterfaceAttributes {
     return [self _minecraftAttributesWithForegroundColor:[UIColor minecraftSecondaryInterfaceForegroundColor]
-                                         backgroundColor:[UIColor minecraftSecondaryInterfaceBackgroundColor]];
+                                         backgroundColor:[UIColor minecraftSecondaryInterfaceBackgroundColor]
+                                                fontSize:[self _minecraftInterfaceFontSize]];
 }
 
 + (NSAttributedString *)attributedStringWithMinecraftString:(NSString *)string {
